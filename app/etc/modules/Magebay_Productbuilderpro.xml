@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Magebay_Productbuilderpro>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Magebay_Productbuilderpro>
+    </modules>
+</config>

@@ -9,7 +9,24 @@ pbpApp.service("pbpServices", [function() {
                 {
                     title: " Option 1",
                     thumbnail: "http://localhost/github/pbp/media/pbp/images/thumbnail/thumbnail.jpg",
-                    main_image: "http://localhost/github/pbp/media/pbp/images/main/ps3.png"
+                    main_image: "http://localhost/github/pbp/media/pbp/images/main/ps3.png",
+                    options: [
+                        {
+                            title: "Option 1.1",
+                            thumbnail: "",
+                            main_image: "",
+                        },
+                        {
+                            title: "Option 1.2",
+                            thumbnail: "",
+                            main_image: "",
+                        },
+                        {
+                            title: "Option 1.3",
+                            thumbnail: "",
+                            main_image: "",
+                        }
+                    ]
                 },
                 {
                     title: " Option 2",

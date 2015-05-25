@@ -12,10 +12,9 @@ pbpApp.directive("pbpGroup", function() {
         }
     }
 });
-pbpApp.directive("pbpOptionCollection", function() {
+pbpApp.directive("pbpOptionCollection", [function() {
     return {
         restrict: 'AE',
-        require: '^pbpOptionDetails',
         templateUrl: function() {
             var baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
             return baseUrl + "productbuilderpro/directives/pbpOptionCollection"
@@ -23,11 +22,11 @@ pbpApp.directive("pbpOptionCollection", function() {
         replace: true,
         scope: {
             optionList: "=",
-            clickOption: "&"
+            editOption: "&"
         }
     }
-});
-pbpApp.directive("pbpOptionDetails", function($compile) {
+}]);
+pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", function($compile, pbpServices) {
     return {
         restrict: 'AE',
         templateUrl: function() {
@@ -37,16 +36,22 @@ pbpApp.directive("pbpOptionDetails", function($compile) {
         replace: true,
         scope: {
             optionInfo: "=",
-            clickOption: "&"
+            editOption: "&"
         },
-        link: function (scope, element, attrs) {
+        link: function (scope, element, attrs, controller) {
             //check if this member has children
             if (angular.isArray(scope.optionInfo.options)) {
                 // append the collection directive to this element
-                element.append("<pbp-option-collection option-list='optionInfo.options'></pbp-option-collection>");
+                element.append("<pbp-option-collection option-list='optionInfo.options' edit-option='editOption(option)'></pbp-option-collection>");
                 // we need to tell angular to render the directive
                 $compile(element.contents())(scope);
             }
+            element.bind("click", function(event) {
+                pbpServices.showLog("Child scope testing...", "info");
+                pbpServices.checkOption(scope.optionInfo);
+                console.log(pbpServices);
+                event.stop(); //Stop parent event
+            });
         }
     }
-});
+}]);

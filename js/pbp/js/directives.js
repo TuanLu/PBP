@@ -26,7 +26,7 @@ pbpApp.directive("pbpOptionCollection", [function() {
         }
     }
 }]);
-pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", function($compile, pbpServices) {
+pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", "$location", function($compile, pbpServices, $location) {
     return {
         restrict: 'AE',
         templateUrl: function() {
@@ -47,9 +47,14 @@ pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", function($compi
                 $compile(element.contents())(scope);
             }
             element.bind("click", function(event) {
+                console.log($location);
+                console.log("Hash = " + $location.hash());
                 pbpServices.showLog("Child scope testing...", "info");
-                pbpServices.checkOption(scope.optionInfo);
-                console.log(pbpServices);
+                //Need to run inside $apply function
+                scope.$apply(function() {
+                    $location.path("/test");
+                    pbpServices.checkOption(scope.optionInfo);
+                });
                 event.stop(); //Stop parent event
             });
         }

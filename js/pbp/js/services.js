@@ -93,6 +93,7 @@ pbpApp.service("pbpServices", [function() {
     }
     self.checkOption = function(optionInfo) {
         self.showLog("check Option info", "info");
+        console.log(optionInfo);
         optionInfo.title = optionInfo.title + " checked";
     }
 }]);

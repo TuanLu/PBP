@@ -4,7 +4,6 @@ pbpApp.config(function ($routeProvider) {
     
     .when('/add_product', {
         templateUrl: function() {
-            console.log(window);
             var baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
             var defaultUrl = "";
             if (baseUrl !== "") {
@@ -14,9 +13,9 @@ pbpApp.config(function ($routeProvider) {
         },
         controller: 'pbpController'
     })
-    .when('/forecast', {
-        templateUrl: 'pages/forecast.htm',
-        controller: 'forecastController'
+    .when('/test', {
+        template: '<h1>Test Router</h1>',
+        controller: 'pbpController'
     })
     .otherwise({
         redirectTo: '/'

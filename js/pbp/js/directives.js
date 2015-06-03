@@ -47,13 +47,11 @@ pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", "$location", fu
                 $compile(element.contents())(scope);
             }
             element.bind("click", function(event) {
-                console.log($location);
-                console.log("Hash = " + $location.hash());
-                pbpServices.showLog("Child scope testing...", "info");
+                pbpServices.showLog("Child scope click event", "info");
                 //Need to run inside $apply function
                 scope.$apply(function() {
-                    $location.path("/test");
-                    pbpServices.checkOption(scope.optionInfo);
+                    pbpServices.currentOption = scope.optionInfo;
+                    $location.path("/editoption");
                 });
                 event.stop(); //Stop parent event
             });

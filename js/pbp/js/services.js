@@ -1,8 +1,8 @@
-pbpApp.service("pbpServices", [function() {
+pbpApp.service("pbpServices", ["$rootScope", function($rootScope) {
     var self = this;
     self.base_url = document.getElementById("mst_base_url").value;
     self.isShowLog = true;
-    self.flag = "Viet Nam";
+    self.currentOption = null;
     self.productList = [
         {
             id: 1,
@@ -18,20 +18,20 @@ pbpApp.service("pbpServices", [function() {
                         {
                             id: 4,
                             title: "Option 1.1",
-                            thumbnail: "",
-                            main_image: "",
+                            thumbnail: "http://localhost/github/pbp/media/pbp/images/thumbnail/btn_thumb.png",
+                            main_image: "http://localhost/github/pbp/media/pbp/images/main/original_xbox.png",
                         },
                         {
                             id: 5,
                             title: "Option 1.2",
-                            thumbnail: "",
-                            main_image: "",
+                            thumbnail: "http://localhost/github/pbp/media/pbp/images/thumbnail/btn_thumb.png",
+                            main_image: "http://localhost/github/pbp/media/pbp/images/main/main_button.png",
                         },
                         {
                             id: 6,
                             title: "Option 1.3",
-                            thumbnail: "",
-                            main_image: "",
+                            thumbnail: "http://localhost/github/pbp/media/pbp/images/thumbnail/btn_thumb.png",
+                            main_image: "http://localhost/github/pbp/media/pbp/images/main/button.png",
                             options: [
                                 {
                                     id: 7,
@@ -90,10 +90,5 @@ pbpApp.service("pbpServices", [function() {
             }
             
         }
-    }
-    self.checkOption = function(optionInfo) {
-        self.showLog("check Option info", "info");
-        console.log(optionInfo);
-        optionInfo.title = optionInfo.title + " checked";
     }
 }]);

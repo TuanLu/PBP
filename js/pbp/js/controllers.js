@@ -5,3 +5,11 @@ pbpApp.controller('pbpController', ["$scope", "$http", "pbpServices", function($
         //console.log(option);
     }
 }]);
+//==== EDIT Controller ====//
+pbpApp.controller('pbpEditController', ["$scope", "$http", "pbpServices", "$location", function($scope, $http, pbpServices, $location) {
+    $scope.currentOption = pbpServices.currentOption;
+    if(!$scope.currentOption) {
+        //Redirect to index page
+        $location.path("/");
+    }
+}]);

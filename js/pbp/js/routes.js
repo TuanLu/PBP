@@ -1,11 +1,11 @@
 // ROUTES
-pbpApp.config(function ($routeProvider) {
+pbpApp.config(["$routeProvider", function ($routeProvider, $log) {
     $routeProvider
     
     .when('/', {
         templateUrl: function() {
             var baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
-            var defaultUrl = "";
+            var defaultUrl = "/";
             if (baseUrl !== "") {
                 defaultUrl = baseUrl + 'productbuilderpro/index/index';
             }
@@ -13,21 +13,21 @@ pbpApp.config(function ($routeProvider) {
         },
         controller: 'pbpController'
     })
-    .when('/add_product', {
+    .when('/add-group', {
         templateUrl: function() {
             var baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
-            var defaultUrl = "";
+            var defaultUrl = "/";
             if (baseUrl !== "") {
-                defaultUrl = baseUrl + 'productbuilderpro/index/addproduct';
+                defaultUrl = baseUrl + 'productbuilderpro/index/addgroup';
             }
             return defaultUrl;
         },
         controller: 'pbpController'
     })
-    .when('/editoption', {
+    .when('/edit-option', {
         templateUrl: function() {
             var baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
-            var defaultUrl = "";
+            var defaultUrl = "/";
             if (baseUrl !== "") {
                 defaultUrl = baseUrl + 'productbuilderpro/index/editoption';
             }
@@ -39,4 +39,4 @@ pbpApp.config(function ($routeProvider) {
         redirectTo: '/'
     });
     
-});
+}]);

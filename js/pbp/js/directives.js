@@ -51,8 +51,27 @@ pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", "$location", fu
                 //Need to run inside $apply function
                 scope.$apply(function() {
                     pbpServices.currentOption = scope.optionInfo;
-                    $location.path("/editoption");
+                    $location.path("/edit-option");
                 });
+                event.stop(); //Stop parent event
+            });
+        }
+    }
+}]);
+pbpApp.directive("pbpMedia", ["$compile", "pbpServices", "$location", function($compile, pbpServices, $location) {
+    return {
+        restrict: 'AE',
+        templateUrl: function() {
+            var baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
+            return baseUrl + "productbuilderpro/directives/pbpMedia"
+        },
+        replace: true,
+        scope: {
+            
+        },
+        link: function (scope, element, attrs, controller) {
+            element.bind("click", function(event) {
+                console.log("Click Media Directive");
                 event.stop(); //Stop parent event
             });
         }

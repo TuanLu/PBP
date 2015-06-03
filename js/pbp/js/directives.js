@@ -71,8 +71,13 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", "$location", function($
         },
         link: function (scope, element, attrs, controller) {
             element.bind("click", function(event) {
-                console.log("Click Media Directive");
-                event.stop(); //Stop parent event
+                if(event.target.src) {
+                    var imgSrcSelector = angular.element(document.querySelector(".img-src"));
+                    console.log(imgSrcSelector);
+                    imgSrcSelector.attr("value", event.target.src);
+                }
+                //event.stop(); //Stop parent event
+                
             });
         }
     }

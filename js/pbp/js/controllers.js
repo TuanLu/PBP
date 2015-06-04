@@ -1,6 +1,6 @@
-pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", function($scope, $http, groupServices) {
-    //$scope.optionList = pbpServices.productList[0].options;
-    //Get pbp groups
+//==== Group Controller ====//
+pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$location", function($scope, $http, groupServices, $location) {
+    //Group list
     $scope.groups = [];
     function loadRemoteGroups() {
         // The groupServices returns a promise.
@@ -15,6 +15,33 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", function
         $scope.groups = newGroups;
     }
     loadRemoteGroups();
+    //Remove group
+    $scope.removeGroup = function(group) {
+        groupServices.removeGroup(group)
+        .then(function(response) {
+            $scope.groups = response;
+        }, function(error) {
+            console.warn(error);
+        });
+    }
+}]);
+//=== ADD group controller ===//
+pbpApp.controller('addGroupController', ["$scope", "groupServices", "$location", function($scope, groupServices, $location) {
+    $scope.groupData = {
+        id: 0,
+        title: 'Unknow',
+        base_product_id : '',
+        description: 'Defaut description',
+        status: '1',
+    }
+    $scope.saveGroup = function() {
+        groupServices.addGroup($scope.groupData)
+        .then(function(response) {
+            $location.path('/');
+        }, function(error) {
+            console.warn(error);
+        });
+    }
 }]);
 //==== EDIT Controller ====//
 pbpApp.controller('pbpEditController', ["$scope", "$http", "pbpServices", "$location", function($scope, $http, pbpServices, $location) {
@@ -24,20 +51,3 @@ pbpApp.controller('pbpEditController', ["$scope", "$http", "pbpServices", "$loca
         $location.path("/");
     }
 }]);
-//==== Add Layer Controller ====//
-pbpApp.controller('pbpAddLayerController', ["$scope", "$http", "pbpServices", "$location", function($scope, $http, pbpServices, $location) {
-    $scope.title = '';
-    $scope.base_product_id = 0;
-    $scope.groupData = {
-        id: 0,
-        title: 'Unknow',
-        base_product_id : '',
-        description: 'Defaut description',
-        status: '1',
-        
-    }
-    $scope.saveGroup = function() {
-        pbpServices.saveGroup($scope.groupData);
-    }
-}]);
-

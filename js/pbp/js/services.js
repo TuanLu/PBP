@@ -5,7 +5,7 @@ pbpApp.service("groupServices", ["$http", "$q", function($http, $q) {
     return({
         addGroup: addGroup,
         getGroups: getGroups,
-        //removeGroup: removeGroup
+        removeGroup: removeGroup
     });
     //Public method
     function addGroup( groupData ) {
@@ -25,6 +25,19 @@ pbpApp.service("groupServices", ["$http", "$q", function($http, $q) {
             url: self.base_url + "productbuilderpro/main/getgroup",
             params: {
                 action: "get"
+            }
+        });
+        return( request.then( handleSuccess, handleError ) );
+    }
+    function removeGroup(group) {
+        var request = $http({
+            method: "delete",
+            url: self.base_url + "productbuilderpro/main/removegroup",
+            params: {
+                action: "delete"
+            },
+            data: {
+                id: group.id
             }
         });
         return( request.then( handleSuccess, handleError ) );

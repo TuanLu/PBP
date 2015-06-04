@@ -22,7 +22,7 @@ pbpApp.config(["$routeProvider", function ($routeProvider, $log) {
             }
             return defaultUrl;
         },
-        controller: 'pbpController'
+        controller: 'addGroupController'
     })
     .when('/add-layer', {
         templateUrl: function() {

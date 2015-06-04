@@ -31,4 +31,17 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
         }
         
     }
+    public function removeGroupAction() {
+        $response = array(
+            'status' => 'error',
+            'message' => 'Can not remove group. Something went worng!'
+        );
+        $postData = file_get_contents("php://input");
+        $groupData = json_decode($postData, true);
+        if(isset($groupData['id']) && $groupData['id']) {
+            $groupModel = Mage::getModel("productbuilderpro/group");
+            $groupModel->load($groupData['id'])->delete();
+            $this->_forward("getgroup");
+        }
+    }
 }

@@ -2,19 +2,22 @@
 pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$location", function($scope, $http, groupServices, $location) {
     //Group list
     $scope.groups = [];
-    function loadRemoteGroups() {
+    //Load ajax only first time
+    if(groupServices.groups == null) {
         // The groupServices returns a promise.
         groupServices.getGroups()
         .then(
             function( groups ) {
-                applyRemoteGroupData(groups);
+                 $scope.groups = groups;
             }
         );
+    } else {
+        $scope.groups = groupServices.groups;
     }
-    function applyRemoteGroupData( newGroups ) { 
-        $scope.groups = newGroups;
-    }
-    loadRemoteGroups();
+    $scope.$watch("groups", function() {
+        groupServices.groups = $scope.groups;
+    });
+    
     //Remove group
     $scope.removeGroup = function(group) {
         groupServices.removeGroup(group)
@@ -37,6 +40,7 @@ pbpApp.controller('addGroupController', ["$scope", "groupServices", "$location",
     $scope.saveGroup = function() {
         groupServices.addGroup($scope.groupData)
         .then(function(response) {
+            groupServices.groups = response;
             $location.path('/');
         }, function(error) {
             console.warn(error);

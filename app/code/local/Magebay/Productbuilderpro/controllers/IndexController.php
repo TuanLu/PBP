@@ -11,4 +11,7 @@ class Magebay_Productbuilderpro_IndexController extends Mage_Core_Controller_Fro
     public function addGroupAction() {
         echo $this->getLayout()->createBlock("core/template")->setTemplate("productbuilderpro/templates/add_group.phtml")->toHtml();
     }
+    public function addLayerAction() {
+        echo $this->getLayout()->createBlock("core/template")->setTemplate("productbuilderpro/templates/add_layer.phtml")->toHtml();
+    }
 }

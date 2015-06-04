@@ -24,6 +24,17 @@ pbpApp.config(["$routeProvider", function ($routeProvider, $log) {
         },
         controller: 'pbpController'
     })
+    .when('/add-layer', {
+        templateUrl: function() {
+            var baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
+            var defaultUrl = "/";
+            if (baseUrl !== "") {
+                defaultUrl = baseUrl + 'productbuilderpro/index/addlayer';
+            }
+            return defaultUrl;
+        },
+        controller: 'pbpAddLayerController'
+    })
     .when('/edit-option', {
         templateUrl: function() {
             var baseUrl = angular.element(document.querySelector("#mst_base_url")).val();

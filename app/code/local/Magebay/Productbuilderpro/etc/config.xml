@@ -101,7 +101,7 @@
                 <class>Magebay_Productbuilderpro_Model_Mysql4</class>
                 <entities>
                     <group>
-                        <table>mst_productbuilderpro_group</table>
+                        <table>mst_pbp_group</table>
                     </group>
                 </entities>
             </productbuilderpro_mysql4>

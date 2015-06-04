@@ -1,9 +1,11 @@
-pbpApp.service("pbpServices", ["$rootScope", function($rootScope) {
+pbpApp.service("pbpServices", ["$http", function($http) {
     var self = this;
-    self.base_url = document.getElementById("mst_base_url").value;
-    self.isShowLog = true;
-    self.currentOption = null;
-    self.productList = [
+    this.base_url = document.getElementById("mst_base_url").value;
+    this.isShowLog = true;
+    this.currentOption = null;
+    //Hold all customized product(group)
+    this.pbpGroups = null;
+    this.productList = [
         {
             id: 1,
             name: "Play staytion 3",
@@ -77,11 +79,11 @@ pbpApp.service("pbpServices", ["$rootScope", function($rootScope) {
             ]
         }
     ];
-    self.editOption = function(option) {
+    this.editOption = function(option) {
         console.log(option);
     }
     //Show log to see the development processing
-    self.showLog = function(message, type) {
+    this.showLog = function(message, type) {
         if(self.isShowLog) {
             if(type !== undefined) {
                 console[type](message);
@@ -90,5 +92,36 @@ pbpApp.service("pbpServices", ["$rootScope", function($rootScope) {
             }
             
         }
+    }
+    this.doRequest = function(url, data, callback) {
+        $http.post(url, data).
+        success(function(data, status, headers, config) {
+            // this callback will be called asynchronously
+            // when the response is available
+            callback(data);
+        }).
+        error(function(data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            self.showLog("Something went wrong!", "warn");
+        });
+    }
+    //Save productbuilder group
+    this.saveGroup = function(groupData) {
+        var _saveUrl = self.base_url + "productbuilderpro/main/savegroup";
+        self.doRequest(_saveUrl, groupData, function(response) {
+            self.showLog("Response after save group", "info");
+            self.showLog(response);
+        });
+    }
+    //Get all PBP group
+    this.getGroups = function() {
+        var url = self.base_url + "productbuilderpro/main/getgroup";
+        self.doRequest(url, null, function(response) {
+            if(response) {
+                self.pbpGroups = response;
+                console.log(self.pbpGroups);
+            }
+        });
     }
 }]);

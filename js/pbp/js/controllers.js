@@ -14,6 +14,7 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
     } else {
         $scope.groups = groupServices.groups;
     }
+    //Update groups in service when scope change
     $scope.$watch("groups", function() {
         groupServices.groups = $scope.groups;
     });

@@ -1,18 +1,20 @@
-pbpApp.controller('pbpController', ["$scope", "$http", "pbpServices", function($scope, $http, pbpServices) {
-    $scope.optionList = pbpServices.productList[0].options;
+pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", function($scope, $http, groupServices) {
+    //$scope.optionList = pbpServices.productList[0].options;
     //Get pbp groups
-    $scope.pbpGroups = null;
-    var getGroupUrl = pbpServices.base_url + "productbuilderpro/main/getgroup";
-    $http.post(getGroupUrl, null).
-    success(function(data, status, headers, config) {
-        if(data) {
-            $scope.pbpGroups = data;
-        }
-    }).
-    error(function(data, status, headers, config) {
-        pbpServices.showLog("Something went wrong!", "warn");
-    });
-    
+    $scope.groups = [];
+    function loadRemoteGroups() {
+        // The groupServices returns a promise.
+        groupServices.getGroups()
+        .then(
+            function( groups ) {
+                applyRemoteGroupData(groups);
+            }
+        );
+    }
+    function applyRemoteGroupData( newGroups ) { 
+        $scope.groups = newGroups;
+    }
+    loadRemoteGroups();
 }]);
 //==== EDIT Controller ====//
 pbpApp.controller('pbpEditController', ["$scope", "$http", "pbpServices", "$location", function($scope, $http, pbpServices, $location) {

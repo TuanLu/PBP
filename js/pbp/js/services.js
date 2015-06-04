@@ -1,3 +1,50 @@
+pbpApp.service("groupServices", ["$http", "$q", function($http, $q) {
+    var self = this;
+    this.base_url = document.getElementById("mst_base_url").value;
+    // Return public API.
+    return({
+        addGroup: addGroup,
+        getGroups: getGroups,
+        //removeGroup: removeGroup
+    });
+    //Public method
+    function addGroup( groupData ) {
+        var request = $http({
+            method: "post",
+            url: self.base_url + "productbuilderpro/main/savegroup",
+            params: {
+                action: "add"
+            },
+            data: groupData
+        });
+        return( request.then( handleSuccess, handleError ) );
+    }
+    function getGroups() {
+        var request = $http({
+            method: "get",
+            url: self.base_url + "productbuilderpro/main/getgroup",
+            params: {
+                action: "get"
+            }
+        });
+        return( request.then( handleSuccess, handleError ) );
+    }
+    // ---
+    // PRIVATE METHODS.
+    // ---
+    function handleError( response ) {
+        if (! angular.isObject( response.data ) ||! response.data.message) {
+            return( $q.reject( "An unknown error occurred." ) );
+        }
+        // Otherwise, use expected error message.
+        return( $q.reject( response.data.message ) );
+    }
+    // transform the successful response, unwrapping the application data
+    // from the API response payload.
+    function handleSuccess( response ) {
+        return( response.data );
+    }
+}]);
 pbpApp.service("pbpServices", ["$http", function($http) {
     var self = this;
     this.base_url = document.getElementById("mst_base_url").value;

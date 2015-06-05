@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <h2>
+                <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                Product Builder Pro - Manage Group
+            </h2>
+        </div>
+        <div class="col-lg-8">
+            <h3 class="pull-right">
+                <a class="btn btn-primary" href="#/">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                    <span>Back</span>
+                </a>
+                <a class="btn btn-success" ng-click="saveGroup()">
+                    <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                    <span>Save</span>
+                </a>
+                <a class="btn btn-warning">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    <span>Cancel</span>
+                </a>
+            </h3>
+        </div>
+    </div>
+    <div class="row main-content">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><?php echo $this->__("Add New Customize Product") ?></h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="add_new_group_form" class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="product_title" class="col-sm-2"><?php echo $this->__("Title") ?></label>
+                                    <div class="col-sm-10">
+                                        <input type="hidden" class="form-control" ng-model="groupData.id" id="group_id" name="id"/>
+                                        <input type="text" class="form-control" ng-model="groupData.title" id="product_title" name="title"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="base_product_id" class="col-sm-2"><?php echo $this->__("Base Product ID") ?></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" ng-model="groupData.base_product_id" id="base_product_id" name="base_product_id"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="product_description" class="col-sm-2"><?php echo $this->__("Description") ?></label>
+                                    <div class="col-sm-10">
+                                        <textarea id="product_description" ng-model="groupData.description" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="thumbnail_image" class="col-sm-2"><?php echo $this->__("Thumbnail Image") ?></label>
+                                    <div class="col-sm-10">
+                                        <pbp-media></pbp-media>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="default_image" class="col-sm-2"><?php echo $this->__("Original Image") ?></label>
+                                    <div class="col-sm-10">
+                                        <input type="file" id="default_image" name="default_image" accept="image/*"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="layer_status" class="col-sm-2"><?php echo $this->__("Status") ?></label>
+                                    <div class="col-sm-10">
+                                        <select name="layer_status" ng-model="groupData.status" id="layer_status" class="form-control">
+                                            <option value="1"><?php echo $this->__("Enable") ?></option>
+                                            <option value="2"><?php echo $this->__("Disable") ?></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

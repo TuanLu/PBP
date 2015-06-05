@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <h2>
+                <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                Product Builder Pro
+            </h2>
+        </div>
+        <div class="col-lg-8">
+            <h3 class="pull-right">
+                <a class="btn btn-primary" href="#/add-group">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <span>Add Customize Product</span>
+                </a>
+                <a class="btn btn-primary" href="#/add-layer">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <span>Add New Layer</span>
+                </a>
+            </h3>
+        </div>
+    </div>
+    <div class="row main-content">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="pbp-group-item" ng-repeat="group in groups">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    {{group.title}}
+                                    <div class="pull-right">
+                                        <a class="btn btn-danger" ng-click="removeGroup(group)">X</a>
+                                    </div>
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <strong>{{group.description}}</strong>
+                            </div>
+                        </div>    
+                    </div>
+                    <!--<pbp-group product="product" ng-repeat="product in productList"></pbp-group>-->
+                    <!--<pbp-option-collection option-list="optionList" edit-option="editOption(option)"></pbp-option-collection>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

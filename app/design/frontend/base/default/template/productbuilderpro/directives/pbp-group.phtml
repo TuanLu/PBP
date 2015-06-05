@@ -1,0 +1,32 @@
+<div class="pbp-group">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{product.name}}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="option in product.options">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <a>
+                                        <span>{{option.title}}</span>
+                                        <img width="30px" src="{{option.thumbnail}}" />
+                                    </a>    
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="pull-right">
+                                        <a title="Add Child"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
+                                        <a><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                                        <a><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

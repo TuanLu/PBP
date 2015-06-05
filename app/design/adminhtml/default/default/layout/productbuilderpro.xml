@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="content">
+        	<block type="core/template" name="set_base_url" template="productbuilderpro/baseurl.phtml" />
+        </reference>
+    </default>
+	<productbuilderproadmin_adminhtml_productbuilderpro_index>
+		<reference name="head">
+			<action method="addItem"><type>js</type><name>pbp/js/angular.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/angular-route.min.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/app.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/routes.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/services.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/controllers.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/directives.js</name></action>
+			<action method="addItem"><type>js_css</type><name>pbp/css/bootstrap.min.css</name></action>
+            <action method="addItem"><type>js_css</type><name>pbp/css/styles.css</name></action>
+		</reference>
+		<reference name="content">
+            <block type="productbuilderpro/adminhtml_productbuilderpro" name="productbuilder_main_page" template="productbuilderpro/main.phtml"/>
+        </reference>
+	</productbuilderproadmin_adminhtml_productbuilderpro_index>
+</layout> 

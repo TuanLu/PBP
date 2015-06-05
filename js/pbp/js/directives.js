@@ -63,22 +63,22 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpS
     mediaController.$inject = ["$scope", "pbpServices", "groupServices"];
     function mediaController($scope, pbpServices, groupServices) {
         $scope.baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
-        $scope.baseMediaUrl = "http://localhost/github/pbp/media/pbp/images/main/";
+        $scope.baseMediaUrl = "http://localhost/github/pbp/media/pbp/images/";
         //Image list
         $scope.imageList = [
             {
                 id: 1,
-                filename: 'original_xbox.png',
+                filename: 'sample.png',
                 name: 'Original Xbox',
             },
             {
                 id: 2,
-                filename: 'original_ps3.png',
+                filename: 'sample.png',
                 name: 'Original Ps3',
             },
             {
                 id: 3,
-                filename: 'xbox.png',
+                filename: 'sample.png',
                 name: 'Microsoft Xbox',
             }
         ];
@@ -97,7 +97,8 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpS
             }
             groupServices.uploadImage(file)
             .then(function(response) {
-                console.log(response);
+                //Update filename to parent scope
+                $scope.$parent[$scope.name] = response.filename;
             }, function(error) {
                 console.warn(error);
             });
@@ -124,7 +125,7 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpS
         },
         controller: mediaController,
         scope: {
-            name: '@'
+            name: '@',
         }
     }
 }]);

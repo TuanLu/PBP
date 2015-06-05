@@ -50,7 +50,41 @@ pbpApp.controller('addGroupController', ["$scope", "groupServices", "$location",
 }]);
 //==== ADD LAYER ====//
 pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location", function($scope, groupServices, $location) {
-    $scope.baseUrl = groupServices.base_url || 'base_url undified';
+    $scope.groups = [];
+    //Load ajax only first time
+    if(groupServices.groups == null) {
+        // The groupServices returns a promise.
+        groupServices.getGroups()
+        .then(
+            function( groups ) {
+                 $scope.groups = groups;
+            }
+        );
+    } else {
+        $scope.groups = groupServices.groups;
+    }
+    // Use pdp-media directive
+    $scope.thumbnail_image = '';
+    $scope.main_image = '';
+    $scope.layerData = {
+        id: 0,
+        title: 'Layer Title',
+        parent_id: '0',
+        group_id: '',
+        description: 'Layer defaut description',
+        thumbnail_image: $scope.thumbnail_image,
+        main_image: $scope.main_image,
+        price: 0,
+        position: 0,
+        is_required: '2',
+        status: '1',
+    }
+    $scope.$watch("thumbnail_image", function() {
+        $scope.layerData.thumbnail_image = $scope.thumbnail_image;
+    });
+    $scope.$watch("main_image", function() {
+        $scope.layerData.main_image = $scope.main_image;
+    });
 }]);
 //==== EDIT Controller ====//
 pbpApp.controller('pbpEditController', ["$scope", "$http", "pbpServices", "$location", function($scope, $http, pbpServices, $location) {

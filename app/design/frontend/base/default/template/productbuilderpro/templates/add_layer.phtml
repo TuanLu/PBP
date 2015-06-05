@@ -32,35 +32,35 @@
                             <h3 class="panel-title"><?php echo $this->__("Add New Layer Form") ?></h3>
                         </div>
                         <div class="panel-body">
+                            Layer Data <pre>{{layerData | json}}</pre>
                             <form id="add_new_group_form" class="form-horizontal">
                                 <div class="form-group">
                                     <label for="layer_title" class="col-sm-2"><?php echo $this->__("Title") ?></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="layer_title" name="title"/>
+                                        <input type="text" ng-model="layerData.title" class="form-control" id="layer_title" name="title"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="parent_id" class="col-sm-2"><?php echo $this->__("Parent") ?></label>
                                     <div class="col-sm-10">
-                                        <select class="form-control" id="parent_id" name="parent_id">
-                                            <option>Button</option>
-                                            <option>Track Pad</option>
+                                        <select class="form-control" ng-model="layerData.parent_id" id="parent_id" name="parent_id">
+                                            <option value="0">Root</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="group_id" class="col-sm-2"><?php echo $this->__("Group") ?></label>
                                     <div class="col-sm-10">
-                                        <select class="form-control" id="group_id" name="group_id">
-                                            <option>Ps3</option>
-                                            <option>Shoe</option>
+                                        <select class="form-control" ng-model="layerData.group_id" id="group_id" name="group_id">
+                                            <option value="">--Please Select--</option>
+                                            <option value="{{group.id}}" ng-repeat="group in groups">{{group.title}}</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="layer_price" class="col-sm-2"><?php echo $this->__("Price") ?></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="layer_price" name="price"/>
+                                        <input type="text" ng-model="layerData.price" class="form-control" id="layer_price" name="price"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -78,19 +78,19 @@
                                 <div class="form-group">
                                     <label for="product_description" class="col-sm-2"><?php echo $this->__("Description") ?></label>
                                     <div class="col-sm-10">
-                                        <textarea id="product_description" class="form-control"></textarea>
+                                        <textarea id="product_description" ng-model="layerData.description" class="form-control"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="layer_position" class="col-sm-2"><?php echo $this->__("Position") ?></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="layer_position" name="position"/>
+                                        <input type="text" class="form-control" ng-model="layerData.position" id="layer_position" name="position"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="layer_status" class="col-sm-2"><?php echo $this->__("Status") ?></label>
                                     <div class="col-sm-10">
-                                        <select name="layer_status" id="layer_status" class="form-control">
+                                        <select name="layer_status" id="layer_status" ng-model="layerData.status" class="form-control">
                                             <option value="1"><?php echo $this->__("Enable") ?></option>
                                             <option value="2"><?php echo $this->__("Disable") ?></option>
                                         </select>
@@ -99,7 +99,7 @@
                                 <div class="form-group">
                                     <label for="is_required" class="col-sm-2"><?php echo $this->__("Is Required") ?></label>
                                     <div class="col-sm-10">
-                                        <select name="is_required" id="is_required" class="form-control">
+                                        <select name="is_required" ng-model="layerData.is_required" id="is_required" class="form-control">
                                             <option value="1"><?php echo $this->__("Yes") ?></option>
                                             <option value="2"><?php echo $this->__("No") ?></option>
                                         </select>

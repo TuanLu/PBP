@@ -18,6 +18,8 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
             );
             //$this->getResponse()->setBody(json_encode($response));
             $this->_forward("getgroup");
+        } else {
+            echo json_encode($response);
         }
     }
     public function getGroupAction() {
@@ -29,7 +31,6 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
             }
             echo json_encode($groups);
         }
-        
     }
     public function removeGroupAction() {
         $response = array(
@@ -80,5 +81,36 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
 				}
 			}
 		}
+    }
+    public function getLayersAction() {
+        $collection = Mage::getModel("productbuilderpro/layer")->getCollection();
+        if($collection->count()) {
+            $layers = [];
+            foreach($collection as $layer) {
+                $layers[] = $layer->getData();
+            }
+            echo json_encode($layers);
+        }
+    }
+    public function saveLayerAction() {
+        $response = array(
+            'status' => 'error',
+            'message' => 'Can not save layer. Something went worng!'
+        );
+        $postData = file_get_contents("php://input");
+        $layerData = json_decode($postData, true);
+        $layerModel = Mage::getModel("productbuilderpro/layer");
+        $result = $layerModel->saveLayer($layerData);
+        if($result) {
+            $response = array(
+                'status' => 'success',
+                'message' => 'layer saved successfully!',
+                'data' => $result->getData()
+            );
+            //$this->getResponse()->setBody(json_encode($response));
+            $this->_forward("getlayers");
+        } else {
+            echo json_encode($response);
+        }
     }
 }

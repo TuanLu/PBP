@@ -103,6 +103,9 @@
                     <group>
                         <table>mst_pbp_group</table>
                     </group>
+                    <layer>
+                        <table>mst_pbp_layer</table>
+                    </layer>
                 </entities>
             </productbuilderpro_mysql4>
         </models>

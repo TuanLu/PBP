@@ -7,9 +7,10 @@ pbpApp.service("groupServices", ["$http", "$q", function($http, $q) {
         addGroup: addGroup,
         getGroups: getGroups,
         removeGroup: removeGroup,
-        uploadImage: uploadImage
+        uploadImage: uploadImage,
+        addLayer: addLayer
     });
-    //Public method
+    //Public method for group
     function addGroup( groupData ) {
         var request = $http({
             method: "post",
@@ -54,6 +55,19 @@ pbpApp.service("groupServices", ["$http", "$q", function($http, $q) {
         });
         return request.then(handleSuccess, handleError);
     }
+    //Methos for layer
+    function addLayer( layerData ) {
+        var request = $http({
+            method: "post",
+            url: self.base_url + "productbuilderpro/main/saveLayer",
+            params: {
+                action: "add"
+            },
+            data: layerData
+        });
+        return( request.then( handleSuccess, handleError ) );
+    }
+    
     // ---
     // PRIVATE METHODS.
     // ---

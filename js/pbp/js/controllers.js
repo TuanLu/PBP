@@ -79,12 +79,22 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
         is_required: '2',
         status: '1',
     }
+    // Binding data from child scope
     $scope.$watch("thumbnail_image", function() {
         $scope.layerData.thumbnail_image = $scope.thumbnail_image;
     });
     $scope.$watch("main_image", function() {
         $scope.layerData.main_image = $scope.main_image;
     });
+    //Save layer function
+    $scope.saveLayer = function() {
+        groupServices.addLayer($scope.layerData)
+        .then(function(response) {
+            console.info("Add layer successfully!");
+        }, function(error) {
+            console.warn(error);
+        });
+    }
 }]);
 //==== EDIT Controller ====//
 pbpApp.controller('pbpEditController', ["$scope", "$http", "pbpServices", "$location", function($scope, $http, pbpServices, $location) {

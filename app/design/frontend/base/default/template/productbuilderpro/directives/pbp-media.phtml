@@ -1,32 +1,38 @@
 <div clas="pbp-media-wrapper">
     <div class="panel panel-info">
-        <div class="panel-heading">
-            <h3 class="panel-title">Product Builder Pro - Media</h3>
-        </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-6">
-                    <input type="file" accept="image/*"/>
-                    <input type="text" value="" class="img-src form-control"/>
+                <div class="col-md-4">
+                    <!--<input type="file" accept="image/*"/>-->
+                    <a class="btn btn-info pbp-select-image" ng-click="selectImage(this)"><?php echo $this->__("Select Image") ?></a>
+                    <input type="hidden" value="" class="img-src form-control" name="{{name}}"/>
                 </div>
-                <div class="col-md-6">
-                    
+                <div class="col-md-4">
+                    <img src="" class="preview-{{name}}" alt="Image Preview" width="50px" />
+                </div>
+                <div class="col-md-4">
+                    Upload New Image: 
+                    <form id="upload-image-{{name}}" enctype="multipart/form-data">
+                        <input type="file" ng-mouseover="activeBrowseEvent()" id="upload-input-{{name}}" accept="image/*"/> 
+                        New INPUT
+                        <input type="file" file-model="myFile" accept="image/*"/>
+                        <a class="btn btn-success" ng-click="uploadFile()">Upload</a>
+                    </form>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-6 col-md-3">
-                    <div class="thumbnail">
-                        <img src="http://localhost/github/pbp/media/pbp/images/main/original_xbox.png" class="img-rounded">
+            <div class="media-wrapper" ng-if="showMedia">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Media Library</h3>
                     </div>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <div class="thumbnail">
-                        <img src="http://localhost/github/pbp/media/pbp/images/main/original_ps3.png" class="img-rounded">
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <div class="thumbnail">
-                        <img src="http://localhost/github/pbp/media/pbp/images/main/xbox.png" class="img-rounded">
+                    <div class="panel-body">
+                        <div class="row media-{{name}}">
+                            <div class="col-sm-6 col-md-3" ng-repeat="image in imageList">
+                                <div class="thumbnail">
+                                    <img ng-click="chooseImage(image, name)" src="{{baseMediaUrl + image.filename}}" title="{{image.name}}" alt="{{image.name}}" class="img-rounded">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

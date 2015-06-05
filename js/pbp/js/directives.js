@@ -58,7 +58,50 @@ pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", "$location", fu
         }
     }
 }]);
-pbpApp.directive("pbpMedia", ["$compile", "pbpServices", "$location", function($compile, pbpServices, $location) {
+pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpServices) {
+    //=== MEDIA CONTROLLER ===//
+    mediaController.$inject = ["$scope", "pbpServices", "fileUpload", "groupServices"];
+    function mediaController($scope, pbpServices, fileUpload, groupServices) {
+        $scope.baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
+        $scope.baseMediaUrl = "http://localhost/github/pbp/media/pbp/images/main/";
+        //Image list
+        $scope.imageList = [
+            {
+                id: 1,
+                filename: 'original_xbox.png',
+                name: 'Original Xbox',
+            },
+            {
+                id: 2,
+                filename: 'original_ps3.png',
+                name: 'Original Ps3',
+            },
+            {
+                id: 3,
+                filename: 'xbox.png',
+                name: 'Microsoft Xbox',
+            }
+        ];
+        $scope.showMedia = false;
+        $scope.selectImage = function(element) {
+            $scope.showMedia = !$scope.showMedia;
+        }
+        $scope.chooseImage = function(image, inputName) {
+            angular.element(document.querySelector("input[name='"+ inputName +"']")).val(image.filename);
+            $scope.showMedia = false;
+        }
+        $scope.uploadFile = function(){
+            var file = $scope.myFile;
+            console.log('file is ' + JSON.stringify(file));
+            var uploadUrl = pbpServices.base_url + "productbuilderpro/main/uploadimage";;
+            groupServices.uploadImage(file)
+            .then(function(response) {
+                console.log(response);
+            }, function(error) {
+                console.warn(error);
+            });
+        };
+    }
     return {
         restrict: 'AE',
         templateUrl: function() {
@@ -66,19 +109,36 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", "$location", function($
             return baseUrl + "productbuilderpro/directives/pbpMedia"
         },
         replace: true,
-        scope: {
-            
-        },
-        link: function (scope, element, attrs, controller) {
-            element.bind("click", function(event) {
+        link: function ($scope, element, attrs, controller) {
+            /*element.bind("click", function(event) {
                 if(event.target.src) {
                     var imgSrcSelector = angular.element(document.querySelector(".img-src"));
+                    imgSrcSelector.attr("value", event.target.src.split("/pbp/images/")[1]);
+                    $scope.showMedia = false;
                     console.log(imgSrcSelector);
-                    imgSrcSelector.attr("value", event.target.src);
                 }
-                //event.stop(); //Stop parent event
-                
-            });
+                //console.log(event.target);
+                //event.stop(); //Stop parent event 
+            });*/
+        },
+        controller: mediaController,
+        scope: {
+            name: '@'
         }
     }
+}]);
+//==== FILE UPLOAD DIRECTIVE ====//
+pbpApp.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
 }]);

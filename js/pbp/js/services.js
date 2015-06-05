@@ -6,7 +6,8 @@ pbpApp.service("groupServices", ["$http", "$q", function($http, $q) {
     return({
         addGroup: addGroup,
         getGroups: getGroups,
-        removeGroup: removeGroup
+        removeGroup: removeGroup,
+        uploadImage: uploadImage
     });
     //Public method
     function addGroup( groupData ) {
@@ -42,6 +43,16 @@ pbpApp.service("groupServices", ["$http", "$q", function($http, $q) {
             }
         });
         return( request.then( handleSuccess, handleError ) );
+    }
+    function uploadImage(file) {
+        var fd = new FormData();
+        fd.append('file', file);
+        var uploadUrl = self.base_url + "productbuilderpro/main/uploadImage"
+        var request = $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        });
+        return request.then(handleSuccess, handleError);
     }
     // ---
     // PRIVATE METHODS.
@@ -186,3 +197,4 @@ pbpApp.service("pbpServices", ["$http", function($http) {
         });
     }
 }]);
+

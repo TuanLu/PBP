@@ -33,7 +33,7 @@ pbpApp.config(["$routeProvider", function ($routeProvider, $log) {
             }
             return defaultUrl;
         },
-        controller: 'pbpAddLayerController'
+        controller: 'addLayerController'
     })
     .when('/edit-option', {
         templateUrl: function() {

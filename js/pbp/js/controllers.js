@@ -48,6 +48,10 @@ pbpApp.controller('addGroupController', ["$scope", "groupServices", "$location",
         });
     }
 }]);
+//==== ADD LAYER ====//
+pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location", function($scope, groupServices, $location) {
+    $scope.baseUrl = groupServices.base_url || 'base_url undified';
+}]);
 //==== EDIT Controller ====//
 pbpApp.controller('pbpEditController', ["$scope", "$http", "pbpServices", "$location", function($scope, $http, pbpServices, $location) {
     $scope.currentOption = pbpServices.currentOption;

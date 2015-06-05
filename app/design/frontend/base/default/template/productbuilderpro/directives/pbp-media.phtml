@@ -4,20 +4,17 @@
             <div class="row">
                 <div class="col-md-4">
                     <!--<input type="file" accept="image/*"/>-->
-                    <a class="btn btn-info pbp-select-image" ng-click="selectImage(this)"><?php echo $this->__("Select Image") ?></a>
+                    <a class="btn btn-info pbp-select-image" ng-click="selectImage(this)"><?php echo $this->__("Select Image From Library") ?></a>
                     <input type="hidden" value="" class="img-src form-control" name="{{name}}"/>
                 </div>
-                <div class="col-md-4">
-                    <img src="" class="preview-{{name}}" alt="Image Preview" width="50px" />
+                <div class="col-md-2">
+                    <img src="" class="preview-{{name}}" alt="" width="50px" />
                 </div>
-                <div class="col-md-4">
-                    Upload New Image: 
-                    <form id="upload-image-{{name}}" enctype="multipart/form-data">
-                        <input type="file" ng-mouseover="activeBrowseEvent()" id="upload-input-{{name}}" accept="image/*"/> 
-                        New INPUT
-                        <input type="file" file-model="myFile" accept="image/*"/>
-                        <a class="btn btn-success" ng-click="uploadFile()">Upload</a>
-                    </form>
+                <div class="col-md-6 form-inline">
+                    <div class="form-group">
+                        <input type="file" file-model="myFile" accept="image/*"/>    
+                    </div>
+                    <a class="btn btn-success btn-md" ng-click="uploadFile()">Upload</a>
                 </div>
             </div>
             <div class="media-wrapper" ng-if="showMedia">

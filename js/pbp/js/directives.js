@@ -60,8 +60,8 @@ pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", "$location", fu
 }]);
 pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpServices) {
     //=== MEDIA CONTROLLER ===//
-    mediaController.$inject = ["$scope", "pbpServices", "fileUpload", "groupServices"];
-    function mediaController($scope, pbpServices, fileUpload, groupServices) {
+    mediaController.$inject = ["$scope", "pbpServices", "groupServices"];
+    function mediaController($scope, pbpServices, groupServices) {
         $scope.baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
         $scope.baseMediaUrl = "http://localhost/github/pbp/media/pbp/images/main/";
         //Image list
@@ -92,8 +92,9 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpS
         }
         $scope.uploadFile = function(){
             var file = $scope.myFile;
-            console.log('file is ' + JSON.stringify(file));
-            var uploadUrl = pbpServices.base_url + "productbuilderpro/main/uploadimage";;
+            if(file === undefined) {
+                return false;
+            }
             groupServices.uploadImage(file)
             .then(function(response) {
                 console.log(response);

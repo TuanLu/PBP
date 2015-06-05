@@ -66,7 +66,8 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
                             $response = array(
                                 'status' => 'success',
                                 'message' => 'Image had uploaded successfully!',
-                                'data' => 'Image List'
+                                'data' => 'Image List',
+                                'filename' => $name
                             );
                         }
                     } else if ($upload['error'] === UPLOAD_ERR_INI_SIZE) {

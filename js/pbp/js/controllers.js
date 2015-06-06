@@ -68,10 +68,10 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
     $scope.main_image = '';
     $scope.layerData = {
         id: 0,
-        title: 'Layer Title',
+        title: '',
         parent_id: '0',
         group_id: '',
-        description: 'Layer defaut description',
+        description: '',
         thumbnail_image: $scope.thumbnail_image,
         main_image: $scope.main_image,
         price: 0,
@@ -90,6 +90,9 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
     $scope.isSaving = false;
     $scope.saveLayer = function() {
         $scope.isSaving = true;
+        if(!$scope.validForm()) {
+            return false;
+        }
         groupServices.addLayer($scope.layerData)
         .then(function(response) {
             try {
@@ -102,6 +105,13 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
         }, function(error) {
             console.warn(error);
         });
+    }
+    //Validate form
+    $scope.validForm = function() {
+        if(!$scope.layerData.title || !$scope.layerData.group_id) {
+            return false;
+        }
+        return true;
     }
 }]);
 //==== EDIT Controller ====//

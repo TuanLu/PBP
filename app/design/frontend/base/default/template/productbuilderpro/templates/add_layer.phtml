@@ -34,23 +34,26 @@
                         </div>
                         <div class="panel-body">
                             Layer Data <pre>{{layerData | json}}</pre>
-                            <form id="add_new_group_form" class="form-horizontal">
-                                <div class="form-group">
-                                    <label for="layer_title" class="col-sm-2"><?php echo $this->__("Title") ?></label>
+                            <div class="alert alert-warning" ng-show="!validForm()">
+                                <?php echo $this->__("Please fill all required fields!") ?>
+                            </div>
+                            <form id="add_new_group_form" name="add_new_group_form" class="form-horizontal">
+                                <div class="form-group" ng-class="{'has-error': !layerData.title}">
+                                    <label for="layer_title" class="col-sm-2"><?php echo $this->__("Title") ?> <span class="required">*</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" ng-model="layerData.title" class="form-control" id="layer_title" name="title"/>
+                                        <input type="text" required ng-model="layerData.title" class="form-control" id="layer_title" name="title"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="parent_id" class="col-sm-2"><?php echo $this->__("Parent") ?></label>
+                                    <label for="parent_id" class="col-sm-2"><?php echo $this->__("Parent") ?> <span class="required">*</span></label>
                                     <div class="col-sm-10">
                                         <select class="form-control" ng-model="layerData.parent_id" id="parent_id" name="parent_id">
                                             <option value="0">Root</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="group_id" class="col-sm-2"><?php echo $this->__("Group") ?></label>
+                                <div class="form-group" ng-class="{'has-error': !layerData.group_id}">
+                                    <label for="group_id" class="col-sm-2"><?php echo $this->__("Group") ?> <span class="required">*</span></label>
                                     <div class="col-sm-10">
                                         <select class="form-control" ng-model="layerData.group_id" id="group_id" name="group_id">
                                             <option value="">--Please Select--</option>

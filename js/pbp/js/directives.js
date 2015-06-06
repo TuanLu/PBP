@@ -83,6 +83,7 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpS
             }
         ];
         $scope.showMedia = false;
+        $scope.isUploading = false;
         $scope.imgSrc = '';
         $scope.selectImage = function(element) {
             $scope.showMedia = !$scope.showMedia;
@@ -96,11 +97,15 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpS
             if(file === undefined) {
                 return false;
             }
+            $scope.isUploading = true;
             groupServices.uploadImage(file)
             .then(function(response) {
                 //Update filename to parent scope
                 $scope.$parent[$scope.name] = response.filename;
                 $scope.imgSrc = response.filename;
+                $scope.isUploading = false;
+                //Upload same file once
+                $scope.myFile = undefined;
             }, function(error) {
                 console.warn(error);
             });

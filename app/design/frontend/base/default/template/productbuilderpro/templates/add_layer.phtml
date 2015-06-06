@@ -15,9 +15,8 @@
                 <a class="btn btn-success" ng-click="saveLayer()">
                     <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                     <span>Save Layer</span>
-                    <span class="glyphicon glyphicon-send" ng-if="isSaving" aria-hidden="true"></span>
                 </a>
-                <pbp-loading></pbp-loading>
+                <pbp-loading ng-if="isSaving"></pbp-loading>
                 <a class="btn btn-warning">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <span>Cancel</span>
@@ -34,7 +33,6 @@
                             <h3 class="panel-title"><?php echo $this->__("Add New Layer Form") ?></h3>
                         </div>
                         <div class="panel-body">
-                            <pbp-loading></pbp-loading>
                             Layer Data <pre>{{layerData | json}}</pre>
                             <div class="alert alert-warning" ng-show="!validForm()">
                                 <?php echo $this->__("Please fill all required fields!") ?>

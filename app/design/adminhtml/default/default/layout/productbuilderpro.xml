@@ -21,4 +21,14 @@
             <block type="productbuilderpro/adminhtml_productbuilderpro" name="productbuilder_main_page" template="productbuilderpro/main.phtml"/>
         </reference>
 	</productbuilderproadmin_adminhtml_productbuilderpro_index>
+    <productbuilderproadmin_adminhtml_media_index>
+		<reference name="head">
+			<action method="addItem"><type>js</type><name>pbp/js/angular.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/directives.js</name></action>
+			<action method="addItem"><type>js_css</type><name>pbp/css/bootstrap.min.css</name></action>
+		</reference>
+		<reference name="content">
+            <block type="productbuilderpro/adminhtml_media" name="productbuilder_media_page" template="productbuilderpro/media.phtml"/>
+        </reference>
+	</productbuilderproadmin_adminhtml_media_index>
 </layout> 

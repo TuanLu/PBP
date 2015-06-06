@@ -63,7 +63,7 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpS
     mediaController.$inject = ["$scope", "pbpServices", "groupServices"];
     function mediaController($scope, pbpServices, groupServices) {
         $scope.baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
-        $scope.baseMediaUrl = "http://localhost/github/pbp/media/pbp/images/";
+        $scope.mediaUrl = angular.element(document.querySelector("#mst_media_url")).val() + "pbp/images/";
         //Image list
         $scope.imageList = [
             {
@@ -83,6 +83,7 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpS
             }
         ];
         $scope.showMedia = false;
+        $scope.imgSrc = '';
         $scope.selectImage = function(element) {
             $scope.showMedia = !$scope.showMedia;
         }
@@ -99,6 +100,7 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpS
             .then(function(response) {
                 //Update filename to parent scope
                 $scope.$parent[$scope.name] = response.filename;
+                $scope.imgSrc = response.filename;
             }, function(error) {
                 console.warn(error);
             });
@@ -143,4 +145,12 @@ pbpApp.directive('fileModel', ['$parse', function ($parse) {
             });
         }
     };
+}]);
+//==== LOADING DIRECTIVE ====//
+pbpApp.directive("pbpLoading", [function() {
+    return {
+        restrict: 'AE',
+        template: '<span class="pbp-loading"><img style="width: 30px" src="http://localhost/github/pbp/media/pbp/images/loading.gif"/></span>',
+        replace: true
+    }
 }]);

@@ -7,7 +7,7 @@
             </h2>
         </div>
         <div class="col-lg-8">
-            <h3 class="pull-right">
+            <div class="pull-right">
                 <a class="btn btn-primary" href="#/">
                     <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
                     <span>Back</span>
@@ -17,11 +17,12 @@
                     <span>Save Layer</span>
                     <span class="glyphicon glyphicon-send" ng-if="isSaving" aria-hidden="true"></span>
                 </a>
+                <pbp-loading></pbp-loading>
                 <a class="btn btn-warning">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <span>Cancel</span>
                 </a>
-            </h3>
+            </div>
         </div>
     </div>
     <div class="row main-content">
@@ -33,6 +34,7 @@
                             <h3 class="panel-title"><?php echo $this->__("Add New Layer Form") ?></h3>
                         </div>
                         <div class="panel-body">
+                            <pbp-loading></pbp-loading>
                             Layer Data <pre>{{layerData | json}}</pre>
                             <div class="alert alert-warning" ng-show="!validForm()">
                                 <?php echo $this->__("Please fill all required fields!") ?>

@@ -2,19 +2,19 @@
     <div class="panel panel-info">
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-4">
-                    <!--<input type="file" accept="image/*"/>-->
-                    <a class="btn btn-info pbp-select-image" ng-click="selectImage(this)"><?php echo $this->__("Select Image From Library") ?></a>
-                    <input type="hidden" value="" class="img-src form-control" name="{{name}}"/>
-                </div>
-                <div class="col-md-2">
-                    <img src="" class="preview-{{name}}" alt="" width="50px" />
-                </div>
                 <div class="col-md-6 form-inline">
-                    <div class="form-group">
+                   <div class="form-group">
                         <input type="file" file-model="myFile" accept="image/*"/>    
                     </div>
-                    <a class="btn btn-success btn-md" ng-click="uploadFile()">Upload</a>
+                    <a class="btn btn-success btn-md" ng-click="uploadFile()"><?php echo $this->__("Upload") ?></a>
+                    <pbp-loading></pbp-loading>
+                </div>
+                <div class="col-md-2">
+                    <img src="{{ mediaUrl + imgSrc}}" class="preview-{{name}}" alt="" width="50px" />
+                </div>
+                <div class="col-md-4" style="display: none;">
+                     <a class="btn btn-info pbp-select-image" ng-click="selectImage(this)"><?php echo $this->__("Select Image From Library") ?></a>
+                    <input type="hidden" value="" class="img-src form-control" name="{{name}}"/>
                 </div>
             </div>
             <div class="media-wrapper" ng-if="showMedia">

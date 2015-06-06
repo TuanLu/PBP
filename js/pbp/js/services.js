@@ -1,6 +1,7 @@
 pbpApp.service("groupServices", ["$http", "$q", function($http, $q) {
     var self = this;
     this.base_url = document.getElementById("mst_base_url").value;
+    this.media_url = document.getElementById("mst_media_url").value + "pbp/images/";
     this.groups = null;
     // Return public API.
     return({

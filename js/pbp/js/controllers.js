@@ -87,10 +87,18 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
         $scope.layerData.main_image = $scope.main_image;
     });
     //Save layer function
+    $scope.isSaving = false;
     $scope.saveLayer = function() {
+        $scope.isSaving = true;
         groupServices.addLayer($scope.layerData)
         .then(function(response) {
-            console.info("Add layer successfully!");
+            try {
+                console.log(response);
+            } catch(error) {
+                console.log(error);
+            }
+            
+            $scope.isSaving = false;
         }, function(error) {
             console.warn(error);
         });

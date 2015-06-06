@@ -6,21 +6,24 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
             'status' => 'error',
             'message' => 'Can not save group. Something went worng!'
         );
-        $postData = file_get_contents("php://input");
-        $groupData = json_decode($postData, true);
-        $groupModel = Mage::getModel("productbuilderpro/group");
-        $result = $groupModel->saveGroup($groupData);
-        if($result) {
-            $response = array(
-                'status' => 'success',
-                'message' => 'Group saved successfully!',
-                'data' => $result->getData()
-            );
-            //$this->getResponse()->setBody(json_encode($response));
-            $this->_forward("getgroup");
-        } else {
-            echo json_encode($response);
+        try {
+            $postData = file_get_contents("php://input");
+            $groupData = json_decode($postData, true);
+            $groupModel = Mage::getModel("productbuilderpro/group");
+            $result = $groupModel->saveGroup($groupData);
+            if($result) {
+                $response = array(
+                    'status' => 'success',
+                    'message' => 'Group saved successfully!',
+                    'data' => $result->getData()
+                );
+                //$this->getResponse()->setBody(json_encode($response));
+                $this->_forward("getgroup");
+            }
+        } catch(Exception $e) {
+        
         }
+        echo json_encode($response);
     }
     public function getGroupAction() {
         $groupCollection = Mage::getModel("productbuilderpro/group")->getCollection();
@@ -97,20 +100,23 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
             'status' => 'error',
             'message' => 'Can not save layer. Something went worng!'
         );
-        $postData = file_get_contents("php://input");
-        $layerData = json_decode($postData, true);
-        $layerModel = Mage::getModel("productbuilderpro/layer");
-        $result = $layerModel->saveLayer($layerData);
-        if($result) {
-            $response = array(
-                'status' => 'success',
-                'message' => 'layer saved successfully!',
-                'data' => $result->getData()
-            );
-            //$this->getResponse()->setBody(json_encode($response));
-            $this->_forward("getlayers");
-        } else {
-            echo json_encode($response);
+        try {
+            $postData = file_get_contents("php://input");
+            $layerData = json_decode($postData, true);
+            $layerModel = Mage::getModel("productbuilderpro/layer");
+            $result = $layerModel->saveLayer($layerData);
+            if($result) {
+                $response = array(
+                    'status' => 'success',
+                    'message' => 'layer saved successfully!',
+                    'data' => $result->getData()
+                );
+                //$this->getResponse()->setBody(json_encode($response));
+                $this->_forward("getlayers");
+            } 
+        } catch(Exception $error) {
+              
         }
+        echo json_encode($response);
     }
 }

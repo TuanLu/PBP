@@ -97,10 +97,13 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
         .then(function(response) {
             try {
                 console.log(response);
+                //Reset the form 
+                document.getElementById("add_new_group_form").reset();
+                //Redirect to index page
+                $location.path("/");
             } catch(error) {
                 console.log(error);
             }
-            
             $scope.isSaving = false;
         }, function(error) {
             console.warn(error);

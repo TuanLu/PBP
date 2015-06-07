@@ -3,13 +3,15 @@ pbpApp.service("groupServices", ["$http", "$q", function($http, $q) {
     this.base_url = document.getElementById("mst_base_url").value;
     this.media_url = document.getElementById("mst_media_url").value + "pbp/images/";
     this.groups = null;
+    this.parents = null;
     // Return public API.
     return({
         addGroup: addGroup,
         getGroups: getGroups,
         removeGroup: removeGroup,
         uploadImage: uploadImage,
-        addLayer: addLayer
+        addLayer: addLayer,
+        getLayerParents: getLayerParents
     });
     //Public method for group
     function addGroup( groupData ) {
@@ -27,6 +29,16 @@ pbpApp.service("groupServices", ["$http", "$q", function($http, $q) {
         var request = $http({
             method: "get",
             url: self.base_url + "productbuilderpro/main/getgroup",
+            params: {
+                action: "get"
+            }
+        });
+        return( request.then( handleSuccess, handleError ) );
+    }
+    function getLayerParents() {
+        var request = $http({
+            method: "get",
+            url: self.base_url + "productbuilderpro/main/getLayerParents",
             params: {
                 action: "get"
             }

@@ -108,7 +108,13 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
             foreach($collection as $layer) {
                 $layers[] = $layer->getData();
             }
-            echo json_encode($layers);
+            //Return parents options also
+            $parentOptions = Mage::getModel("productbuilderpro/layer")->getParentOptions();
+            $response = array(
+                'layers' => $layers,
+                'parents' => $parentOptions
+            );
+            echo json_encode($response);
         }
     }
     public function saveLayerAction() {
@@ -129,10 +135,16 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
                 );
                 //$this->getResponse()->setBody(json_encode($response));
                 $this->_forward("getlayers");
+                return;
             } 
         } catch(Exception $error) {
               
         }
         echo json_encode($response);
+    }
+    //Get parent id options
+    public function getLayerParentsAction() {
+        $options = Mage::getModel("productbuilderpro/layer")->getParentOptions();
+        echo json_encode($options);
     }
 }

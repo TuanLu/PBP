@@ -33,7 +33,6 @@
                             <h3 class="panel-title"><?php echo $this->__("Add New Layer Form") ?></h3>
                         </div>
                         <div class="panel-body">
-                            Layer Data <pre>{{layerData | json}}</pre>
                             <div class="alert alert-warning" ng-show="!validForm()">
                                 <?php echo $this->__("Please fill all required fields!") ?>
                             </div>
@@ -48,7 +47,7 @@
                                     <label for="parent_id" class="col-sm-2"><?php echo $this->__("Parent") ?> <span class="required">*</span></label>
                                     <div class="col-sm-10">
                                         <select class="form-control" ng-model="layerData.parent_id" id="parent_id" name="parent_id">
-                                            <option value="0">Root</option>
+                                            <option value="{{parent.id}}" ng-repeat="parent in parents">{{parent.title}}</option>
                                         </select>
                                     </div>
                                 </div>

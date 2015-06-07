@@ -51,6 +51,7 @@ pbpApp.controller('addGroupController', ["$scope", "groupServices", "$location",
 //==== ADD LAYER ====//
 pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location", function($scope, groupServices, $location) {
     $scope.groups = [];
+    $scope.parents = [];
     //Load ajax only first time
     if(groupServices.groups == null) {
         // The groupServices returns a promise.
@@ -62,6 +63,18 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
         );
     } else {
         $scope.groups = groupServices.groups;
+    }
+    //Load parents same as group
+    if(groupServices.parents == null) {
+        // The groupServices returns a promise.
+        groupServices.getLayerParents()
+        .then(
+            function( parents ) {
+                 $scope.parents = parents;
+            }
+        );
+    } else {
+        $scope.parents = groupServices.parents;
     }
     // Use pdp-media directive
     $scope.thumbnail_image = '';
@@ -99,6 +112,8 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
                 console.log(response);
                 //Reset the form 
                 document.getElementById("add_new_group_form").reset();
+                //$scope.parents = response.parents;
+                groupServices.parents = response.parents;
                 //Redirect to index page
                 $location.path("/");
             } catch(error) {
@@ -111,7 +126,7 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
     }
     //Validate form
     $scope.validForm = function() {
-        if(!$scope.layerData.title || !$scope.layerData.group_id) {
+        if(!$scope.layerData.title || !$scope.layerData.group_id || !$scope.layerData.parent_id) {
             return false;
         }
         return true;

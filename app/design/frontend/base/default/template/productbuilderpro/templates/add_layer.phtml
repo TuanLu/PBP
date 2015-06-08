@@ -33,6 +33,7 @@
                             <h3 class="panel-title"><?php echo $this->__("Add New Layer Form") ?></h3>
                         </div>
                         <div class="panel-body">
+                            <pre>Data {{layerData | json}}</pre>
                             <div class="alert alert-warning" ng-show="!validForm()">
                                 <?php echo $this->__("Please fill all required fields!") ?>
                             </div>
@@ -43,20 +44,20 @@
                                         <input type="text" required ng-model="layerData.title" class="form-control" id="layer_title" name="title"/>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="parent_id" class="col-sm-2"><?php echo $this->__("Parent") ?> <span class="required">*</span></label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control" ng-model="layerData.parent_id" id="parent_id" name="parent_id">
-                                            <option value="{{parent.id}}" ng-repeat="parent in parents">{{parent.title}}</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="form-group" ng-class="{'has-error': !layerData.group_id}">
                                     <label for="group_id" class="col-sm-2"><?php echo $this->__("Group") ?> <span class="required">*</span></label>
                                     <div class="col-sm-10">
                                         <select class="form-control" ng-model="layerData.group_id" id="group_id" name="group_id">
                                             <option value="">--Please Select--</option>
                                             <option value="{{group.id}}" ng-repeat="group in groups">{{group.title}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="parent_id" class="col-sm-2"><?php echo $this->__("Parent") ?> <span class="required">*</span> </label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" ng-model="layerData.parent_id" id="parent_id" name="parent_id">
+                                            <option value="{{parent.id}}" ng-show="parent.group_id === layerData.group_id || parent.group_id === ''" ng-repeat="parent in parents">{{parent.title}}</option>
                                         </select>
                                     </div>
                                 </div>

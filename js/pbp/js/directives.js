@@ -153,9 +153,19 @@ pbpApp.directive('fileModel', ['$parse', function ($parse) {
 }]);
 //==== LOADING DIRECTIVE ====//
 pbpApp.directive("pbpLoading", [function() {
+    this.media_url = document.getElementById("mst_media_url").value + "pbp/images/";
     return {
         restrict: 'AE',
-        template: '<span class="pbp-loading"><img style="width: 30px" src="http://localhost/github/pbp/media/pbp/images/loading.gif"/></span>',
+        template: '<span class="pbp-loading"><img style="width: 30px" src="'+ this.media_url + 'loading.gif"/></span>',
+        replace: true
+    }
+}]);
+//==== DOWNLOADING DIRECTIVE ====//
+pbpApp.directive("pbpDownloading", [function() {
+    this.media_url = document.getElementById("mst_media_url").value + "pbp/images/";
+    return {
+        restrict: 'AE',
+        template: '<span class="pbp-loading"><img style="width: 30px" src="'+ this.media_url + 'downloading.gif"/></span>',
         replace: true
     }
 }]);

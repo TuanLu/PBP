@@ -27,10 +27,13 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
     }
     public function getGroupAction() {
         $groupCollection = Mage::getModel("productbuilderpro/group")->getCollection();
+        $layerModel = Mage::getModel("productbuilderpro/layer");
         if($groupCollection->count()) {
             $groups = [];
             foreach($groupCollection as $group) {
-                $groups[] = $group->getData();
+                $groupData = $group->getData();
+                $groupData['layers'] = $layerModel->getLayerByGroupId($group->getId());
+                $groups[] = $groupData;
             }
             echo json_encode($groups);
         }

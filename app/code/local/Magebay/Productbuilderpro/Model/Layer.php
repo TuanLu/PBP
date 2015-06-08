@@ -22,9 +22,20 @@ class Magebay_Productbuilderpro_Model_Layer extends Mage_Core_Model_Abstract {
     }
     public function getLayerByGroupId ($group_id) 
 	{
+        //Limit level deep = 5
+        $layerModel = Mage::getModel( 'productbuilderpro/layer' );
 		$layers = $this->getAllLayers();
 		$layers->addFieldToFilter('group_id', $group_id);
-		return $layers;
+        if($layers->count()) {
+            $layerList = array();
+            foreach($layers as $layer) {
+                if($layer->getParentId() == 0) {
+                    $layerData = $layer->getData();
+                    $layerList[$layer->getId()] = $layerData;
+                }
+            }
+            return $layerList;
+        }
 	}
     /*Return an array which use in add or edit form. Parent Id-name*/
 	public function getParentOptions()

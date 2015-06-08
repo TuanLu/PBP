@@ -34,12 +34,18 @@
                                 </h3>
                             </div>
                             <div class="panel-body">
-                                <strong>{{group.description}}</strong>
+                                <!--<pre>{{group | json}}</pre>-->
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <pbp-option-collection option-list="group.layers" edit-option="editOption(option)"></pbp-option-collection>    
+                                    </div>
+                                    <div class="col-md-8">
+                                        Main Design Will Show Here
+                                    </div>
+                                </div>
                             </div>
                         </div>    
                     </div>
-                    <!--<pbp-group product="product" ng-repeat="product in productList"></pbp-group>-->
-                    <!--<pbp-option-collection option-list="optionList" edit-option="editOption(option)"></pbp-option-collection>-->
                 </div>
             </div>
         </div>

@@ -28,6 +28,11 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
             console.warn(error);
         });
     }
+    //Edit layer
+    $scope.editOption = function(layerInfo) {
+        console.log("editOption in controller");
+        return false;
+    }
 }]);
 //=== ADD group controller ===//
 pbpApp.controller('addGroupController', ["$scope", "groupServices", "$location", function($scope, groupServices, $location) {

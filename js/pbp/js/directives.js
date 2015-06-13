@@ -22,11 +22,33 @@ pbpApp.directive("pbpOptionCollection", [function() {
         replace: true,
         scope: {
             optionList: "=",
-            editOption: "&"
+            level: "@"
         }
     }
 }]);
 pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", "$location", function($compile, pbpServices, $location) {
+        //=== MEDIA CONTROLLER ===//
+    layerController.$inject = ["$scope", "pbpServices", "groupServices"];
+    function layerController($scope, pbpServices, groupServices) {
+        $scope.expand = true;
+        $scope.editLayer = function(layer) {
+            console.info("Edit layer func");
+            console.log(layer);
+        }
+        $scope.expandLayer = function(layer) {
+            $scope.expand = !$scope.expand;
+            console.info("Expand Layer");
+            angular.element(document.querySelector("#layer_" + layer.id)).find("ul").toggleClass("ng-hide");
+            angular.forEach(layer.options, function(child, key) {
+                //angular.element(document.querySelector("#layer_" + child.id)).toggleClass("ng-hide");
+            });
+            console.log(layer);
+        }
+        $scope.removeLayer = function(layer) {
+            console.info("Remove layer");
+            console.log(layer);
+        }
+    }
     return {
         restrict: 'AE',
         templateUrl: function() {
@@ -36,26 +58,30 @@ pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", "$location", fu
         replace: true,
         scope: {
             optionInfo: "=",
-            editOption: "&"
         },
         link: function (scope, element, attrs, controller) {
             //check if this member has children
             if (angular.isArray(scope.optionInfo.options)) {
                 // append the collection directive to this element
-                element.append("<pbp-option-collection option-list='optionInfo.options' edit-option='editOption(option)'></pbp-option-collection>");
+                //element.append("<pbp-option-collection option-list='optionInfo.options'></pbp-option-collection>");
                 // we need to tell angular to render the directive
-                $compile(element.contents())(scope);
+                //$compile(element.contents())(scope);
+                var newMemEL = angular.element("<pbp-option-collection option-list='optionInfo.options'></pbp-option-collection>");
+                element.append(newMemEL);
+                $compile(newMemEL)(scope);
             }
-            element.bind("click", function(event) {
+            /*element.bind("click", function(event) {
                 pbpServices.showLog("Child scope click event", "info");
                 //Need to run inside $apply function
                 scope.$apply(function() {
+                   console.log(event.target);
                     pbpServices.currentOption = scope.optionInfo;
                     $location.path("/edit-option");
                 });
                 event.stop(); //Stop parent event
-            });
-        }
+            });*/
+        },
+        controller: layerController
     }
 }]);
 pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpServices) {

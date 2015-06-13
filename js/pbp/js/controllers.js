@@ -109,11 +109,11 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
         groupServices.addLayer($scope.layerData)
         .then(function(response) {
             try {
-                console.log(response);
                 //Reset the form 
                 document.getElementById("add_new_group_form").reset();
                 //$scope.parents = response.parents;
                 groupServices.parents = response.parents;
+                groupServices.groups = response.groups;
                 //Redirect to index page
                 $location.path("/");
             } catch(error) {

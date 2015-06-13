@@ -26,12 +26,30 @@ class Magebay_Productbuilderpro_Model_Layer extends Mage_Core_Model_Abstract {
         $layerModel = Mage::getModel( 'productbuilderpro/layer' );
 		$layers = $this->getAllLayers();
 		$layers->addFieldToFilter('group_id', $group_id);
-        if($layers->count()) {
+        $layersItems = $layers->toArray()['items'];
+        if(count($layersItems)) {
             $layerList = array();
-            foreach($layers as $layer) {
-                if($layer->getParentId() == 0) {
-                    $layerData = $layer->getData();
-                    $layerList[$layer->getId()] = $layerData;
+            for($i = 0; $i < count($layersItems); $i++) {
+                if($layersItems[$i]['parent_id'] == 0) {
+                    $layerList[$i] = $layersItems[$i];
+                    $childs = $this->getChildLayerCollection($layersItems[$i]['id'])->toArray()['items'];
+                    if(count($childs)) {
+                        for($j = 0; $j < count($childs); $j++) {
+                            $layerList[$i]['options'][$j] = $childs[$j];
+                            $childs1 = $this->getChildLayerCollection($childs[$j]['id'])->toArray()['items'];
+                            if(count($childs1)) {
+                                for($k = 0; $k < count($childs1); $k++) {
+                                    $layerList[$i]['options'][$j]['options'][$k] = $childs1[$k];
+                                    $childs2 = $this->getChildLayerCollection($childs1[$k]['id'])->toArray()['items'];
+                                    if(count($childs2)) {
+                                        for($x = 0; $x < count($childs2); $x++) {
+                                            $layerList[$i]['options'][$j]['options'][$k]['options'][$x] = $childs2[$x];
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
             return $layerList;

@@ -26,17 +26,23 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
         echo json_encode($response);
     }
     public function getGroupAction() {
+        $groups = $this->getGroups();
+        if(count($groups)) {
+            echo json_encode($groups);
+        }
+    }
+    protected function getGroups() {
         $groupCollection = Mage::getModel("productbuilderpro/group")->getCollection();
         $layerModel = Mage::getModel("productbuilderpro/layer");
+        $groups = [];
         if($groupCollection->count()) {
-            $groups = [];
             foreach($groupCollection as $group) {
                 $groupData = $group->getData();
                 $groupData['layers'] = $layerModel->getLayerByGroupId($group->getId());
                 $groups[] = $groupData;
             }
-            echo json_encode($groups);
         }
+        return $groups;
     }
     public function removeGroupAction() {
         $response = array(
@@ -105,20 +111,12 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
 		}
     }
     public function getLayersAction() {
-        $collection = Mage::getModel("productbuilderpro/layer")->getCollection();
-        if($collection->count()) {
-            $layers = [];
-            foreach($collection as $layer) {
-                $layers[] = $layer->getData();
-            }
-            //Return parents options also
-            $parentOptions = Mage::getModel("productbuilderpro/layer")->getParentOptions();
-            $response = array(
-                'layers' => $layers,
-                'parents' => $parentOptions
-            );
-            echo json_encode($response);
-        }
+        $parentOptions = Mage::getModel("productbuilderpro/layer")->getParentOptions();
+        $response = array(
+            'groups' => $this->getGroups(),
+            'parents' => $parentOptions
+        );
+        echo json_encode($response);
     }
     public function saveLayerAction() {
         $response = array(

@@ -1,5 +1,5 @@
 //==== Group Controller ====//
-pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$location", function($scope, $http, groupServices, $location) {
+pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$location", "$rootScope", function($scope, $http, groupServices, $location, $rootScope) {
     //Group list
     $scope.groups = [];
     //Load ajax only first time
@@ -18,9 +18,11 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
     $scope.$watch("groups", function() {
         groupServices.groups = $scope.groups;
     });
-    
     //Remove group
     $scope.removeGroup = function(group) {
+        if(!confirm("Are you really want to delete this product?")) {
+            return false;
+        }
         groupServices.removeGroup(group)
         .then(function(response) {
             $scope.groups = response;
@@ -28,11 +30,10 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
             console.warn(error);
         });
     }
-    //Edit layer
-    $scope.editOption = function(layerInfo) {
-        console.log("editOption in controller");
-        return false;
-    }
+    // Used layer
+    $scope.mediaUrl = angular.element(document.querySelector("#mst_media_url")).val() + "pbp/images/";
+    console.log("Used Layer");
+    $rootScope.layerStack = {};
 }]);
 //=== ADD group controller ===//
 pbpApp.controller('addGroupController', ["$scope", "groupServices", "$location", function($scope, groupServices, $location) {
@@ -54,36 +55,44 @@ pbpApp.controller('addGroupController', ["$scope", "groupServices", "$location",
     }
 }]);
 //==== ADD LAYER ====//
-pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location", function($scope, groupServices, $location) {
+pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location", "$routeParams", function($scope, groupServices, $location, $routeParams) {
     $scope.groups = [];
     $scope.parents = [];
+    $scope.id = $routeParams.id;
+    //If admin reload add layer page, redirect to main page
+    if($scope.id !== 0 && groupServices.currentLayer === null) {
+        $location.path("/");
+        return;
+    }
     //Load ajax only first time
-    if(groupServices.groups == null) {
+    if(groupServices.groups === null) {
         // The groupServices returns a promise.
         groupServices.getGroups()
         .then(
             function( groups ) {
-                 $scope.groups = groups;
+                $scope.groups = groups;
+                groupServices.groups = $scope.groups;
             }
         );
     } else {
         $scope.groups = groupServices.groups;
     }
     //Load parents same as group
-    if(groupServices.parents == null) {
+    if(groupServices.parents === null) {
         // The groupServices returns a promise.
         groupServices.getLayerParents()
         .then(
             function( parents ) {
-                 $scope.parents = parents;
+                $scope.parents = parents;
+                groupServices.parents = $scope.parents;
             }
         );
     } else {
         $scope.parents = groupServices.parents;
     }
     // Use pdp-media directive
-    $scope.thumbnail_image = '';
-    $scope.main_image = '';
+    $scope.thumbnail_image = (groupServices.currentLayer) ? groupServices.currentLayer.thumbnail_image : '';
+    $scope.main_image = (groupServices.currentLayer) ? groupServices.currentLayer.main_image : '';
     $scope.layerData = {
         id: 0,
         title: '',
@@ -96,6 +105,9 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
         position: 0,
         is_required: '2',
         status: '1',
+    }
+    if($scope.id !== 0 && groupServices.currentLayer) {
+        $scope.layerData = groupServices.currentLayer;
     }
     // Binding data from child scope
     $scope.$watch("thumbnail_image", function() {
@@ -135,13 +147,5 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
             return false;
         }
         return true;
-    }
-}]);
-//==== EDIT Controller ====//
-pbpApp.controller('pbpEditController', ["$scope", "$http", "pbpServices", "$location", function($scope, $http, pbpServices, $location) {
-    $scope.currentOption = pbpServices.currentOption;
-    if(!$scope.currentOption) {
-        //Redirect to index page
-        $location.path("/");
     }
 }]);

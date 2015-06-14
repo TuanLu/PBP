@@ -27,26 +27,31 @@ pbpApp.directive("pbpOptionCollection", [function() {
     }
 }]);
 pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", "$location", function($compile, pbpServices, $location) {
-        //=== MEDIA CONTROLLER ===//
-    layerController.$inject = ["$scope", "pbpServices", "groupServices"];
-    function layerController($scope, pbpServices, groupServices) {
+    //=== LAYER DETAILS CONTROLLER ===//
+    layerController.$inject = ["$scope", "pbpServices", "groupServices", "$rootScope"];
+    function layerController($scope, pbpServices, groupServices, $rootScope) {
+        $scope.mediaUrl = angular.element(document.querySelector("#mst_media_url")).val() + "pbp/images/";
         $scope.expand = true;
         $scope.editLayer = function(layer) {
             console.info("Edit layer func");
-            console.log(layer);
+            groupServices.currentLayer = layer;
+            $location.path("/add-layer/" + layer.id);
         }
         $scope.expandLayer = function(layer) {
             $scope.expand = !$scope.expand;
-            console.info("Expand Layer");
-            angular.element(document.querySelector("#layer_" + layer.id)).find("ul").toggleClass("ng-hide");
-            angular.forEach(layer.options, function(child, key) {
-                //angular.element(document.querySelector("#layer_" + child.id)).toggleClass("ng-hide");
-            });
-            console.log(layer);
+            angular.element(document.querySelector("#layer_" + layer.id + " ul")).toggleClass("ng-hide");
         }
         $scope.removeLayer = function(layer) {
             console.info("Remove layer");
             console.log(layer);
+        }
+        $scope.addLayerToDesign = function(layer) {
+            console.info("Add Layer To Design");
+            console.log(layer);
+            if(!$rootScope.layerStack[layer.group_id]) {
+                $rootScope.layerStack[layer.group_id] = {};
+            }
+            $rootScope.layerStack[layer.group_id][layer.id] = layer;
         }
     }
     return {
@@ -159,6 +164,7 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpS
         controller: mediaController,
         scope: {
             name: '@',
+            imgSrc: '@'
         }
     }
 }]);

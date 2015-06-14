@@ -19,6 +19,7 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
                 );
                 //$this->getResponse()->setBody(json_encode($response));
                 $this->_forward("getgroup");
+                return;
             }
         } catch(Exception $e) {
         

@@ -33,7 +33,7 @@
                             <h3 class="panel-title"><?php echo $this->__("Add New Layer Form") ?></h3>
                         </div>
                         <div class="panel-body">
-                            <pre>Data {{layerData | json}}</pre>
+                            <!--<pre>Data {{layerData | json}}</pre>-->
                             <div class="alert alert-warning" ng-show="!validForm()">
                                 <?php echo $this->__("Please fill all required fields!") ?>
                             </div>
@@ -49,7 +49,7 @@
                                     <div class="col-sm-10">
                                         <select class="form-control" ng-model="layerData.group_id" id="group_id" name="group_id">
                                             <option value="">--Please Select--</option>
-                                            <option value="{{group.id}}" ng-repeat="group in groups">{{group.title}}</option>
+                                            <option ng-selected="layerData.group_id == group.id" value="{{group.id}}" ng-repeat="group in groups">{{group.title}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                     <label for="parent_id" class="col-sm-2"><?php echo $this->__("Parent") ?> <span class="required">*</span> </label>
                                     <div class="col-sm-10">
                                         <select class="form-control" ng-model="layerData.parent_id" id="parent_id" name="parent_id">
-                                            <option value="{{parent.id}}" ng-show="parent.group_id === layerData.group_id || parent.group_id === ''" ng-repeat="parent in parents">{{parent.title}}</option>
+                                            <option ng-selected="layerData.parent_id == parent.id" value="{{parent.id}}" ng-show="parent.group_id === layerData.group_id || parent.group_id === ''" ng-repeat="parent in parents">{{parent.title}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -70,13 +70,13 @@
                                 <div class="form-group">
                                     <label for="thumbnail_image" class="col-sm-2"><?php echo $this->__("Thumbnail Image") ?></label>
                                     <div class="col-sm-10">
-                                        <pbp-media name="thumbnail_image"></pbp-media>
+                                        <pbp-media img-src="{{layerData.thumbnail_image}}" name="thumbnail_image"></pbp-media>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="default_image" class="col-sm-2"><?php echo $this->__("Main Image") ?></label>
                                     <div class="col-sm-10">
-                                        <pbp-media name="main_image"></pbp-media>
+                                        <pbp-media img-src="{{layerData.main_image}}" name="main_image"></pbp-media>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -95,8 +95,8 @@
                                     <label for="layer_status" class="col-sm-2"><?php echo $this->__("Status") ?></label>
                                     <div class="col-sm-10">
                                         <select name="layer_status" id="layer_status" ng-model="layerData.status" class="form-control">
-                                            <option value="1"><?php echo $this->__("Enable") ?></option>
-                                            <option value="2"><?php echo $this->__("Disable") ?></option>
+                                            <option ng-selected="layerData.status == 1" value="1"><?php echo $this->__("Enable") ?></option>
+                                            <option ng-selected="layerData.status == 2" value="2"><?php echo $this->__("Disable") ?></option>
                                         </select>
                                     </div>
                                 </div>

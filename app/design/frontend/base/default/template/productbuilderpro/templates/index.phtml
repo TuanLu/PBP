@@ -12,7 +12,7 @@
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     <span>Add Customize Product</span>
                 </a>
-                <a class="btn btn-primary" href="#/add-layer">
+                <a class="btn btn-primary" href="#/add-layer/0">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     <span>Add New Layer</span>
                 </a>
@@ -27,9 +27,11 @@
                         <div class="panel panel-info">
                             <div class="panel-heading">
                                 <h3 class="panel-title">
-                                    {{group.title}}
+                                    <a class="btn btn-sm">{{group.title}}</a>
                                     <div class="pull-right">
-                                        <a class="btn btn-danger" ng-click="removeGroup(group)">X</a>
+                                        <a class="btn btn-danger btn-sm" ng-click="removeGroup(group)">
+                                            <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                                        </a>
                                     </div>
                                 </h3>
                             </div>
@@ -40,7 +42,12 @@
                                         <pbp-option-collection level="0" option-list="group.layers"></pbp-option-collection>    
                                     </div>
                                     <div class="col-md-6">
-                                        Main Design Will Show Here
+                                        <div class="product-design-area" id="pbp_{{group.id}}" style="position: absolute;">
+                                            <img src="{{mediaUrl + layer.main_image}}" ng-repeat="layer in layerStack[group.id]"/>
+                                            <p>
+                                                <pre>{{layerStack | json}}</pre>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

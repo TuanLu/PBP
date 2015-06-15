@@ -41,13 +41,16 @@
                                     <div class="col-md-6">
                                         <pbp-option-collection level="0" option-list="group.layers"></pbp-option-collection>    
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="product-design-area" id="pbp_{{group.id}}" style="position: absolute;">
-                                            <img src="{{mediaUrl + layer.main_image}}" ng-repeat="layer in layerStack[group.id]"/>
-                                            <p>
-                                                <pre>{{layerStack | json}}</pre>
-                                            </p>
+                                    <div class="col-md-3">
+                                        <div class="product-design-area" id="pbp_{{group.id}}" style="position: relative; width: 100%;">
+                                            <img src="{{mediaUrl + layer.main_image}}" style="width: 100%; position: absolute;" ng-repeat="layer in layerStack[group.id]"/>
                                         </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <!--<pre>{{layerStack | json}}</pre>-->
+                                        <ul>
+                                            <li ng-repeat="layer in layerStack[group.id]">{{layer.title}}</li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

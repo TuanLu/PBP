@@ -30,6 +30,10 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
             console.warn(error);
         });
     }
+    //Update groups whenever groupServices.groups change
+    $scope.$on('handleUpdateGroups', function() {
+        $scope.groups = groupServices.groups;
+    });
     // Used layer
     $scope.mediaUrl = angular.element(document.querySelector("#mst_media_url")).val() + "pbp/images/";
     console.log("Used Layer");
@@ -60,7 +64,7 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
     $scope.parents = [];
     $scope.id = $routeParams.id;
     //If admin reload add layer page, redirect to main page
-    if($scope.id !== 0 && groupServices.currentLayer === null) {
+    if($scope.id !== '0' && groupServices.currentLayer === null) {
         $location.path("/");
         return;
     }

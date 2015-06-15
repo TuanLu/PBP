@@ -1,4 +1,4 @@
-pbpApp.service("groupServices", ["$http", "$q", function($http, $q) {
+pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q, $rootScope) {
     var self = this;
     this.base_url = document.getElementById("mst_base_url").value;
     this.media_url = document.getElementById("mst_media_url").value + "pbp/images/";
@@ -8,6 +8,8 @@ pbpApp.service("groupServices", ["$http", "$q", function($http, $q) {
     // Return public API.
     return({
         groups: this.groups,
+        updateGroupData: updateGroupData,
+        broadcastGroups: broadcastGroups,
         parents: this.parents,
         currentLayer: this.currentLayer,
         addGroup: addGroup,
@@ -15,9 +17,17 @@ pbpApp.service("groupServices", ["$http", "$q", function($http, $q) {
         removeGroup: removeGroup,
         uploadImage: uploadImage,
         addLayer: addLayer,
+        removeLayer: removeLayer,
         getLayerParents: getLayerParents
     });
     //Public method for group
+    function updateGroupData(groups) {
+        this.groups = groups;
+        this.broadcastGroups();
+    }
+    function broadcastGroups() {
+        $rootScope.$broadcast('handleUpdateGroups');
+    }
     function addGroup( groupData ) {
         var request = $http({
             method: "post",
@@ -72,7 +82,16 @@ pbpApp.service("groupServices", ["$http", "$q", function($http, $q) {
         });
         return( request.then( handleSuccess, handleError ) );
     }
-    
+    function removeLayer(layer) {
+        var request = $http({
+            method: "delete",
+            url: self.base_url + "productbuilderpro/main/removelayer",
+            data: {
+                id: layer.id
+            }
+        });
+        return( request.then( handleSuccess, handleError ) );
+    }
     // ---
     // PRIVATE METHODS.
     // ---

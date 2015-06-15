@@ -43,7 +43,15 @@ pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", "$location", fu
         }
         $scope.removeLayer = function(layer) {
             console.info("Remove layer");
-            console.log(layer);
+            if(!confirm("Are you really want to delete this layer?")) {
+                return false;
+            }
+            groupServices.removeLayer(layer)
+            .then(function(response) {
+                groupServices.updateGroupData(response);
+            }, function(error) {
+                console.warn(error);
+            });
         }
         $scope.addLayerToDesign = function(layer) {
             console.info("Add Layer To Design");

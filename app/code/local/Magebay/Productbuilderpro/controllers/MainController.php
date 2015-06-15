@@ -48,7 +48,7 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
     public function removeGroupAction() {
         $response = array(
             'status' => 'error',
-            'message' => 'Can not remove group. Something went worng!'
+            'message' => 'Can not remove this group. Something went worng!'
         );
         $postData = file_get_contents("php://input");
         $groupData = json_decode($postData, true);
@@ -56,7 +56,24 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
             $groupModel = Mage::getModel("productbuilderpro/group");
             $groupModel->load($groupData['id'])->delete();
             $this->_forward("getgroup");
+            return false;
         }
+        echo json_encode($response);
+    }
+    public function removeLayerAction() {
+        $response = array(
+            'status' => 'error',
+            'message' => 'Can not remove this layer. Something went worng!'
+        );
+        $postData = file_get_contents("php://input");
+        $layerData = json_decode($postData, true);
+        if(isset($layerData['id']) && $layerData['id']) {
+            $layerModel = Mage::getModel("productbuilderpro/layer");
+            $layerModel->load($layerData['id'])->delete();
+            $this->_forward("getgroup");
+            return false;
+        }
+        echo json_encode($response);
     }
     public function uploadImageAction() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES["file"])) {

@@ -1,0 +1,27 @@
+<div class="selected-layer">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title"><?php echo $this->__("Selected Layers") ?></h3>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <li ng-repeat="layer in layerStack[group.id]">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <img class="thumbnail" src="{{mediaUrl + layer.main_image}}" width="50px" />
+                        </div>
+                        <div class="col-xs-3">
+                             {{layer.title}}
+                        </div>
+                        <div class="col-xs-3">
+                             {{layer.price}}
+                        </div>
+                        <div class="col-xs-3">
+                             <a ng-click="removeSelectedLayer(layer)"><span aria-hidden="true" class="glyphicon glyphicon-remove-sign"></span></a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

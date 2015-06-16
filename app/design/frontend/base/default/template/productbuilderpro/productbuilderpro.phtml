@@ -6,9 +6,8 @@
 <script src="<?php echo $jsPbp; ?>pbp/js/app.js"></script>
 <script src="<?php echo $jsPbp; ?>pbp/js/routes.js"></script>
 <script src="<?php echo $jsPbp; ?>pbp/js/services.js"></script>
-<script src="<?php echo $jsPbp; ?>pbp/js/controllers.js"></script>
 <script src="<?php echo $jsPbp; ?>pbp/js/frontend_controllers.js"></script>
-<script src="<?php echo $jsPbp; ?>pbp/js/directives.js"></script>
+<script src="<?php echo $jsPbp; ?>pbp/js/frontend_directives.js"></script>
 <!-- pbpApp -->
 <input type="hidden" value="<?php echo Mage::helper("productbuilderpro")->getBaseUrl(); ?>" id="mst_base_url" />
 <input type="hidden" value="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) ?>" id="mst_media_url" />
@@ -18,6 +17,22 @@
          <div class="row">
             <div class="col-md-12">
                 <h1>Design Online Tool: {{group.title}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <pbp-layer-collection level="0" option-list="group.layers"></pbp-layer-collection>
+            </div>
+            <div class="col-md-5">
+                <div class="product-design-area" id="pbp_{{group.id}}" style="position: relative; width: 100%;">
+                    <img src="{{mediaUrl + layer.main_image}}" style="width: 100%; position: absolute;" ng-repeat="layer in layerStack[group.id]"/>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <!--<pre>{{layerStack | json}}</pre>-->
+                <!--<selected-layer ng-show="showLayer && group.id == currentGroup"></selected-layer>-->
+                <selected-layer ng-show="showLayer"></selected-layer>
+                <a class="button btn-primary" ng-show="showLayer">Add To Cart</a>
             </div>
         </div>
     </div>

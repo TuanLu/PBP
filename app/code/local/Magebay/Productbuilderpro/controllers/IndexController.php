@@ -11,6 +11,10 @@ class Magebay_Productbuilderpro_IndexController extends Mage_Core_Controller_Fro
     {
         echo $this->getLayout()->createBlock("core/template")->setTemplate("productbuilderpro/templates/index.phtml")->toHtml();
     }
+    public function getDesignPageAction()
+    {
+        echo $this->getLayout()->createBlock("core/template")->setTemplate("productbuilderpro/templates/design.phtml")->toHtml();
+    }
     public function editOptionAction() {
         echo $this->getLayout()->createBlock("core/template")->setTemplate("productbuilderpro/templates/edit_option.phtml")->toHtml();
     }

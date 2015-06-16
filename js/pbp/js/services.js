@@ -14,6 +14,7 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
         currentLayer: this.currentLayer,
         addGroup: addGroup,
         getGroups: getGroups,
+        getGroupById: getGroupById,
         removeGroup: removeGroup,
         uploadImage: uploadImage,
         addLayer: addLayer,
@@ -40,6 +41,13 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
         var request = $http({
             method: "get",
             url: self.base_url + "productbuilderpro/main/getgroup",
+        });
+        return( request.then( handleSuccess, handleError ) );
+    }
+    function getGroupById(groupId) {
+        var request = $http({
+            method: "get",
+            url: self.base_url + "productbuilderpro/main/getGroupById/id/" + groupId,
         });
         return( request.then( handleSuccess, handleError ) );
     }

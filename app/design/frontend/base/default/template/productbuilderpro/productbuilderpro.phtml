@@ -1,0 +1,25 @@
+<?php $jsPbp = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); ?>
+<link href="<?php echo $jsPbp ; ?>pbp/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="<?php echo $jsPbp ; ?>pbp/css/styles.css" rel="stylesheet"/>
+<script src="<?php echo $jsPbp; ?>pbp/js/angular.js"></script>
+<script src="<?php echo $jsPbp; ?>pbp/js/angular-route.min.js"></script>
+<script src="<?php echo $jsPbp; ?>pbp/js/app.js"></script>
+<script src="<?php echo $jsPbp; ?>pbp/js/routes.js"></script>
+<script src="<?php echo $jsPbp; ?>pbp/js/services.js"></script>
+<script src="<?php echo $jsPbp; ?>pbp/js/controllers.js"></script>
+<script src="<?php echo $jsPbp; ?>pbp/js/frontend_controllers.js"></script>
+<script src="<?php echo $jsPbp; ?>pbp/js/directives.js"></script>
+<!-- pbpApp -->
+<input type="hidden" value="<?php echo Mage::helper("productbuilderpro")->getBaseUrl(); ?>" id="mst_base_url" />
+<input type="hidden" value="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) ?>" id="mst_media_url" />
+<input type="hidden" value="<?php echo $this->getData("group_id") ?>" id="current_group_id" />
+<div class="pbp-wrapper" ng-app="pbpApp">
+    <div class="pbp-container" ng-controller="pbpFrontendController">
+         <div class="row">
+            <div class="col-md-12">
+                <h1>Design Online Tool: {{group.title}}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End pbpApp -->

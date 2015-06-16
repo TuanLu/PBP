@@ -45,6 +45,26 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
         }
         return $groups;
     }
+    public function getGroupByIdAction() {
+        $response = array(
+            'status' => 'error',
+            'message' => 'Can not get customize product data. Something went worng!'
+        );
+        $groupId = $this->getRequest()->getParam("id");
+        $groupCollection = Mage::getModel("productbuilderpro/group")->getCollection();
+        $groupCollection->addFieldToFilter("id", $groupId);
+        $layerModel = Mage::getModel("productbuilderpro/layer");
+        if($groupCollection->count()) {
+            $groupData = $groupCollection->getFirstItem()->getData();
+            $groupData['layers'] = $layerModel->getLayerByGroupId($groupId);
+            $response = array(
+                'status' => 'success',
+                'message' => 'Get customize product data successfully!',
+                'group_data' => $groupData
+            );
+        }
+        echo json_encode($response);
+    }
     public function removeGroupAction() {
         $response = array(
             'status' => 'error',

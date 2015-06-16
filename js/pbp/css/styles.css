@@ -1,3 +1,13 @@
 .pbp-wrapper a {
     text-decoration: none !important;
 }
+.selected-layer .total-price {
+    background: #006699 none repeat scroll 0 0;
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    padding: 6px 0;
+}
+.selected-layer .panel-title {
+    text-align: center;
+}

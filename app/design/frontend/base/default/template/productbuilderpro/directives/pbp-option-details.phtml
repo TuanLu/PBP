@@ -5,14 +5,13 @@
         </div>
         <div class="col-md-2">
             <div class="thumbnail-image" ng-show="optionInfo.thumbnail_image">
-                <a class="btn btn-default"><img src="{{mediaUrl + optionInfo.thumbnail_image}}" width="100%" /></a>
+                <a class="btn btn-default" ng-click="addLayerToDesign(optionInfo)">
+                    <img src="{{mediaUrl + optionInfo.thumbnail_image}}" width="100%" />
+                </a>
             </div>
         </div>
         <div class="col-md-4">
             <div class="action-btn pull-right">
-                <a class="btn btn-xs btn-success" ng-show="!optionInfo.options" ng-click="addLayerToDesign(optionInfo)">
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <?php echo $this->__("Use") ?>
-                </a>
                 <a class="btn btn-xs btn-default expand-layer" ng-click="expandLayer(optionInfo)" ng-show="optionInfo.options">
                     <span class="glyphicon" ng-class="{'glyphicon-plus': expand === true, 'glyphicon-minus': expand === false}" aria-hidden="true"></span>
                 </a>

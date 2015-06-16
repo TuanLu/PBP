@@ -14,4 +14,7 @@ class Magebay_Productbuilderpro_DirectivesController extends Mage_Core_Controlle
     public function pbpMediaAction() {
         echo $this->getLayout()->createBlock("core/template")->setTemplate("productbuilderpro/directives/pbp-media.phtml")->toHtml();
     }
+    public function selectedLayerAction() {
+        echo $this->getLayout()->createBlock("core/template")->setTemplate("productbuilderpro/directives/selected-layer.phtml")->toHtml();
+    }
 }

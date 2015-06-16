@@ -34,10 +34,29 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
     $scope.$on('handleUpdateGroups', function() {
         $scope.groups = groupServices.groups;
     });
-    // Used layer
+    // Used layer using $rootScope
     $scope.mediaUrl = angular.element(document.querySelector("#mst_media_url")).val() + "pbp/images/";
     console.log("Used Layer");
-    $rootScope.layerStack = {};
+    if(!$rootScope.layerStack) {
+        $rootScope.layerStack = {};
+    }
+    //When add or remove layer in selected layer panel, show that panel only on current group(product)
+    $rootScope.currentGroup = null;
+    //Remove selected layer event
+    $scope.removeSelectedLayer = function(layer) {
+        console.info("Remove Selected Layer From $rootScope.layerStack");
+        $rootScope.currentGroup = layer.group_id;
+        delete $rootScope.layerStack[layer.group_id][layer.id];
+        if(!$rootScope.layerStack[layer.group_id] && !$rootScope.layerStack[layer.group_id][layer.id]) {
+            $rootScope.showLayer = false;
+        }
+        //If layer stack of current group empty
+        if(angular.equals({}, $rootScope.layerStack[layer.group_id])) {
+            $rootScope.showLayer = false;
+        }
+    }
+    //Show selected layer or not
+    $rootScope.showLayer = Object.keys($rootScope.layerStack).length;
 }]);
 //=== ADD group controller ===//
 pbpApp.controller('addGroupController', ["$scope", "groupServices", "$location", function($scope, groupServices, $location) {

@@ -48,9 +48,8 @@
                                     </div>
                                     <div class="col-md-3">
                                         <!--<pre>{{layerStack | json}}</pre>-->
-                                        <ul>
-                                            <li ng-repeat="layer in layerStack[group.id]">{{layer.title}}</li>
-                                        </ul>
+                                        <!--<selected-layer ng-show="showLayer && group.id == currentGroup"></selected-layer>-->
+                                        <selected-layer ng-show="showLayer"></selected-layer>
                                     </div>
                                 </div>
                             </div>

@@ -55,11 +55,12 @@ pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", "$location", fu
         }
         $scope.addLayerToDesign = function(layer) {
             console.info("Add Layer To Design");
-            console.log(layer);
+            $rootScope.currentGroup = layer.group_id;
             if(!$rootScope.layerStack[layer.group_id]) {
                 $rootScope.layerStack[layer.group_id] = {};
             }
             $rootScope.layerStack[layer.group_id][layer.id] = layer;
+            $rootScope.showLayer = Object.keys($rootScope.layerStack[layer.group_id]).length || false;
         }
     }
     return {
@@ -207,5 +208,26 @@ pbpApp.directive("pbpDownloading", [function() {
         restrict: 'AE',
         template: '<span class="pbp-loading"><img style="width: 30px" src="'+ this.media_url + 'downloading.gif"/></span>',
         replace: true
+    }
+}]);
+//==== SELECTED LAYER ====//
+pbpApp.directive("selectedLayer", ["$compile", "pbpServices", "$rootScope", function($compile, pbpServices, $rootScope) {
+    //=== MEDIA CONTROLLER ===//
+    selectedLayer.$inject = ["$scope", "pbpServices", "groupServices", "$rootScope"];
+    function selectedLayer($scope, pbpServices, groupServices, $rootScope) {
+        $scope.baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
+        $scope.mediaUrl = angular.element(document.querySelector("#mst_media_url")).val() + "pbp/images/";
+    }
+    return {
+        restrict: 'AE',
+        templateUrl: function() {
+            var baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
+            return baseUrl + "productbuilderpro/directives/selectedLayer"
+        },
+        replace: true,
+        link: function ($scope, element, attrs, controller) {
+            
+        },
+        controller: selectedLayer,
     }
 }]);

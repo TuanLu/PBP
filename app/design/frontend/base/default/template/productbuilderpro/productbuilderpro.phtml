@@ -14,9 +14,9 @@
 <input type="hidden" value="<?php echo $this->getData("group_id") ?>" id="current_group_id" />
 <div class="pbp-wrapper" ng-app="pbpApp">
     <div class="pbp-container" ng-controller="pbpFrontendController">
-         <div class="row">
+        <div class="row">
             <div class="col-md-12">
-                <h1>Design Online Tool: {{group.title}}</h1>
+                <h4 ng-cloak>{{group.title}}</h4>
             </div>
         </div>
         <div class="row">

@@ -44,6 +44,12 @@ class Magebay_Productbuilderpro_Model_Layer extends Mage_Core_Model_Abstract {
                                     if(count($childs2)) {
                                         for($x = 0; $x < count($childs2); $x++) {
                                             $layerList[$i]['options'][$j]['options'][$k]['options'][$x] = $childs2[$x];
+                                            $childs3 = $this->getChildLayerCollection($childs2[$x]['id'])->toArray()['items'];
+                                            if(count($childs3)) {
+                                                for($y = 0; $y < count($childs3); $y++) {
+                                                    $layerList[$i]['options'][$j]['options'][$k]['options'][$x]['options'][$y] = $childs3[$y];
+                                                }
+                                            }
                                         }
                                     }
                                 }

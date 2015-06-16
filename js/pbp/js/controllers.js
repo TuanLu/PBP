@@ -136,15 +136,16 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
         $scope.layerData = {
             id: 0,
             title: '',
-            parent_id: '0',
+            parent_id: 0,
             group_id: '',
             description: '',
             thumbnail_image: $scope.thumbnail_image,
             main_image: $scope.main_image,
             price: 0,
             position: 0,
-            is_required: '2',
-            status: '1',
+            is_required: 2,
+            status: 1,
+            select_type: 1,
         }
     }
     // Binding data from child scope

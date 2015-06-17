@@ -77,6 +77,31 @@
                             </form>
                         </div>
                     </div>
+                    <div class="panel panel-primary" ng-show="id && id != 0">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><?php echo $this->__("Embed Code") ?></h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>
+                                    <b>1, Insert into Static block or CMS page: </b>
+                                    <pre>{{ embedCode.staticBlock }}</pre>
+                                </li>
+                                <li>
+                                    <b>2, Reference via XML layout file: </b>
+                                    <pre>
+&lt;block type="core/template" name="pbp_group_{{id}}" template="productbuilderpro/productbuilderpro.phtml"&gt;
+    &lt;action method="setData"&gt;&lt;name&gt;group_id&lt;/name&gt;&lt;value&gt;{{id}}&lt;/value&gt;&lt;/action&gt;
+&lt;/block&gt;                                  </pre>
+                                </li>
+                                <li>
+                                    <b>3, Call via frontend template file:  </b>
+                                    <pre>
+&lt;?php echo $this-&gt;getLayout()-&gt;createBlock("core/template")-&gt;setGroupId({{id}})-&gt;setTemplate("productbuilderpro/productbuilderpro.phtml")-&gt;toHtml(); ?&gt;</pre>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

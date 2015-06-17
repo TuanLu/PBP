@@ -111,6 +111,10 @@ pbpApp.controller('addGroupController', ["$scope", "groupServices", "$location",
         }
         return true;
     }
+    //Embed code
+    $scope.embedCode = {
+        staticBlock : '{{block type="core/template" name="pbp_group_'+ $scope.id +'" group_id="'+ $scope.id +'" template="productbuilderpro/productbuilderpro.phtml" }}',
+    }
 }]);
 //==== ADD LAYER ====//
 pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location", "$routeParams", function($scope, groupServices, $location, $routeParams) {

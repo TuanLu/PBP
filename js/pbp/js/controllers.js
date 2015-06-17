@@ -59,22 +59,57 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
     $rootScope.showLayer = Object.keys($rootScope.layerStack).length;
 }]);
 //=== ADD group controller ===//
-pbpApp.controller('addGroupController', ["$scope", "groupServices", "$location", function($scope, groupServices, $location) {
+pbpApp.controller('addGroupController', ["$scope", "groupServices", "$location", "$routeParams", function($scope, groupServices, $location, $routeParams) {
+    $scope.id = $routeParams.id;
     $scope.groupData = {
         id: 0,
-        title: 'Unknow',
+        title: '',
         base_product_id : '',
-        description: 'Defaut description',
+        description: '',
         status: '1',
     }
+    if($scope.id != 0) {
+        //Try to get group info from groupServices
+        if(!groupServices.groups) {
+            $location.path("/");
+        }
+        angular.forEach(groupServices.groups, function(group, index) {
+            if(group.id == $scope.id) {
+                $scope.groupData = group;
+            }
+        });
+    }
+    $scope.resetGroupData = function() {
+        $scope.groupData = {
+            id: 0,
+            title: '',
+            base_product_id : '',
+            description: '',
+            status: '1',
+        }
+    }
+    $scope.isSaving = false;
     $scope.saveGroup = function() {
+        if(!$scope.validForm()) {
+            return false;
+        }
+        $scope.isSaving = true;
         groupServices.addGroup($scope.groupData)
         .then(function(response) {
             groupServices.groups = response;
+            $scope.resetGroupData();
+            $scope.isSaving = false;
             $location.path('/');
         }, function(error) {
             console.warn(error);
         });
+    }
+    //Validate group form
+    $scope.validForm = function() {
+        if(!$scope.groupData.title || !$scope.groupData.base_product_id) {
+            return false;
+        }
+        return true;
     }
 }]);
 //==== ADD LAYER ====//
@@ -158,10 +193,10 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
     //Save layer function
     $scope.isSaving = false;
     $scope.saveLayer = function() {
-        $scope.isSaving = true;
         if(!$scope.validForm()) {
             return false;
         }
+        $scope.isSaving = true;
         groupServices.addLayer($scope.layerData)
         .then(function(response) {
             try {

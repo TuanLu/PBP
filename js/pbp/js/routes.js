@@ -13,7 +13,7 @@ pbpApp.config(["$routeProvider", function ($routeProvider, $log) {
         },
         controller: 'pbpController'
     })
-    .when('/add-group', {
+    .when('/add-group/:id', {
         templateUrl: function() {
             var baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
             var defaultUrl = "/";

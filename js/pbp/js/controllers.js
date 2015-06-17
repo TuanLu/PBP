@@ -147,10 +147,24 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
             function( parents ) {
                 $scope.parents = parents;
                 groupServices.parents = $scope.parents;
+                // Selected option after asynchronously 
+                angular.forEach($scope.parents, function(parent, index) {
+                    if(parent.id == $scope.layerData.parent_id) {
+                        $scope.selectedParent = parent;
+                        return false;
+                    }
+                });
             }
         );
     } else {
         $scope.parents = groupServices.parents;
+        // Selected option after synchronously 
+        angular.forEach($scope.parents, function(parent, index) {
+            if(parent.id == groupServices.currentLayer.parent_id) {
+                $scope.selectedParent = parent;
+                return false;
+            }
+        });
     }
     // Use pdp-media directive
     $scope.thumbnail_image = (groupServices.currentLayer) ? groupServices.currentLayer.thumbnail_image : '';
@@ -158,7 +172,7 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
     $scope.layerData = {
         id: 0,
         title: '',
-        parent_id: '0',
+        parent_id: 0,
         group_id: '',
         description: '',
         thumbnail_image: $scope.thumbnail_image,

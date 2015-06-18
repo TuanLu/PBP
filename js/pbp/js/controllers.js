@@ -121,6 +121,23 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
     $scope.groups = [];
     $scope.parents = [];
     $scope.id = $routeParams.id;
+    $scope.initLayerData = function() {
+        //Reset $scope.layerData
+        $scope.layerData = {
+            id: 0,
+            title: '',
+            parent_id: '0',
+            group_id: '',
+            description: '',
+            thumbnail_image: $scope.thumbnail_image,
+            main_image: $scope.main_image,
+            price: 0,
+            position: 0,
+            is_required: 2,
+            status: 1,
+            select_type: 1,
+        }
+    }
     //If admin reload add layer page, redirect to main page
     if($scope.id !== '0' && groupServices.currentLayer === null) {
         $location.path("/");
@@ -148,58 +165,36 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
                 $scope.parents = parents;
                 groupServices.parents = $scope.parents;
                 // Selected option after asynchronously 
-                angular.forEach($scope.parents, function(parent, index) {
+                /*angular.forEach($scope.parents, function(parent, index) {
                     if(parent.id == $scope.layerData.parent_id) {
                         $scope.selectedParent = parent;
                         return false;
                     }
-                });
+                });*/
             }
         );
     } else {
         $scope.parents = groupServices.parents;
         // Selected option after synchronously 
-        angular.forEach($scope.parents, function(parent, index) {
+        /*angular.forEach($scope.parents, function(parent, index) {
             if(parent.id == groupServices.currentLayer.parent_id) {
                 $scope.selectedParent = parent;
                 return false;
             }
-        });
+        });*/
     }
     // Use pdp-media directive
     $scope.thumbnail_image = (groupServices.currentLayer) ? groupServices.currentLayer.thumbnail_image : '';
     $scope.main_image = (groupServices.currentLayer) ? groupServices.currentLayer.main_image : '';
-    $scope.layerData = {
-        id: 0,
-        title: '',
-        parent_id: 0,
-        group_id: '',
-        description: '',
-        thumbnail_image: $scope.thumbnail_image,
-        main_image: $scope.main_image,
-        price: 0,
-        position: 0,
-        is_required: '2',
-        status: '1',
-    }
+    $scope.initLayerData();
     if($scope.id !== '0' && groupServices.currentLayer) {
         $scope.layerData = groupServices.currentLayer;
     } else {
-        //Reset $scope.layerData
-        $scope.layerData = {
-            id: 0,
-            title: '',
-            parent_id: 0,
-            group_id: '',
-            description: '',
-            thumbnail_image: $scope.thumbnail_image,
-            main_image: $scope.main_image,
-            price: 0,
-            position: 0,
-            is_required: 2,
-            status: 1,
-            select_type: 1,
-        }
+        $scope.initLayerData();
+    }
+    $scope.backOrCancel = function() {
+        groupServices.currentLayer = null;
+        $location.path("/");
     }
     // Binding data from child scope
     $scope.$watch("thumbnail_image", function() {

@@ -69,7 +69,7 @@ class Magebay_Productbuilderpro_Model_Layer extends Mage_Core_Model_Abstract {
             'title'=> "Root", 
             'group_id'=>'', 
             'level' => 0,
-            'id' => 0
+            'id' => '0' //Should be a string
         );
 		foreach ($layers as $layer) {
 			if($layer->getParentId() == 0) {

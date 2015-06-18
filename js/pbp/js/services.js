@@ -5,13 +5,19 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
     this.groups = null;
     this.parents = null;
     this.currentLayer = null;
+    this.layerStack = null;
+    this.currentGroupId = null;
     // Return public API.
     return({
         groups: this.groups,
+        layerStack: this.layerStack,
         updateGroupData: updateGroupData,
+        updateSelectedLayer: updateSelectedLayer,
         broadcastGroups: broadcastGroups,
+        broadcastStackLayer: broadcastStackLayer,
         parents: this.parents,
         currentLayer: this.currentLayer,
+        currentGroupId: this.currentGroupId,
         addGroup: addGroup,
         getGroups: getGroups,
         getGroupById: getGroupById,
@@ -28,6 +34,14 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
     }
     function broadcastGroups() {
         $rootScope.$broadcast('handleUpdateGroups');
+    }
+    //Update selected layer
+    function updateSelectedLayer(layerStack) {
+        this.layerStack = layerStack;
+        this.broadcastStackLayer();
+    }
+    function broadcastStackLayer() {
+        $rootScope.$broadcast('handleUpdateLayerStack');
     }
     function addGroup( groupData ) {
         var request = $http({

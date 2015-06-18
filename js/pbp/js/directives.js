@@ -55,9 +55,13 @@ pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", "$location", fu
         }
         $scope.addLayerToDesign = function(layer) {
             console.info("Add Layer To Design");
-            $rootScope.currentGroup = layer.group_id;
-            if(!$rootScope.layerStack[layer.group_id]) {
-                $rootScope.layerStack[layer.group_id] = {};
+            //First time load, layerStack == null
+            groupServices.currentGroupId = layer.group_id;
+            if(!groupServices.layerStack) {
+                groupServices.layerStack = {};
+            }
+            if(!groupServices.layerStack[layer.group_id]) {
+                groupServices.layerStack[layer.group_id] = {};
             }
             //Get group info
             $scope.currentGroupLayers = null;
@@ -74,17 +78,18 @@ pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", "$location", fu
                         // 1 is single select
                         // Remove the object have same parent id before add new object to stack
                         if(layerInGroup.select_type === "1") {
-                            angular.forEach($rootScope.layerStack[layer.group_id], function(layerInStack, index) {
+                            angular.forEach(groupServices.layerStack[layer.group_id], function(layerInStack, index) {
                                 if(layerInStack.parent_id === layerInGroup.id) {
-                                    delete $rootScope.layerStack[layer.group_id][layerInStack.id];
+                                    delete groupServices.layerStack[layer.group_id][layerInStack.id];
                                 }
                             });
                         }
                     }
                 });
             }
-            $rootScope.layerStack[layer.group_id][layer.id] = layer;
-            $rootScope.showLayer = Object.keys($rootScope.layerStack[layer.group_id]).length || false;
+            //groupServices.layerStack[layer.group_id][layer.id] = layer;
+            groupServices.layerStack[layer.group_id][layer.id] = layer;
+            groupServices.updateSelectedLayer(groupServices.layerStack);
         }
     }
     return {

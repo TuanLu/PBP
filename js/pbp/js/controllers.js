@@ -2,6 +2,7 @@
 pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$location", "$rootScope", function($scope, $http, groupServices, $location, $rootScope) {
     //Group list
     $scope.groups = [];
+    $scope.layerStack = {};
     //Load ajax only first time
     if(groupServices.groups == null) {
         // The groupServices returns a promise.
@@ -38,29 +39,50 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
     $scope.$on('handleUpdateGroups', function() {
         $scope.groups = groupServices.groups;
     });
+    //======= SELECTED LAYER ======= //
+    //Update layer stack whenever groupServices.layerStack change
+    $scope.showLayer = Object.keys($scope.layerStack).length;
+    $scope.totalLayerPrice = {};
+    $scope.reloadTotalLayerPrice = function() {
+        var totalPrice = 0;
+        if(groupServices.layerStack && groupServices.layerStack[groupServices.currentGroupId]) {
+            angular.forEach(groupServices.layerStack[groupServices.currentGroupId], function (selectedLayer, index) {
+                totalPrice += parseFloat(selectedLayer.price);
+            });
+        }
+        $scope.totalLayerPrice[groupServices.currentGroupId] = totalPrice;
+        console.info($scope.totalLayerPrice);
+    }
+    $scope.getTotalPrice = function(groupId) {
+        return $scope.totalLayerPrice[groupId] || 0;
+    }
+    $scope.$on('handleUpdateLayerStack', function() {
+        $scope.layerStack = groupServices.layerStack;
+        $scope.showLayer = Object.keys($scope.layerStack).length;
+        console.log("Check layer empty or not");
+        $scope.currentGroupId = groupServices.currentGroupId
+        $scope.reloadTotalLayerPrice();
+    });
+    $scope.$watch("layerStack", function() {
+        groupServices.layerStack = $scope.layerStack;
+    });
     // Used layer using $rootScope
     $scope.mediaUrl = angular.element(document.querySelector("#mst_media_url")).val() + "pbp/images/";
-    console.log("Used Layer");
-    if(!$rootScope.layerStack) {
-        $rootScope.layerStack = {};
-    }
-    //When add or remove layer in selected layer panel, show that panel only on current group(product)
-    $rootScope.currentGroup = null;
     //Remove selected layer event
     $scope.removeSelectedLayer = function(layer) {
+        groupServices.currentGroupId = layer.group_id;
         console.info("Remove Selected Layer From $rootScope.layerStack");
-        $rootScope.currentGroup = layer.group_id;
-        delete $rootScope.layerStack[layer.group_id][layer.id];
-        if(!$rootScope.layerStack[layer.group_id] && !$rootScope.layerStack[layer.group_id][layer.id]) {
-            $rootScope.showLayer = false;
+        delete groupServices.layerStack[layer.group_id][layer.id];
+        groupServices.updateSelectedLayer(groupServices.layerStack);
+        if(!groupServices.layerStack[layer.group_id] && !groupServices.layerStack[layer.group_id][layer.id]) {
+            $scope.showLayer = false;
         }
         //If layer stack of current group empty
-        if(angular.equals({}, $rootScope.layerStack[layer.group_id])) {
-            $rootScope.showLayer = false;
+        if(angular.equals({}, groupServices.layerStack[layer.group_id])) {
+            $scope.showLayer = false;
         }
     }
-    //Show selected layer or not
-    $rootScope.showLayer = Object.keys($rootScope.layerStack).length;
+    //======= END SELECTED LAYER ======= //
 }]);
 //=== ADD group controller ===//
 pbpApp.controller('addGroupController', ["$scope", "groupServices", "$location", "$routeParams", function($scope, groupServices, $location, $routeParams) {

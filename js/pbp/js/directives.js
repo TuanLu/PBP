@@ -59,7 +59,30 @@ pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", "$location", fu
             if(!$rootScope.layerStack[layer.group_id]) {
                 $rootScope.layerStack[layer.group_id] = {};
             }
+            //Get group info
+            $scope.currentGroupLayers = null;
+            angular.forEach(groupServices.groups, function(group, index) {
+                if(group.id === layer.group_id) {
+                    $scope.currentGroupLayers = group.layers || null;
+                    return false;
+                }
+            });
             //console.log(groupServices.groups);
+            if($scope.currentGroupLayers) {
+                angular.forEach($scope.currentGroupLayers, function(layerInGroup, index) {
+                    if(layer.parent_id === layerInGroup.id) {
+                        // 1 is single select
+                        // Remove the object have same parent id before add new object to stack
+                        if(layerInGroup.select_type === "1") {
+                            angular.forEach($rootScope.layerStack[layer.group_id], function(layerInStack, index) {
+                                if(layerInStack.parent_id === layerInGroup.id) {
+                                    delete $rootScope.layerStack[layer.group_id][layerInStack.id];
+                                }
+                            });
+                        }
+                    }
+                });
+            }
             $rootScope.layerStack[layer.group_id][layer.id] = layer;
             $rootScope.showLayer = Object.keys($rootScope.layerStack[layer.group_id]).length || false;
         }

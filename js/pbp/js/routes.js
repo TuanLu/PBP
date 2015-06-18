@@ -24,7 +24,7 @@ pbpApp.config(["$routeProvider", function ($routeProvider, $log) {
         },
         controller: 'addGroupController'
     })
-    .when('/add-layer/:id', {
+    .when('/add-layer/:id/group/:groupid', {
         templateUrl: function() {
             var baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
             var defaultUrl = "/";

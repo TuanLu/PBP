@@ -18,6 +18,12 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
     $scope.$watch("groups", function() {
         groupServices.groups = $scope.groups;
     });
+    //Add layer for group
+    $scope.addLayerForGroup = function(group) {
+        console.log("Add layer for group");
+        console.log("Group");
+        $location.path("/add-layer/0/group/" + group.id);
+    }
     //Remove group
     $scope.removeGroup = function(group) {
         if(!confirm("Are you really want to delete this product?")) {
@@ -121,13 +127,14 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
     $scope.groups = [];
     $scope.parents = [];
     $scope.id = $routeParams.id;
+    $scope.groupId = $routeParams.groupid;
     $scope.initLayerData = function() {
         //Reset $scope.layerData
         $scope.layerData = {
             id: 0,
             title: '',
             parent_id: '0',
-            group_id: '',
+            group_id: $scope.groupId,
             description: '',
             thumbnail_image: $scope.thumbnail_image,
             main_image: $scope.main_image,

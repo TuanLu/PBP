@@ -35,7 +35,7 @@ pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", "$location", fu
         $scope.editLayer = function(layer) {
             console.info("Edit layer func");
             groupServices.currentLayer = layer;
-            $location.path("/add-layer/" + layer.id);
+            $location.path("/add-layer/" + layer.id + '/group/' + layer.group_id);
         }
         $scope.expandLayer = function(layer) {
             $scope.expand = !$scope.expand;

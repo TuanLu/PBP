@@ -1,4 +1,4 @@
 <ul class="list-group" ng-show="level == 0">
     <!--Child directive-->
-	<pbp-option-details ng-repeat="option in optionList" option-info="option"></pbp-option-details>
+	<pbp-option-details ng-repeat="option in optionList track by option.id" option-info="option"></pbp-option-details>
 </ul>

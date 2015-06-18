@@ -59,6 +59,7 @@ pbpApp.directive("pbpOptionDetails", ["$compile", "pbpServices", "$location", fu
             if(!$rootScope.layerStack[layer.group_id]) {
                 $rootScope.layerStack[layer.group_id] = {};
             }
+            //console.log(groupServices.groups);
             $rootScope.layerStack[layer.group_id][layer.id] = layer;
             $rootScope.showLayer = Object.keys($rootScope.layerStack[layer.group_id]).length || false;
         }

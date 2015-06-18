@@ -132,6 +132,13 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpS
             angular.element(document.querySelector("input[name='"+ inputName +"']")).val(image.filename);
             $scope.showMedia = false;
         }
+        $scope.removeImage = function() {
+            if(!confirm("Are you sure?")) {
+                return false;
+            }
+            $scope.imgSrc = "";
+            $scope.$parent[$scope.name] = "";
+        }
         $scope.uploadFile = function(){
             var file = $scope.myFile;
             if(file === undefined) {

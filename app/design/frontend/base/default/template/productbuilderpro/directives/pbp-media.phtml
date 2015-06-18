@@ -12,7 +12,10 @@
                 </div>
                 <div class="col-md-2">
                     <img src="{{ mediaUrl + imgSrc}}" class="preview-{{name}}" alt="" width="50px" />
-                     <pbp-loading ng-if="isUploading"></pbp-loading>
+                    <pbp-loading ng-if="isUploading"></pbp-loading>
+                    <a class="btn btn-danger btn-xs" ng-show="imgSrc" ng-click="removeImage()" title="Remove this image">
+                        <span aria-hidden="true" class="glyphicon glyphicon-remove-sign"></span>
+                    </a>
                 </div>
                 <div class="col-md-4" style="display: none;">
                      <a class="btn btn-info pbp-select-image" ng-click="selectImage(this)"><?php echo $this->__("Select Image From Library") ?></a>

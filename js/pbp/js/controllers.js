@@ -20,8 +20,6 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
     });
     //Add layer for group
     $scope.addLayerForGroup = function(group) {
-        console.log("Add layer for group");
-        console.log("Group");
         $location.path("/add-layer/0/group/" + group.id);
     }
     //Remove group
@@ -131,18 +129,18 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
     $scope.initLayerData = function() {
         //Reset $scope.layerData
         $scope.layerData = {
-            id: 0,
+            id: '0',
             title: '',
             parent_id: '0',
             group_id: $scope.groupId,
             description: '',
             thumbnail_image: $scope.thumbnail_image,
             main_image: $scope.main_image,
-            price: 0,
-            position: 0,
-            is_required: 2,
-            status: 1,
-            select_type: 1,
+            price: '0',
+            position: '0',
+            is_required: '2',
+            status: '1',
+            select_type: '1',
         }
     }
     //If admin reload add layer page, redirect to main page
@@ -226,7 +224,7 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
                 groupServices.parents = response.parents;
                 groupServices.groups = response.groups;
                 //Redirect to index page
-                $location.path("/");
+                $scope.backOrCancel();
             } catch(error) {
                 console.log(error);
             }

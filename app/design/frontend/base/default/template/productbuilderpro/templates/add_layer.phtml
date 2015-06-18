@@ -33,10 +33,11 @@
                             <h3 class="panel-title"><?php echo $this->__("Add New Layer Form") ?></h3>
                         </div>
                         <div class="panel-body">
-                            <pre>Data {{layerData | json}}</pre>
+                            <!--<pre>Data {{layerData | json}}</pre>-->
+                            <!--
                             <div class="alert alert-warning" ng-show="!validForm()">
                                 <?php echo $this->__("Please fill all required fields!") ?>
-                            </div>
+                            </div>-->
                             <form id="add_new_group_form" name="add_new_group_form" class="form-horizontal">
                                 <div class="form-group" ng-class="{'has-error': !layerData.title}">
                                     <label for="layer_title" class="col-sm-2"><?php echo $this->__("Title") ?> <span class="required">*</span></label>

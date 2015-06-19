@@ -253,6 +253,26 @@ pbpApp.directive("selectedLayer", ["$compile", "pbpServices", "$rootScope", func
     function selectedLayer($scope, pbpServices, groupServices, $rootScope) {
         $scope.baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
         $scope.mediaUrl = angular.element(document.querySelector("#mst_media_url")).val() + "pbp/images/";
+        $scope.getTotalPrice = function(selectedLayers) {
+            var total = 0;
+            if(selectedLayers) {
+                angular.forEach(selectedLayers, function(layer, index) {
+                    total += parseFloat(layer.price);
+                });
+            }
+            return total.toFixed(2);
+        }
+        $scope.showLayer = function(stackLayer) {
+            if(angular.equals({}, stackLayer) || !stackLayer) {
+                return false;
+            }
+            return true;
+        }
+        $scope.removeSelectedLayer = function(layer) {
+            groupServices.currentGroupId = layer.group_id;
+            delete groupServices.layerStack[layer.group_id][layer.id];
+            groupServices.updateSelectedLayer(groupServices.layerStack);
+        }
     }
     return {
         restrict: 'AE',
@@ -263,6 +283,11 @@ pbpApp.directive("selectedLayer", ["$compile", "pbpServices", "$rootScope", func
         replace: true,
         link: function ($scope, element, attrs, controller) {
             
+        },
+        scope: {
+            groupId : "@",
+            layerStack: "=",
+            reloadPrice: "&"
         },
         controller: selectedLayer,
     }

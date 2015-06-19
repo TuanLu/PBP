@@ -1,11 +1,13 @@
-<div class="selected-layer">
+<?php $currencySymbol = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?>
+<div class="selected-layer" ng-show="showLayer(layerStack[groupId])">
     <div class="panel panel-success">
         <div class="panel-heading">
             <h3 class="panel-title"><?php echo $this->__("Selected Layers") ?></h3>
         </div>
         <div class="panel-body">
+            <!--<pre>{{layerStack[groupId] | json}}</pre>-->
             <ul>
-                <li ng-repeat="layer in layerStack[group.id]">
+                <li ng-repeat="layer in layerStack[groupId]">
                     <div class="row">
                         <div class="col-xs-3">
                             <img class="thumbnail" src="{{mediaUrl + layer.main_image}}" width="50px" />
@@ -14,7 +16,7 @@
                              {{layer.title}}
                         </div>
                         <div class="col-xs-3">
-                             {{layer.price}}
+                             <strong><?php echo $currencySymbol ?>{{layer.price}}</strong>
                         </div>
                         <div class="col-xs-3">
                              <a ng-click="removeSelectedLayer(layer)"><span aria-hidden="true" class="glyphicon glyphicon-remove-sign"></span></a>
@@ -27,7 +29,7 @@
                             <?php echo $this->__("Total") ?>
                         </div>
                         <div class="col-xs-3">
-                            {{getTotalPrice(currentGroupId)}}
+                            <?php echo $currencySymbol ?>{{getTotalPrice(layerStack[groupId])}}
                         </div>
                         <div class="col-xs-3">
                              

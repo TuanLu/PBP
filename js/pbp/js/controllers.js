@@ -41,47 +41,14 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
     });
     //======= SELECTED LAYER ======= //
     //Update layer stack whenever groupServices.layerStack change
-    $scope.showLayer = Object.keys($scope.layerStack).length;
-    $scope.totalLayerPrice = {};
-    $scope.reloadTotalLayerPrice = function() {
-        var totalPrice = 0;
-        if(groupServices.layerStack && groupServices.layerStack[groupServices.currentGroupId]) {
-            angular.forEach(groupServices.layerStack[groupServices.currentGroupId], function (selectedLayer, index) {
-                totalPrice += parseFloat(selectedLayer.price);
-            });
-        }
-        $scope.totalLayerPrice[groupServices.currentGroupId] = totalPrice;
-        console.info($scope.totalLayerPrice);
-    }
-    $scope.getTotalPrice = function(groupId) {
-        return $scope.totalLayerPrice[groupId] || 0;
-    }
+    //Need to track layerStack cause add and remove in different directive
     $scope.$on('handleUpdateLayerStack', function() {
         $scope.layerStack = groupServices.layerStack;
-        $scope.showLayer = Object.keys($scope.layerStack).length;
-        console.log("Check layer empty or not");
+        console.info("handleUpdateLayerStack called. layerStack changed!");
         $scope.currentGroupId = groupServices.currentGroupId
-        $scope.reloadTotalLayerPrice();
-    });
-    $scope.$watch("layerStack", function() {
-        groupServices.layerStack = $scope.layerStack;
     });
     // Used layer using $rootScope
     $scope.mediaUrl = angular.element(document.querySelector("#mst_media_url")).val() + "pbp/images/";
-    //Remove selected layer event
-    $scope.removeSelectedLayer = function(layer) {
-        groupServices.currentGroupId = layer.group_id;
-        console.info("Remove Selected Layer From $rootScope.layerStack");
-        delete groupServices.layerStack[layer.group_id][layer.id];
-        groupServices.updateSelectedLayer(groupServices.layerStack);
-        if(!groupServices.layerStack[layer.group_id] && !groupServices.layerStack[layer.group_id][layer.id]) {
-            $scope.showLayer = false;
-        }
-        //If layer stack of current group empty
-        if(angular.equals({}, groupServices.layerStack[layer.group_id])) {
-            $scope.showLayer = false;
-        }
-    }
     //======= END SELECTED LAYER ======= //
 }]);
 //=== ADD group controller ===//

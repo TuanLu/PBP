@@ -109,6 +109,22 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="select_type" class="col-sm-2"><?php echo $this->__("Independence with") ?></label>
+                                    <div class="col-sm-5" style="max-height: 200px; overflow: scroll;">
+                                        <div class="list-group">
+                                            <a class="list-group-item" ng-click="selectIndependence(parent)" ng-repeat="parent in parents">
+                                                <span ng-show="isSelected(parent.id)" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                {{parent.title}}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <pre>
+                                            {{independence}}
+                                        </pre>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

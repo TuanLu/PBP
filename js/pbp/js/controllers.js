@@ -230,4 +230,20 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
         }
         return true;
     }
+    //Select independency
+    $scope.independence = ["6", "7", "19"];
+    $scope.selectIndependence = function(parent) {
+        if($scope.independence.indexOf(parent.id) == -1) {
+            $scope.independence.push(parent.id);
+        } else {
+            //Remove this item from array
+            $scope.independence.splice($scope.independence.indexOf(parent.id), 1);
+        }
+    }
+    $scope.isSelected = function(parentId) {
+        if($scope.independence.indexOf(parentId) == -1) {
+            return false;
+        }
+        return true;
+    }
 }]);

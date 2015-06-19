@@ -2,7 +2,6 @@
 pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$location", "$rootScope", function($scope, $http, groupServices, $location, $rootScope) {
     //Group list
     $scope.groups = [];
-    $scope.layerStack = {};
     //Load ajax only first time
     if(groupServices.groups == null) {
         // The groupServices returns a promise.
@@ -40,6 +39,8 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
         $scope.groups = groupServices.groups;
     });
     //======= SELECTED LAYER ======= //
+    $scope.layerStack = groupServices.layerStack;
+    console.log("scope layerStack", $scope.layerStack);
     //Update layer stack whenever groupServices.layerStack change
     //Need to track layerStack cause add and remove in different directive
     $scope.$on('handleUpdateLayerStack', function() {

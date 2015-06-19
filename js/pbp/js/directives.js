@@ -271,6 +271,7 @@ pbpApp.directive("selectedLayer", ["$compile", "pbpServices", "$rootScope", func
         $scope.removeSelectedLayer = function(layer) {
             groupServices.currentGroupId = layer.group_id;
             delete groupServices.layerStack[layer.group_id][layer.id];
+            //Update layerStack via services
             groupServices.updateSelectedLayer(groupServices.layerStack);
         }
     }

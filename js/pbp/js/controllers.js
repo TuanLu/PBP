@@ -246,4 +246,8 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
         }
         return true;
     }
+    $scope.openIndependence = false;
+    $scope.openIndependenceList = function() {
+        $scope.openIndependence = !$scope.openIndependence;
+    }
 }]);

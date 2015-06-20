@@ -131,6 +131,7 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
             is_required: '2',
             status: '1',
             select_type: '1',
+            independence: []
         }
     }
     //If admin reload add layer page, redirect to main page
@@ -184,6 +185,12 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
     $scope.initLayerData();
     if($scope.id !== '0' && groupServices.currentLayer) {
         $scope.layerData = groupServices.currentLayer;
+        //Convert independence to array if not null. Edit Action
+        if($scope.layerData.independence) {
+            $scope.layerData.independence = $scope.layerData.independence.split(",");
+        } else {
+            $scope.layerData.independence = [];
+        }
     } else {
         $scope.initLayerData();
     }
@@ -198,6 +205,9 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
     $scope.$watch("main_image", function() {
         $scope.layerData.main_image = $scope.main_image;
     });
+    /*$scope.$watch("independence", function() {
+        $scope.layerData.independence = $scope.independence.join();
+    });*/
     //Save layer function
     $scope.isSaving = false;
     $scope.saveLayer = function() {
@@ -205,9 +215,15 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
             return false;
         }
         $scope.isSaving = true;
+        //Convert independence from array to string
         groupServices.addLayer($scope.layerData)
         .then(function(response) {
             try {
+                if(response.status == "error") {
+                    alert(response.message);
+                    $scope.isSaving = false;
+                    return false;
+                }
                 //Reset the form 
                 document.getElementById("add_new_group_form").reset();
                 //$scope.parents = response.parents;
@@ -230,18 +246,19 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
         }
         return true;
     }
-    //Select independency
-    $scope.independence = ["6", "7", "19"];
+    //============== independency ===================
+    //groupServices.currentLayer.independence might return null
     $scope.selectIndependence = function(parent) {
-        if($scope.independence.indexOf(parent.id) == -1) {
-            $scope.independence.push(parent.id);
+        if($scope.layerData.independence.indexOf(parent.id) == -1) {
+            $scope.layerData.independence.push(parent.id);
         } else {
             //Remove this item from array
-            $scope.independence.splice($scope.independence.indexOf(parent.id), 1);
+            $scope.layerData.independence.splice($scope.layerData.independence.indexOf(parent.id), 1);
         }
     }
     $scope.isSelected = function(parentId) {
-        if($scope.independence.indexOf(parentId) == -1) {
+        if(angular.isArray($scope.layerData.independence) 
+           && $scope.layerData.independence.indexOf(parentId) == -1) {
             return false;
         }
         return true;
@@ -250,4 +267,5 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
     $scope.openIndependenceList = function() {
         $scope.openIndependence = !$scope.openIndependence;
     }
+    //============== END independency ===================
 }]);

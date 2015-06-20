@@ -164,6 +164,8 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
         try {
             $postData = file_get_contents("php://input");
             $layerData = json_decode($postData, true);
+            //Convert array to string
+            $layerData['independence'] = join(",", $layerData['independence']);
             $layerModel = Mage::getModel("productbuilderpro/layer");
             $result = $layerModel->saveLayer($layerData);
             if($result) {

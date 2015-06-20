@@ -23,14 +23,55 @@ pbpApp.directive("pbpLayerDetails", ["$compile", "pbpServices", "$location", fun
             $scope.expand = !$scope.expand;
             angular.element(document.querySelector("#layer_" + layer.id + " ul")).toggleClass("ng-hide");
         }
+        $scope.removeLayer = function(layer) {
+            console.info("Remove layer");
+            if(!confirm("Are you really want to delete this layer?")) {
+                return false;
+            }
+            groupServices.removeLayer(layer)
+            .then(function(response) {
+                groupServices.updateGroupData(response);
+            }, function(error) {
+                console.warn(error);
+            });
+        }
         $scope.addLayerToDesign = function(layer) {
             console.info("Add Layer To Design");
-            $rootScope.currentGroup = layer.group_id;
-            if(!$rootScope.layerStack[layer.group_id]) {
-                $rootScope.layerStack[layer.group_id] = {};
+            //First time load, layerStack == null
+            groupServices.currentGroupId = layer.group_id;
+            if(!groupServices.layerStack) {
+                groupServices.layerStack = {};
             }
-            $rootScope.layerStack[layer.group_id][layer.id] = layer;
-            $rootScope.showLayer = Object.keys($rootScope.layerStack[layer.group_id]).length || false;
+            if(!groupServices.layerStack[layer.group_id]) {
+                groupServices.layerStack[layer.group_id] = {};
+            }
+            //Get group info
+            $scope.currentGroupLayers = null;
+            angular.forEach(groupServices.groups, function(group, index) {
+                if(group.id === layer.group_id) {
+                    $scope.currentGroupLayers = group.layers || null;
+                    return false;
+                }
+            });
+            //console.log(groupServices.groups);
+            if($scope.currentGroupLayers) {
+                angular.forEach($scope.currentGroupLayers, function(layerInGroup, index) {
+                    if(layer.parent_id === layerInGroup.id) {
+                        // 1 is single select
+                        // Remove the object have same parent id before add new object to stack
+                        if(layerInGroup.select_type === "1") {
+                            angular.forEach(groupServices.layerStack[layer.group_id], function(layerInStack, index) {
+                                if(layerInStack.parent_id === layerInGroup.id) {
+                                    delete groupServices.layerStack[layer.group_id][layerInStack.id];
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+            //groupServices.layerStack[layer.group_id][layer.id] = layer;
+            groupServices.layerStack[layer.group_id][layer.id] = layer;
+            groupServices.updateSelectedLayer(groupServices.layerStack);
         }
     }
     return {
@@ -56,11 +97,32 @@ pbpApp.directive("pbpLayerDetails", ["$compile", "pbpServices", "$location", fun
 }]);
 //==== SELECTED LAYER ====//
 pbpApp.directive("selectedLayer", ["$compile", "pbpServices", "$rootScope", function($compile, pbpServices, $rootScope) {
-    //=== MEDIA CONTROLLER ===//
+   //=== SELECTED LAYER CONTROLLER ===//
     selectedLayer.$inject = ["$scope", "pbpServices", "groupServices", "$rootScope"];
     function selectedLayer($scope, pbpServices, groupServices, $rootScope) {
         $scope.baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
         $scope.mediaUrl = angular.element(document.querySelector("#mst_media_url")).val() + "pbp/images/";
+        $scope.getTotalPrice = function(selectedLayers) {
+            var total = 0;
+            if(selectedLayers) {
+                angular.forEach(selectedLayers, function(layer, index) {
+                    total += parseFloat(layer.price);
+                });
+            }
+            return total.toFixed(2);
+        }
+        $scope.showLayer = function(stackLayer) {
+            if(angular.equals({}, stackLayer) || !stackLayer) {
+                return false;
+            }
+            return true;
+        }
+        $scope.removeSelectedLayer = function(layer) {
+            groupServices.currentGroupId = layer.group_id;
+            delete groupServices.layerStack[layer.group_id][layer.id];
+            //Update layerStack via services
+            groupServices.updateSelectedLayer(groupServices.layerStack);
+        }
     }
     return {
         restrict: 'AE',
@@ -71,6 +133,11 @@ pbpApp.directive("selectedLayer", ["$compile", "pbpServices", "$rootScope", func
         replace: true,
         link: function ($scope, element, attrs, controller) {
             
+        },
+        scope: {
+            groupId : "@",
+            layerStack: "=",
+            reloadPrice: "&"
         },
         controller: selectedLayer,
     }

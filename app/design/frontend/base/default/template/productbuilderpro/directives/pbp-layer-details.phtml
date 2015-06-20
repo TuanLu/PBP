@@ -6,7 +6,7 @@
         <div class="col-md-4">
             <div class="thumbnail-image" ng-show="optionInfo.thumbnail_image">
                 <a ng-click="addLayerToDesign(optionInfo)">
-                    <img src="{{mediaUrl + optionInfo.thumbnail_image}}" class="thumbnail" width="50px" />
+                    <img ng-if="optionInfo.thumbnail_image" src="{{mediaUrl + optionInfo.thumbnail_image}}" width="100%" />
                 </a>
             </div>
         </div>

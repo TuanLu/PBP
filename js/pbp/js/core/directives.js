@@ -248,7 +248,7 @@ pbpApp.directive("pbpDownloading", [function() {
 }]);
 //==== SELECTED LAYER ====//
 pbpApp.directive("selectedLayer", ["$compile", "pbpServices", "$rootScope", function($compile, pbpServices, $rootScope) {
-    //=== MEDIA CONTROLLER ===//
+    //=== SELECTED LAYER CONTROLLER ===//
     selectedLayer.$inject = ["$scope", "pbpServices", "groupServices", "$rootScope"];
     function selectedLayer($scope, pbpServices, groupServices, $rootScope) {
         $scope.baseUrl = angular.element(document.querySelector("#mst_base_url")).val();

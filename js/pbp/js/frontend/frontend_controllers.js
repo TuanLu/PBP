@@ -2,6 +2,16 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
     $scope.mediaUrl = $scope.mediaUrl = angular.element(document.querySelector("#mst_media_url")).val() + "pbp/images/";
     $scope.currentGroupId = angular.element(document.querySelector("#current_group_id")).val();
     $scope.group = null;
+    //======= SELECTED LAYER ======= //
+    //$scope.layerStack = groupServices.layerStack;
+    //Update layer stack whenever groupServices.layerStack change
+    //Need to track layerStack cause add and remove in different directive
+    $scope.$on('handleUpdateLayerStack', function() {
+        $scope.layerStack = groupServices.layerStack;
+        console.info("handleUpdateLayerStack called. layerStack changed!");
+        $scope.currentGroupId = groupServices.currentGroupId
+    });
+    //======= END SELECTED LAYER ======= //
     //Load ajax only first time
     groupServices.getGroupById($scope.currentGroupId)
     .then(
@@ -13,24 +23,4 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
             }
         }
     );
-    if(!$rootScope.layerStack) {
-        $rootScope.layerStack = {};
-    }
-    //When add or remove layer in selected layer panel, show that panel only on current group(product)
-    $rootScope.currentGroup = null;
-    //Remove selected layer event
-    $scope.removeSelectedLayer = function(layer) {
-        console.info("Remove Selected Layer From $rootScope.layerStack");
-        $rootScope.currentGroup = layer.group_id;
-        delete $rootScope.layerStack[layer.group_id][layer.id];
-        if(!$rootScope.layerStack[layer.group_id] && !$rootScope.layerStack[layer.group_id][layer.id]) {
-            $rootScope.showLayer = false;
-        }
-        //If layer stack of current group empty
-        if(angular.equals({}, $rootScope.layerStack[layer.group_id])) {
-            $rootScope.showLayer = false;
-        }
-    }
-    //Show selected layer or not
-    $rootScope.showLayer = Object.keys($rootScope.layerStack).length;
 }]);

@@ -10,7 +10,7 @@
                 <li ng-repeat="layer in layerStack[groupId]">
                     <div class="row">
                         <div class="col-xs-3">
-                            <img class="thumbnail" src="{{mediaUrl + layer.main_image}}" width="50px" />
+                            <img ng-if="layer.main_image" class="thumbnail" ng-src="{{mediaUrl + layer.main_image}}" width="50px" />
                         </div>
                         <div class="col-xs-3">
                              {{layer.title}}

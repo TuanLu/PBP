@@ -3,7 +3,7 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
     $scope.currentGroupId = angular.element(document.querySelector("#current_group_id")).val();
     $scope.group = null;
     //======= SELECTED LAYER ======= //
-    //$scope.layerStack = groupServices.layerStack;
+    $scope.layerStack = groupServices.layerStack;
     //Update layer stack whenever groupServices.layerStack change
     //Need to track layerStack cause add and remove in different directive
     $scope.$on('handleUpdateLayerStack', function() {

@@ -25,12 +25,12 @@
                 <pbp-layer-collection level="0" option-list="group.layers"></pbp-layer-collection>
             </div>
             <div class="col-md-5">
-                <div class="product-design-area" id="pbp_{{group.id}}" style="position: relative; width: 100%;">
-                    <img src="{{mediaUrl + layer.main_image}}" style="width: 100%; position: absolute;" ng-repeat="layer in layerStack[group.id]"/>
+                <div class="product-design-area" id="pbp_{{currentGroupId}}" style="position: relative; width: 100%;">
+                    <img ng-if="layer.main_image" ng-src="{{mediaUrl + layer.main_image}}" style="width: 100%; position: absolute;" ng-repeat="layer in layerStack[currentGroupId]"/>
                 </div>
             </div>
             <div class="col-md-3">
-                <selected-layer group-id="{{group.id}}" layer-stack="layerStack"></selected-layer>
+                <selected-layer group-id="{{currentGroupId}}" layer-stack="layerStack"></selected-layer>
                 <a class="button btn-primary" ng-show="showLayer">Add To Cart</a>
             </div>
         </div>

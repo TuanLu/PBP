@@ -7,14 +7,14 @@
     </default>
 	<productbuilderproadmin_adminhtml_productbuilderpro_index>
 		<reference name="head">
-			<action method="addItem"><type>js</type><name>pbp/js/angular.js</name></action>
-            <action method="addItem"><type>js</type><name>pbp/js/angular-route.min.js</name></action>
-            <action method="addItem"><type>js</type><name>pbp/js/angular-animate.js</name></action>
-            <action method="addItem"><type>js</type><name>pbp/js/app.js</name></action>
-            <action method="addItem"><type>js</type><name>pbp/js/routes.js</name></action>
-            <action method="addItem"><type>js</type><name>pbp/js/services.js</name></action>
-            <action method="addItem"><type>js</type><name>pbp/js/controllers.js</name></action>
-            <action method="addItem"><type>js</type><name>pbp/js/directives.js</name></action>
+			<action method="addItem"><type>js</type><name>pbp/js/angular/angular.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/angular/angular-route.min.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/angular/angular-animate.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/core/app.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/core/routes.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/core/services.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/core/controllers.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/core/directives.js</name></action>
 			<action method="addItem"><type>js_css</type><name>pbp/css/bootstrap.min.css</name></action>
             <action method="addItem"><type>js_css</type><name>pbp/css/styles.css</name></action>
 		</reference>
@@ -24,8 +24,8 @@
 	</productbuilderproadmin_adminhtml_productbuilderpro_index>
     <productbuilderproadmin_adminhtml_media_index>
 		<reference name="head">
-			<action method="addItem"><type>js</type><name>pbp/js/angular.js</name></action>
-            <action method="addItem"><type>js</type><name>pbp/js/directives.js</name></action>
+			<action method="addItem"><type>js</type><name>pbp/js/angular/angular.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/core/directives.js</name></action>
 			<action method="addItem"><type>js_css</type><name>pbp/css/bootstrap.min.css</name></action>
 		</reference>
 		<reference name="content">

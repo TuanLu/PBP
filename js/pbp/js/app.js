@@ -1,1 +1,1 @@
-var pbpApp = angular.module('pbpApp', ['ngRoute']);
+var pbpApp = angular.module('pbpApp', ['ngRoute', 'ngAnimate']);

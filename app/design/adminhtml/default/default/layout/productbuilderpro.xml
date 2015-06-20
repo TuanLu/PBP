@@ -9,6 +9,7 @@
 		<reference name="head">
 			<action method="addItem"><type>js</type><name>pbp/js/angular.js</name></action>
             <action method="addItem"><type>js</type><name>pbp/js/angular-route.min.js</name></action>
+            <action method="addItem"><type>js</type><name>pbp/js/angular-animate.js</name></action>
             <action method="addItem"><type>js</type><name>pbp/js/app.js</name></action>
             <action method="addItem"><type>js</type><name>pbp/js/routes.js</name></action>
             <action method="addItem"><type>js</type><name>pbp/js/services.js</name></action>

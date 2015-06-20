@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <img src="{{ mediaUrl + imgSrc}}" class="preview-{{name}}" alt="" width="50px" />
+                    <img ng-src="{{ mediaUrl + imgSrc}}" ng-if="imgSrc" class="preview-{{name}}" alt="" width="50px" />
                     <pbp-loading ng-if="isUploading"></pbp-loading>
                     <a class="btn btn-danger btn-xs" ng-show="imgSrc" ng-click="removeImage()" title="Remove this image">
                         <span aria-hidden="true" class="glyphicon glyphicon-remove-sign"></span>
@@ -31,7 +31,7 @@
                         <div class="row media-{{name}}">
                             <div class="col-sm-6 col-md-3" ng-repeat="image in imageList">
                                 <div class="thumbnail">
-                                    <img ng-click="chooseImage(image, name)" src="{{baseMediaUrl + image.filename}}" title="{{image.name}}" alt="{{image.name}}" class="img-rounded">
+                                    <img ng-click="chooseImage(image, name)" ng-if="image.filename" ng-src="{{baseMediaUrl + image.filename}}" title="{{image.name}}" alt="{{image.name}}" class="img-rounded">
                                 </div>
                             </div>
                         </div>

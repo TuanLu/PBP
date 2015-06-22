@@ -25,18 +25,6 @@ pbpApp.directive("pbpLayerDetails", ["$compile", "pbpServices", "$location", fun
             $scope.expand = !$scope.expand;
             angular.element(document.querySelector("#layer_" + layer.id + " ul")).toggleClass("ng-hide");
         }
-        $scope.removeLayer = function(layer) {
-            console.info("Remove layer");
-            if(!confirm("Are you really want to delete this layer?")) {
-                return false;
-            }
-            groupServices.removeLayer(layer)
-            .then(function(response) {
-                groupServices.updateGroupData(response);
-            }, function(error) {
-                console.warn(error);
-            });
-        }
         $scope.addLayerToDesign = function(layer) {
             $scope.isSelected = !$scope.isSelected;
             //First time load, layerStack == null
@@ -71,9 +59,23 @@ pbpApp.directive("pbpLayerDetails", ["$compile", "pbpServices", "$location", fun
                     }
                 });
             }
-            //groupServices.layerStack[layer.group_id][layer.id] = layer;
-            groupServices.layerStack[layer.group_id][layer.id] = layer;
+            //Toggle select layer or unselect
+            if(!$scope.isSelected) {
+                if(groupServices.layerStack[layer.group_id]) {
+                    angular.forEach(groupServices.layerStack[layer.group_id], function(layerInStack, index) {
+                        if(angular.equals(layer, layerInStack)) {
+                            delete groupServices.layerStack[layer.group_id][layerInStack.id];
+                            return;
+                        }
+                    });
+                }
+            } else {
+                console.log(layer);
+                groupServices.layerStack[layer.group_id][layer.id] = layer;
+            }
+            //Update to services
             groupServices.updateSelectedLayer(groupServices.layerStack);
+            console.log($scope);
         }
     }
     return {
@@ -121,6 +123,10 @@ pbpApp.directive("selectedLayer", ["$compile", "pbpServices", "$rootScope", func
         }
         $scope.removeSelectedLayer = function(layer) {
             groupServices.currentGroupId = layer.group_id;
+            //Try to access scope of li item via DOM selector
+            var liScope = angular.element(document.querySelector("#layer_" + layer.id)).scope();
+            //Remove left layer selected status when remove layer from layer panel 
+            liScope.$$childHead.isSelected = false;
             delete groupServices.layerStack[layer.group_id][layer.id];
             //Update layerStack via services
             groupServices.updateSelectedLayer(groupServices.layerStack);

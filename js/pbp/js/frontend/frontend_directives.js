@@ -18,7 +18,7 @@ pbpApp.directive("pbpLayerDetails", ["$compile", "pbpServices", "$location", fun
     layerController.$inject = ["$scope", "pbpServices", "groupServices", "$rootScope"];
     function layerController($scope, pbpServices, groupServices, $rootScope) {
         $scope.mediaUrl = angular.element(document.querySelector("#mst_media_url")).val() + "pbp/images/";
-        $scope.expand = true;
+        $scope.expand = false;
         $scope.expandLayer = function(layer) {
             $scope.expand = !$scope.expand;
             angular.element(document.querySelector("#layer_" + layer.id + " ul")).toggleClass("ng-hide");

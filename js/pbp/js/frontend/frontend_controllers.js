@@ -11,7 +11,23 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
         console.info("handleUpdateLayerStack called. layerStack changed!");
         $scope.currentGroupId = groupServices.currentGroupId
     });
+    
     //======= END SELECTED LAYER ======= //
+    
+    //======= ADD TO CART BUTTON ======= //
+    //Show or hide add to cart button
+    $scope.showAddToCartBtn = function(stackLayer) {
+        if(angular.equals({}, stackLayer) || !stackLayer) {
+            return false;
+        }
+        return true;
+    }
+    $scope.addToCart = function() {
+        console.info("Prepare add design to cart");
+        console.info(JSON.stringify($scope.layerStack[$scope.currentGroupId]));
+    }
+    //======= END ADD TO CART BUTTON ======= //
+    
     //Load ajax only first time
     groupServices.getGroupById($scope.currentGroupId)
     .then(

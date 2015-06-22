@@ -31,9 +31,12 @@
             </div>
             <div class="col-md-3">
                 <selected-layer group-id="{{currentGroupId}}" layer-stack="layerStack"></selected-layer>
-                <a class="button btn-primary" ng-show="showLayer">Add To Cart</a>
+                <a class="button btn-primary" ng-show="showAddToCartBtn(layerStack[currentGroupId])" ng-click="addToCart()"><?php echo $this->__("Add To Cart") ?></a>
             </div>
         </div>
+        <pre>
+            {{layerStack[currentGroupId]}}
+        </pre>
     </div>
 </div>
 <!-- End pbpApp -->

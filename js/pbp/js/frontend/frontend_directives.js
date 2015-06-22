@@ -70,12 +70,10 @@ pbpApp.directive("pbpLayerDetails", ["$compile", "pbpServices", "$location", fun
                     });
                 }
             } else {
-                console.log(layer);
                 groupServices.layerStack[layer.group_id][layer.id] = layer;
             }
             //Update to services
             groupServices.updateSelectedLayer(groupServices.layerStack);
-            console.log($scope);
         }
     }
     return {

@@ -186,9 +186,9 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
     if($scope.id !== '0' && groupServices.currentLayer) {
         $scope.layerData = groupServices.currentLayer;
         //Convert independence to array if not null. Edit Action
-        if($scope.layerData.independence) {
+        if($scope.layerData.independence && angular.isString($scope.layerData.independence)) {
             $scope.layerData.independence = $scope.layerData.independence.split(",");
-        } else {
+        } else if(!$scope.layerData.independence) {
             $scope.layerData.independence = [];
         }
     } else {

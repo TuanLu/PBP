@@ -1,6 +1,8 @@
 .pbp-wrapper a {
     text-decoration: none !important;
+    cursor: pointer;
 }
+/**LAYER**/
 .selected-layer .total-price {
     background: #006699 none repeat scroll 0 0;
     color: white;
@@ -11,6 +13,7 @@
 .selected-layer .panel-title {
     text-align: center;
 }
+/**End Layer**/
 /** Animate **/
 .ng-enter {
     transition: 0.75s;
@@ -34,3 +37,10 @@
     transition-delay: 0.1s;
 }
 **/
+/** End Angular Animate **/ 
+
+/**Frontend Directive**/
+.choose-thumbnail.active img {
+    border: 2px solid red;
+    border-radius: 50%;
+}

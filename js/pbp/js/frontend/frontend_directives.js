@@ -18,7 +18,9 @@ pbpApp.directive("pbpLayerDetails", ["$compile", "pbpServices", "$location", fun
     layerController.$inject = ["$scope", "pbpServices", "groupServices", "$rootScope"];
     function layerController($scope, pbpServices, groupServices, $rootScope) {
         $scope.mediaUrl = angular.element(document.querySelector("#mst_media_url")).val() + "pbp/images/";
+        //Item states
         $scope.expand = false;
+        $scope.isSelected = false;
         $scope.expandLayer = function(layer) {
             $scope.expand = !$scope.expand;
             angular.element(document.querySelector("#layer_" + layer.id + " ul")).toggleClass("ng-hide");
@@ -36,7 +38,7 @@ pbpApp.directive("pbpLayerDetails", ["$compile", "pbpServices", "$location", fun
             });
         }
         $scope.addLayerToDesign = function(layer) {
-            console.info("Add Layer To Design");
+            $scope.isSelected = !$scope.isSelected;
             //First time load, layerStack == null
             groupServices.currentGroupId = layer.group_id;
             if(!groupServices.layerStack) {

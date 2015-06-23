@@ -3,6 +3,7 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
     this.base_url = document.getElementById("mst_base_url").value;
     this.media_url = document.getElementById("mst_media_url").value + "pbp/images/";
     this.groups = null;
+    this.libraryImages = null;
     this.parents = null;
     this.currentLayer = null;
     this.layerStack = null;
@@ -10,6 +11,7 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
     // Return public API.
     return({
         groups: this.groups,
+        libraryImages: this.libraryImages,
         layerStack: this.layerStack,
         updateGroupData: updateGroupData,
         updateSelectedLayer: updateSelectedLayer,
@@ -20,6 +22,7 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
         currentGroupId: this.currentGroupId,
         addGroup: addGroup,
         getGroups: getGroups,
+        getLibraryImages: getLibraryImages,
         getGroupById: getGroupById,
         removeGroup: removeGroup,
         uploadImage: uploadImage,
@@ -55,6 +58,13 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
         var request = $http({
             method: "get",
             url: self.base_url + "productbuilderpro/main/getgroup",
+        });
+        return( request.then( handleSuccess, handleError ) );
+    }
+    function getLibraryImages() {
+        var request = $http({
+            method: "get",
+            url: self.base_url + "productbuilderpro/main/getlibraryimages",
         });
         return( request.then( handleSuccess, handleError ) );
     }

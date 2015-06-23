@@ -45,6 +45,20 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
         }
         return $groups;
     }
+    public function getLibraryImagesAction() {
+        //Use param to make filter later
+        $params = $this->getRequest()->getParams();
+        $images = $this->getLibraryImages($params);
+        echo json_encode($images);
+    }
+    protected function getLibraryImages($params) {
+        $images = Mage::getModel("productbuilderpro/image")->getCollection();
+        $libraryImages = array();
+        if($images->count()) {
+            $libraryImages = $images->toArray()['items'];
+        }
+        return $libraryImages;
+    }
     public function getGroupByIdAction() {
         $response = array(
             'status' => 'error',

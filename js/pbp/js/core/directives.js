@@ -209,7 +209,8 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpS
         controller: mediaController,
         scope: {
             name: '@',
-            imgSrc: '@'
+            imgSrc: '@',
+            libraryImages: '='
         }
     }
 }]);

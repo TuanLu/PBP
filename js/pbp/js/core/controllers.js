@@ -40,12 +40,10 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
     });
     //======= SELECTED LAYER ======= //
     $scope.layerStack = groupServices.layerStack;
-    console.log("scope layerStack", $scope.layerStack);
     //Update layer stack whenever groupServices.layerStack change
     //Need to track layerStack cause add and remove in different directive
     $scope.$on('handleUpdateLayerStack', function() {
         $scope.layerStack = groupServices.layerStack;
-        console.info("handleUpdateLayerStack called. layerStack changed!");
         $scope.currentGroupId = groupServices.currentGroupId
     });
     // Used layer using $rootScope
@@ -268,4 +266,21 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
         $scope.openIndependence = !$scope.openIndependence;
     }
     //============== END independency ===================
+    
+    //======= MEDIA MODEL ==============//
+    $scope.libraryImages = groupServices.libraryImages;
+    if($scope.libraryImages == null) {
+        // The groupServices returns a promise.
+        groupServices.getLibraryImages()
+        .then(
+            function( images ) {
+                 $scope.libraryImages = images;
+            }
+        );
+    }
+    //Update groups in service when scope change
+    $scope.$watch("libraryImages", function() {
+        groupServices.libraryImages = $scope.libraryImages;
+    });
+    //======= END MEDIA MODEL ==========//
 }]);

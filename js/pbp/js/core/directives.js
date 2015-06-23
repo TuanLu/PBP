@@ -134,23 +134,7 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpS
         $scope.baseUrl = angular.element(document.querySelector("#mst_base_url")).val();
         $scope.mediaUrl = angular.element(document.querySelector("#mst_media_url")).val() + "pbp/images/";
         //Image list
-        $scope.imageList = [
-            {
-                id: 1,
-                filename: 'sample.png',
-                name: 'Original Xbox',
-            },
-            {
-                id: 2,
-                filename: 'sample.png',
-                name: 'Original Ps3',
-            },
-            {
-                id: 3,
-                filename: 'sample.png',
-                name: 'Microsoft Xbox',
-            }
-        ];
+        $scope.searchKeyword = '';
         $scope.showMedia = false;
         $scope.isUploading = false;
         $scope.imgSrc = '';

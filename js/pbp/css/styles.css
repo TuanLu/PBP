@@ -44,3 +44,31 @@
     border: 2px solid red;
     border-radius: 50%;
 }
+/**========================= MEDIA DIRECTIVE ======================**/
+.media-wrapper {
+    background: #ccc none repeat scroll 0 0;
+    border: 2px solid #006699;
+    margin-top: 10px;
+    position: absolute;
+    right: 0;
+    top: 33px;
+    z-index: 999999;
+}
+.media-wrapper .search-image {
+   padding: 5px 10px;
+}
+.image-list {
+    margin-top: 5px;
+    max-height: 200px;
+    overflow-y: scroll;
+    padding: 0;
+    border-top: 1px solid #ccc;
+}
+.image-list a:hover img {
+    border: 2px solid #000000;
+}
+.image-list img {
+    margin: 5px;
+    padding: 5px;
+    width: 45%;
+}

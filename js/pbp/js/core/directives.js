@@ -145,7 +145,9 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpS
             $scope.showMedia = false;
         }
         $scope.chooseImage = function(image, inputName) {
-            angular.element(document.querySelector("input[name='"+ inputName +"']")).val(image.filename);
+            //angular.element(document.querySelector("input[name='"+ inputName +"']")).val(image.filename);
+            $scope.$parent[$scope.name] = image.filename;
+            $scope.imgSrc = image.filename;
             $scope.showMedia = false;
         }
         $scope.removeImage = function() {

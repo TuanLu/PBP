@@ -141,6 +141,9 @@ pbpApp.directive("pbpMedia", ["$compile", "pbpServices", function($compile, pbpS
         $scope.selectImage = function(element) {
             $scope.showMedia = !$scope.showMedia;
         }
+        $scope.closeImageLibrary = function() {
+            $scope.showMedia = false;
+        }
         $scope.chooseImage = function(image, inputName) {
             angular.element(document.querySelector("input[name='"+ inputName +"']")).val(image.filename);
             $scope.showMedia = false;

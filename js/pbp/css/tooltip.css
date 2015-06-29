@@ -1,0 +1,82 @@
+/*----- Tooltip -----*/
+.tooltip .tooltip-content {
+    background: rgba(0, 0, 0, 0.32) none repeat scroll 0 0;
+	border-radius: 3px;
+	color: #fff;
+	display: none;
+	font-size: 14px;
+	line-height: 150%;
+	min-width: 190px;
+	padding: 10px;
+	position: absolute;
+	text-shadow: -1px 1px 0 rgba(0, 0, 0, 0.2);
+	text-transform: none;
+	z-index: 1000;
+}
+.tooltip {
+    position:relative;
+}
+.tooltip .tooltip-content:before {
+    width:0px;
+    padding:0px;
+    position:absolute;
+    content:'';
+}
+.tooltip:hover .tooltip-content {
+  display: inline-block;
+}
+/* Top */
+.tooltip.top .tooltip-content {
+    bottom:20px;
+    left:-10px;
+}
+ 
+.tooltip.top .tooltip-content:before {
+    bottom:-5px;
+    left:10px;
+    border-left:5px solid transparent;
+    border-right:5px solid transparent; 
+    border-top:5px solid rgba(0,0,0,0.75); 
+}
+ 
+/* Right */
+.tooltip.right .tooltip-content {
+    left: 100%;
+	top: 0;
+}
+ 
+.tooltip.right .tooltip-content:before {
+    left: -10px;
+    top: 38%;
+    border-top:10px solid transparent;
+    border-bottom:10px solid transparent; 
+    border-right:10px solid rgba(0,0,0,0.75); 
+}
+ 
+/* Bottom */
+.tooltip.bottom .tooltip-content {
+    top:20px;
+    left:-10px;
+}
+ 
+.tooltip.bottom .tooltip-content:before {
+    top:-5px;
+    left:10px;
+    border-left:5px solid transparent;
+    border-right:5px solid transparent; 
+    border-bottom:5px solid rgba(0,0,0,0.75); 
+}
+ 
+/* Left */
+.tooltip.left .tooltip-content {
+    top:-10px;
+    right:20px;
+}
+ 
+.tooltip.left .tooltip-content:before {
+    top:10px;
+    right:-5px;
+    border-top:5px solid transparent;
+    border-bottom:5px solid transparent; 
+    border-left:5px solid rgba(0,0,0,0.75); 
+}

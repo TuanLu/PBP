@@ -1,6 +1,150 @@
 <?php $jsPbp = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); ?>
-<link href="<?php echo $jsPbp ; ?>pbp/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="<?php echo $jsPbp ; ?>pbp/css/styles.css" rel="stylesheet"/>
+<link href="<?php echo $jsPbp ; ?>pbp/css/product-builder.css" rel="stylesheet"/>
+<link href="<?php echo $jsPbp ; ?>pbp/css/accordion.css" rel="stylesheet"/>
+<link href="<?php echo $jsPbp ; ?>pbp/css/tooltip.css" rel="stylesheet"/>
+<link href='http://fonts.googleapis.com/css?family=Roboto:500,300,700,400&subset=cyrillic,cyrillic-ext,latin,latin-ext,vietnamese' rel='stylesheet' type='text/css'>
+<!-- pbpApp -->
+<input type="hidden" value="<?php echo Mage::helper("productbuilderpro")->getBaseUrl(); ?>" id="mst_base_url" />
+<input type="hidden" value="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) ?>" id="mst_media_url" />
+<input type="hidden" value="<?php echo $this->getData("group_id") ?>" id="current_group_id" />
+<div class="product-builder-wrap" ng-app="pbpApp" ng-controller="pbpFrontendController">
+    <div class="pd-left">
+        <!-- Product Builder Tools -->
+        <div class="pd-tools accordion">					
+            <div class="accordion-section as1">
+                <a class="accordion-section-title tooltip right active" href="#accordion-1">
+                    <span>Cover</span>
+                    <div class="tooltip-content">Select Cover from special cover list </div>
+                </a>						 
+                <div id="accordion-1" class="accordion-section-content open">
+                    <ul class="colours">
+                        <li><a href="#"><img src="images/c1.png" alt="Color1" /></a></li>
+                        <li><a href="#"><img src="images/c2.png" alt="Color2" /></a></li>
+                        <li><a href="#"><img src="images/c3.png" alt="Color3" /></a></li>
+                        <li><a href="#"><img src="images/c4.png" alt="Color4" /></a></li>
+                        <li><a href="#"><img src="images/c5.png" alt="Color5" /></a></li>
+                        <li><a href="#"><img src="images/c6.png" alt="Color6" /></a></li>
+                        <li><a href="#"><img src="images/c7.png" alt="Color7" /></a></li>
+                        <li><a href="#"><img src="images/c8.png" alt="Color8" /></a></li>
+                        <li><a href="#"><img src="images/c9.png" alt="Color9" /></a></li>
+                        <li><a href="#"><img src="images/c10.png" alt="Color10" /></a></li>
+                        <li><a href="#"><img src="images/c11.png" alt="Color11" /></a></li>
+                    </ul>
+                    <ul class="colours extra">
+                        <li class="label">Leather + $20</li>
+                        <li><a href="#"><img src="images/c12.png" alt="Color12" /></a></li>
+                        <li><a href="#"><img src="images/c13.png" alt="Color13" /></a></li>
+                        <li><a href="#"><img src="images/c14.png" alt="Color14" /></a></li>
+                        <li><a href="#"><img src="images/c15.png" alt="Color15" /></a></li>
+                    </ul>
+                </div><!--end .accordion-section-content-->
+            </div><!--end .accordion-section-->
+            <div class="accordion-section as2">
+                <a class="accordion-section-title tooltip right" href="#accordion-2"><span>Rail Material</span>
+                    <div class="tooltip-content">Select Rail from special Rail list </div>
+                </a>						 
+                <div id="accordion-2" class="accordion-section-content">
+                    Tab2 content
+                </div>
+            </div><!--end .accordion-section-->
+            <div class="accordion-section as3">
+                <a class="accordion-section-title tooltip right" href="#accordion-3"><span>Base</span>
+                    <div class="tooltip-content">Select Base from special Base list </div>
+                </a>						 
+                <div id="accordion-3" class="accordion-section-content">
+                    Tab3 content
+                </div>
+            </div><!--end .accordion-section-->
+            <div class="accordion-section as4">
+                <a class="accordion-section-title done tooltip right" href="#accordion-4"><span>Bumpers</span>
+                    <div class="tooltip-content">Select Bumpers from special Bumpers list </div>
+                </a>						 
+                <div id="accordion-4" class="accordion-section-content">
+                    Tab4 content
+                </div>
+            </div><!--end .accordion-section-->
+            <div class="accordion-section as5">
+                <a class="accordion-section-title tooltip right" href="#accordion-5"><span>Logo</span>
+                    <div class="tooltip-content">Select Logo from special Logo list </div>
+                </a>						 
+                <div id="accordion-5" class="accordion-section-content">
+                    Tab5 content
+                </div>
+            </div><!--end .accordion-section-->
+            <div class="accordion-section as6">
+                <a class="accordion-section-title tooltip right" href="#accordion-6"><span>Stitching</span>
+                    <div class="tooltip-content">Select Stitching from special Stitching list </div>
+                </a>						 
+                <div id="accordion-6" class="accordion-section-content">
+                    Tab6 content
+                </div>
+            </div><!--end .accordion-section-->
+        </div><!--end .accordion-->
+        <!-- End Product Builder Tools -->
+        <!-- Product Builder Buttons -->
+        <ul class="pd-buttons">
+            <li class="shu-btn">
+                <a href="#"><span>Shuffle</span></a>
+            </li>
+            <li class="last re-btn">
+                <a href="#"><span>Reset</span></a>
+            </li>
+        </ul><!-- Product Builder Buttons -->
+
+    </div>
+    <div class="pd-right">
+        <div class="pd-main">
+            <div class="pd-layer">
+                <img src="images/l1.png" alt="Layer1" />
+            </div>
+            <div class="pd-share">
+                <h3 class="label">Share</h3>
+                <div class="share-list">
+                    <span class='st_facebook_large' displayText='Facebook'></span>
+                    <span class='st_twitter_large' displayText='Tweet'></span>
+                    <span class='st_googleplus_large' displayText='Google +'></span>
+                    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+                    <script type="text/javascript">stLight.options({publisher: "ba26b9c8-1fff-46a0-94b3-39c58d5b3e3b", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+                </div>
+            </div>
+        </div>
+        <div class="pd-bottom">
+            <div class="pd-overview">
+                <h3 class="title">Selected Items:</h3>
+                <dl>
+                    <div>
+                        <dt><span>Rails:</span></dt>
+                        <dd><span> Titanium (+ £30)</span></dd>
+                    </div>	
+                    <div>	
+                        <dt><span>Cover:</span></dt>
+                        <dd><span>Black</span></dd>
+                    </div>	
+                    <div>	
+                        <dt><span>Base:</span></dt>
+                        <dd><span>Clear</span></dd>
+                    </div>		
+                    <div>		
+                        <dt><span>Bumpers:</span></dt>
+                        <dd><span>Black</span></dd>
+                    </div>		
+                    <div>		
+                        <dt><span>Logo:</span></dt>
+                        <dd><span>Dark Brown</span></dd>
+                    </div>		
+                    <div>		
+                        <dt><span>Stitching:</span></dt>
+                        <dd><span>Blue</span></dd>
+                    </div>	
+                </dl>
+            </div>
+            <div class="pd-summary">
+                <h3 class="title">Sub Total:<span class="total-price">₤99.00</span></h3>
+                <a href="#" class="btn btn-cart"><span> Add to cart</span></a>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="<?php echo $jsPbp; ?>pbp/js/angular/angular.js"></script>
 <script src="<?php echo $jsPbp; ?>pbp/js/angular/angular-route.min.js"></script>
 <script src="<?php echo $jsPbp; ?>pbp/js/angular/angular-animate.js"></script>
@@ -9,34 +153,3 @@
 <script src="<?php echo $jsPbp; ?>pbp/js/core/services.js"></script>
 <script src="<?php echo $jsPbp; ?>pbp/js/frontend/frontend_controllers.js"></script>
 <script src="<?php echo $jsPbp; ?>pbp/js/frontend/frontend_directives.js"></script>
-<!-- pbpApp -->
-<input type="hidden" value="<?php echo Mage::helper("productbuilderpro")->getBaseUrl(); ?>" id="mst_base_url" />
-<input type="hidden" value="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) ?>" id="mst_media_url" />
-<input type="hidden" value="<?php echo $this->getData("group_id") ?>" id="current_group_id" />
-<div class="pbp-wrapper" ng-app="pbpApp">
-    <div class="pbp-container" ng-controller="pbpFrontendController">
-        <div class="row">
-            <div class="col-md-12">
-                <h4 ng-cloak>{{group.title}}</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <pbp-layer-collection level="0" option-list="group.layers"></pbp-layer-collection>
-            </div>
-            <div class="col-md-5">
-                <div class="product-design-area" id="pbp_{{currentGroupId}}" style="position: relative; width: 100%;">
-                    <img ng-if="layer.main_image" ng-src="{{mediaUrl + layer.main_image}}" style="width: 100%; position: absolute;" ng-repeat="layer in layerStack[currentGroupId]"/>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <selected-layer group-id="{{currentGroupId}}" layer-stack="layerStack"></selected-layer>
-                <a class="button btn-primary" ng-show="showAddToCartBtn(layerStack[currentGroupId])" ng-click="addToCart()"><?php echo $this->__("Add To Cart") ?></a>
-            </div>
-        </div>
-        <pre>
-            {{layerStack[currentGroupId]}}
-        </pre>
-    </div>
-</div>
-<!-- End pbpApp -->

@@ -2,6 +2,7 @@
 <link href="<?php echo $jsPbp ; ?>pbp/css/product-builder.css" rel="stylesheet"/>
 <link href="<?php echo $jsPbp ; ?>pbp/css/accordion.css" rel="stylesheet"/>
 <link href="<?php echo $jsPbp ; ?>pbp/css/tooltip.css" rel="stylesheet"/>
+<link href="<?php echo $jsPbp ; ?>pbp/css/styles.css" rel="stylesheet"/>
 <link href='http://fonts.googleapis.com/css?family=Roboto:500,300,700,400&subset=cyrillic,cyrillic-ext,latin,latin-ext,vietnamese' rel='stylesheet' type='text/css'>
 <!-- pbpApp -->
 <input type="hidden" value="<?php echo Mage::helper("productbuilderpro")->getBaseUrl(); ?>" id="mst_base_url" />
@@ -10,81 +11,42 @@
 <div class="product-builder-wrap" ng-app="pbpApp" ng-controller="pbpFrontendController">
     <div class="pd-left">
         <!-- Product Builder Tools -->
-        <div class="pd-tools accordion">					
-            <div class="accordion-section as1">
-                <a class="accordion-section-title tooltip right active" href="#accordion-1">
-                    <span>Cover</span>
-                    <div class="tooltip-content">Select Cover from special cover list </div>
-                </a>						 
-                <div id="accordion-1" class="accordion-section-content open">
-                    <ul class="colours">
-                        <li><a href="#"><img src="images/c1.png" alt="Color1" /></a></li>
-                        <li><a href="#"><img src="images/c2.png" alt="Color2" /></a></li>
-                        <li><a href="#"><img src="images/c3.png" alt="Color3" /></a></li>
-                        <li><a href="#"><img src="images/c4.png" alt="Color4" /></a></li>
-                        <li><a href="#"><img src="images/c5.png" alt="Color5" /></a></li>
-                        <li><a href="#"><img src="images/c6.png" alt="Color6" /></a></li>
-                        <li><a href="#"><img src="images/c7.png" alt="Color7" /></a></li>
-                        <li><a href="#"><img src="images/c8.png" alt="Color8" /></a></li>
-                        <li><a href="#"><img src="images/c9.png" alt="Color9" /></a></li>
-                        <li><a href="#"><img src="images/c10.png" alt="Color10" /></a></li>
-                        <li><a href="#"><img src="images/c11.png" alt="Color11" /></a></li>
+        <div class="pd-tools accordion">
+             <div ng-cloak class="accordion-section as{{layer.id}}" ng-repeat="layer in group.layers track by layer.id">
+                <a id="accordion-arrow-{{layer.id}}" class="accordion-section-title tooltip right" ng-click="expand(layer)">
+                    <span style="background: transparent url('{{mediaUrl + layer.thumbnail_image}}') no-repeat scroll left center;">
+                        {{layer.title}}
+                    </span>
+                    <div class="tooltip-content" ng-if="layer.description">{{layer.description}}</div>
+                </a>
+                <div id="accordion-{{layer.id}}" class="accordion-section-content">
+                    <ul class="colours" ng-if="layer.selected_level == 1 && layer.options">
+                        <li ng-class="{'selected' : layerStack[currentGroupId][level1Layer.id]}" ng-repeat="level1Layer in layer.options">
+                            <a ng-click="addLayerToDesign(level1Layer, layer)" class="layer-item">
+                                <span style="display: none;" class="layer-title">{{level1Layer.title}}</span>
+                                <img ng-if="level1Layer.thumbnail_image" ng-src="{{mediaUrl + level1Layer.thumbnail_image}}" title="{{level1Layer.title}}" alt="{{level1Layer.title}}" />
+                            </a>
+                        </li>
                     </ul>
-                    <ul class="colours extra">
-                        <li class="label">Leather + $20</li>
-                        <li><a href="#"><img src="images/c12.png" alt="Color12" /></a></li>
-                        <li><a href="#"><img src="images/c13.png" alt="Color13" /></a></li>
-                        <li><a href="#"><img src="images/c14.png" alt="Color14" /></a></li>
-                        <li><a href="#"><img src="images/c15.png" alt="Color15" /></a></li>
-                    </ul>
+                    <div ng-if="layer.selected_level == 2 && layer.options" class="level1" ng-repeat="level1Layer in layer.options">
+                        <span ng-if="level1Layer.options" class="label">{{level1Layer.title}}</span>
+                        <ul class="colours" ng-if="level1Layer.options">
+                            <li ng-class="{'selected' : layerStack[currentGroupId][level2Layer.id]}" ng-repeat="level2Layer in level1Layer.options">
+                                <a ng-click="addLayerToDesign(level2Layer, layer)" class="select-layer">
+                                    <span style="display: none;" class="layer-title">{{level2Layer.title}}</span>
+                                    <img ng-if="level2Layer.thumbnail_image" ng-src="{{mediaUrl + level2Layer.thumbnail_image}}"  title="{{level2Layer.title}}" alt="{{level2Layer.title}}" />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div><!--end .accordion-section-content-->
-            </div><!--end .accordion-section-->
-            <div class="accordion-section as2">
-                <a class="accordion-section-title tooltip right" href="#accordion-2"><span>Rail Material</span>
-                    <div class="tooltip-content">Select Rail from special Rail list </div>
-                </a>						 
-                <div id="accordion-2" class="accordion-section-content">
-                    Tab2 content
-                </div>
-            </div><!--end .accordion-section-->
-            <div class="accordion-section as3">
-                <a class="accordion-section-title tooltip right" href="#accordion-3"><span>Base</span>
-                    <div class="tooltip-content">Select Base from special Base list </div>
-                </a>						 
-                <div id="accordion-3" class="accordion-section-content">
-                    Tab3 content
-                </div>
-            </div><!--end .accordion-section-->
-            <div class="accordion-section as4">
-                <a class="accordion-section-title done tooltip right" href="#accordion-4"><span>Bumpers</span>
-                    <div class="tooltip-content">Select Bumpers from special Bumpers list </div>
-                </a>						 
-                <div id="accordion-4" class="accordion-section-content">
-                    Tab4 content
-                </div>
-            </div><!--end .accordion-section-->
-            <div class="accordion-section as5">
-                <a class="accordion-section-title tooltip right" href="#accordion-5"><span>Logo</span>
-                    <div class="tooltip-content">Select Logo from special Logo list </div>
-                </a>						 
-                <div id="accordion-5" class="accordion-section-content">
-                    Tab5 content
-                </div>
-            </div><!--end .accordion-section-->
-            <div class="accordion-section as6">
-                <a class="accordion-section-title tooltip right" href="#accordion-6"><span>Stitching</span>
-                    <div class="tooltip-content">Select Stitching from special Stitching list </div>
-                </a>						 
-                <div id="accordion-6" class="accordion-section-content">
-                    Tab6 content
-                </div>
             </div><!--end .accordion-section-->
         </div><!--end .accordion-->
         <!-- End Product Builder Tools -->
         <!-- Product Builder Buttons -->
         <ul class="pd-buttons">
             <li class="shu-btn">
-                <a href="#"><span>Shuffle</span></a>
+                <a ng-click="shuffleDesign()"><span>Shuffle</span></a>
             </li>
             <li class="last re-btn">
                 <a href="#"><span>Reset</span></a>
@@ -94,8 +56,8 @@
     </div>
     <div class="pd-right">
         <div class="pd-main">
-            <div class="pd-layer">
-                <img src="images/l1.png" alt="Layer1" />
+            <div class="pd-layer" style="position: relative;">
+                <img ng-if="layer.main_image" ng-src="{{mediaUrl + layer.main_image}}" style="width: 100%; position: absolute;" ng-repeat="layer in layerStack[currentGroupId]"/>
             </div>
             <div class="pd-share">
                 <h3 class="label">Share</h3>
@@ -110,32 +72,12 @@
         </div>
         <div class="pd-bottom">
             <div class="pd-overview">
-                <h3 class="title">Selected Items:</h3>
+                <h3 class="title"><?php echo $this->__("Selected Items") ?>:</h3>
                 <dl>
-                    <div>
-                        <dt><span>Rails:</span></dt>
-                        <dd><span> Titanium (+ £30)</span></dd>
-                    </div>	
-                    <div>	
-                        <dt><span>Cover:</span></dt>
-                        <dd><span>Black</span></dd>
-                    </div>	
-                    <div>	
-                        <dt><span>Base:</span></dt>
-                        <dd><span>Clear</span></dd>
-                    </div>		
-                    <div>		
-                        <dt><span>Bumpers:</span></dt>
-                        <dd><span>Black</span></dd>
-                    </div>		
-                    <div>		
-                        <dt><span>Logo:</span></dt>
-                        <dd><span>Dark Brown</span></dd>
-                    </div>		
-                    <div>		
-                        <dt><span>Stitching:</span></dt>
-                        <dd><span>Blue</span></dd>
-                    </div>	
+                    <div ng-repeat="selectedLayer in layerStack[currentGroupId]">
+                        <dt><span>{{selectedLayer.root_title}}:</span></dt>
+                        <dd>{{selectedLayer.title}}</dd>
+                    </div>
                 </dl>
             </div>
             <div class="pd-summary">

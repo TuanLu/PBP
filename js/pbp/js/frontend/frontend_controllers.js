@@ -9,7 +9,6 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
     $scope.$on('handleUpdateLayerStack', function() {
         $scope.layerStack = groupServices.layerStack;
         console.info("handleUpdateLayerStack called. layerStack changed!");
-        $scope.currentGroupId = groupServices.currentGroupId
     });
     
     //======= END SELECTED LAYER ======= //
@@ -33,10 +32,50 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
     .then(
         function( group ) {
             if(group.status === "success") {
-                $scope.group = group.group_data;
+                $scope.group = $scope.addSelectionLevel(group.group_data);
+                groupServices.initLayerStack($scope.group);
             } else {
                 console.warn(group.message);
             }
         }
     );
+    $scope.expand = function(layer) {
+        angular.element(".accordion-section-content").hide();
+        angular.element(".accordion-section-title").removeClass("active");
+        angular.element(document.querySelector("#accordion-" + layer.id)).show();
+        angular.element("#accordion-arrow-" + layer.id).addClass("active");
+        //fadeIn,slideDown,slideToggle
+        //layer.expand = !layer.expand;
+    }
+    /**Root (layer has parent_id = 0) has sub category or just have items only
+        Need to check in level 0, for checking in html purpose
+        Return a group with new property: selected_level
+    **/
+    $scope.addSelectionLevel = function(group) {
+        if(group.layers) {
+            angular.forEach(group.layers, function(childLayer, index) {
+                childLayer.selected_level = 1;
+                if(childLayer.options) {
+                   if(childLayer.options[0].options) {
+                        childLayer.selected_level = 2;
+                   } 
+                }
+            });
+        }
+        return group;
+    }
+    /**ADD LAYER**/
+    $scope.addLayerToDesign = function(layer, rootLayer) {
+        //Add layer details
+        layer.root_id = rootLayer.id;
+        layer.root_title = rootLayer.title;
+        groupServices.removeSelectedLayerByRootId(rootLayer.id, $scope.currentGroupId);
+        groupServices.layerStack[layer.group_id][layer.id] = layer;
+        //Update to services
+        groupServices.updateSelectedLayer(groupServices.layerStack);
+    }
+    // shuffleDesign
+    $scope.shuffleDesign = function() {
+        groupServices.shuffleLayers($scope.group);
+    }
 }]);

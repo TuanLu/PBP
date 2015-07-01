@@ -173,6 +173,12 @@ body {
   }
 }
 /**====== Tim's Styles**/
+.product-builder-wrap a {
+    cursor: pointer;
+}
+.product-builder-wrap ul.colours li {
+    margin-left: 2px;
+}
 .pbp-wrapper a {
     text-decoration: none !important;
     cursor: pointer;
@@ -246,4 +252,9 @@ body {
     margin: 5px;
     padding: 5px;
     width: 45%;
+}
+/**==== LEFT PANEL ====**/
+.pd-left li.selected a,
+.pd-left div.selected a{
+    border: 1px solid red;
 }

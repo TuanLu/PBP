@@ -6,7 +6,7 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
     this.libraryImages = null;
     this.parents = null;
     this.currentLayer = null;
-    this.layerStack = null;
+    this.layerStack = {};
     this.currentGroupId = null;
     // Return public API.
     return({
@@ -28,7 +28,11 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
         uploadImage: uploadImage,
         addLayer: addLayer,
         removeLayer: removeLayer,
-        getLayerParents: getLayerParents
+        getLayerParents: getLayerParents,
+        initLayerStack: initLayerStack,
+        shuffleLayers: shuffleLayers,
+        removeSelectedLayerByRootId: removeSelectedLayerByRootId,
+        getRandomInt: getRandomInt
     });
     //Public method for group
     function updateGroupData(groups) {
@@ -101,6 +105,69 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
             headers: {'Content-Type': undefined}
         });
         return request.then(handleSuccess, handleError);
+    }
+    //Init layerStack to store selected layer
+    function initLayerStack(group) {
+        console.info("Init LayerStack On Services");
+        if(!this.layerStack[group.id]) {
+            this.layerStack[group.id] = {};
+        }
+        this.shuffleLayers(group);
+        //return this.layerStack;
+    }
+    //Make default selected layers or random selected layers
+    function shuffleLayers(group) {
+        var level1Layer,
+            level2Layer,
+            randomIndex,
+            layerDetails,
+            self = this;
+        if(group.layers) {
+            angular.forEach(group.layers, function(childLayer, index) {
+                //Remove selected layer in current root
+                self.removeSelectedLayerByRootId(childLayer.id, group.id);
+                //Check the layer selectedable in which level
+                //Right now supported 2 level only, for another level, need more custom code here
+                if(childLayer.options) {
+                    randomIndex = self.getRandomInt(0, (childLayer.options.length));
+                    level1Layer = childLayer.options[0];
+                    //Check if level1Layer has options or not
+                    if(level1Layer.options) {
+                        level2Layer = childLayer.options[randomIndex];
+                        if(level2Layer.options) {
+                            randomIndex = self.getRandomInt(0, level2Layer.options.length);
+                            layerDetails = level2Layer.options[randomIndex];
+                            //Add root info
+                            layerDetails.root_id = childLayer.id;
+                            layerDetails.root_title = childLayer.title;
+                            self.layerStack[group.id][level2Layer.options[randomIndex].id] = layerDetails;    
+                        }
+                    } else {
+                        layerDetails = childLayer.options[randomIndex];
+                        //Add root info
+                        layerDetails.root_id = childLayer.id;
+                        layerDetails.root_title = childLayer.title;
+                        self.layerStack[group.id][childLayer.options[randomIndex].id] = layerDetails;
+                    }
+                }
+            });
+        }
+    }
+    // If there is child layer of root layer in stack, remove this one and add new layer
+    function removeSelectedLayerByRootId(rootId, groupId) {
+        var self = this;
+        if(self.layerStack && self.layerStack[groupId]) {
+            angular.forEach(self.layerStack[groupId], function(selectedLayer, index) {
+                if(selectedLayer.root_id == rootId) {
+                    delete self.layerStack[groupId][selectedLayer.id];
+                    self.updateSelectedLayer(self.layerStack);
+                    return true;
+                }
+            });
+        }
+    }
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
     }
     //Methos for layer
     function addLayer( layerData ) {

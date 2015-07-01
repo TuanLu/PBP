@@ -140,6 +140,7 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
                             //Add root info
                             layerDetails.root_id = childLayer.id;
                             layerDetails.root_title = childLayer.title;
+                            layerDetails.root_zindex = childLayer.zindex;
                             self.layerStack[group.id][level2Layer.options[randomIndex].id] = layerDetails;    
                         }
                     } else {
@@ -147,6 +148,7 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
                         //Add root info
                         layerDetails.root_id = childLayer.id;
                         layerDetails.root_title = childLayer.title;
+                        layerDetails.root_zindex = childLayer.zindex;
                         self.layerStack[group.id][childLayer.options[randomIndex].id] = layerDetails;
                     }
                 }

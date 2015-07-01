@@ -57,7 +57,11 @@
     <div class="pd-right">
         <div class="pd-main">
             <div class="pd-layer" style="position: relative;">
-                <img ng-if="layer.main_image" ng-src="{{mediaUrl + layer.main_image}}" style="width: 100%; position: absolute;" ng-repeat="layer in layerStack[currentGroupId]"/>
+                <img class="layer_image" 
+                     ng-if="layer.main_image" 
+                     style="z-index: {{layer.root_zindex}}; position: absolute; width: 100%;"
+                     ng-repeat="layer in layerStack[currentGroupId]"
+                     ng-src="{{mediaUrl + layer.main_image}}" />
             </div>
             <div class="pd-share">
                 <h3 class="label">Share</h3>

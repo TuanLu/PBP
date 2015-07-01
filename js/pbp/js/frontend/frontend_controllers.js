@@ -69,6 +69,7 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
         //Add layer details
         layer.root_id = rootLayer.id;
         layer.root_title = rootLayer.title;
+        layer.root_zindex = rootLayer.zindex;
         groupServices.removeSelectedLayerByRootId(rootLayer.id, $scope.currentGroupId);
         groupServices.layerStack[layer.group_id][layer.id] = layer;
         //Update to services

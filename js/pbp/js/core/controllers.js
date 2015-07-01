@@ -129,7 +129,8 @@ pbpApp.controller('addLayerController', ["$scope", "groupServices", "$location",
             is_required: '2',
             status: '1',
             select_type: '1',
-            independence: []
+            independence: [],
+            zindex: 0
         }
     }
     //If admin reload add layer page, redirect to main page

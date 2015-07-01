@@ -91,6 +91,12 @@
                                         <input type="text" class="form-control" ng-model="layerData.position" id="layer_position" name="position"/>
                                     </div>
                                 </div>
+                                <div class="form-group" ng-if="layerData.parent_id == 0">
+                                    <label for="layer_zindex" class="col-sm-2"><?php echo $this->__("Z-Index") ?></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" ng-model="layerData.zindex" id="layer_zindex" name="zindex"/>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label for="layer_status" class="col-sm-2"><?php echo $this->__("Status") ?></label>
                                     <div class="col-sm-10">

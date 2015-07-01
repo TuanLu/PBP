@@ -18,7 +18,9 @@ class Magebay_Productbuilderpro_Model_Layer extends Mage_Core_Model_Abstract {
         return $this;
     }
     public function getAllLayers() {
-        return $this->getCollection();
+        $collection = $this->getCollection();
+        $collection->setOrder("position", "DESC");
+        return $collection;
     }
     public function getLayerByGroupId ($group_id) 
 	{
@@ -92,7 +94,7 @@ class Magebay_Productbuilderpro_Model_Layer extends Mage_Core_Model_Abstract {
 	}
     public function getChildLayerCollection ($parentId)
     {
-    	$chilLayers = $this->getAllLayers()->setOrder("position","asc");
+    	$chilLayers = $this->getAllLayers()->setOrder("position","desc");
         $chilLayers->addFieldToFilter('parent_id', $parentId);
         return $chilLayers;
     }

@@ -1,0 +1,42 @@
+<?php $jsPbp = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); ?>
+<link href="<?php echo $jsPbp ; ?>pbp/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="<?php echo $jsPbp ; ?>pbp/css/styles.css" rel="stylesheet"/>
+<script src="<?php echo $jsPbp; ?>pbp/js/angular/angular.js"></script>
+<script src="<?php echo $jsPbp; ?>pbp/js/angular/angular-route.min.js"></script>
+<script src="<?php echo $jsPbp; ?>pbp/js/angular/angular-animate.js"></script>
+<script src="<?php echo $jsPbp; ?>pbp/js/core/app.js"></script>
+<script src="<?php echo $jsPbp; ?>pbp/js/core/routes.js"></script>
+<script src="<?php echo $jsPbp; ?>pbp/js/core/services.js"></script>
+<script src="<?php echo $jsPbp; ?>pbp/js/frontend/frontend_controllers.js"></script>
+<script src="<?php echo $jsPbp; ?>pbp/js/frontend/frontend_directives.js"></script>
+<!-- pbpApp -->
+<input type="hidden" value="<?php echo Mage::helper("productbuilderpro")->getBaseUrl(); ?>" id="mst_base_url" />
+<input type="hidden" value="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) ?>" id="mst_media_url" />
+<input type="hidden" value="<?php echo $this->getData("group_id") ?>" id="current_group_id" />
+<div class="pbp-wrapper" ng-app="pbpApp">
+    <div class="pbp-container" ng-controller="pbpFrontendController">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 ng-cloak>{{group.title}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <pbp-layer-collection level="0" option-list="group.layers"></pbp-layer-collection>
+            </div>
+            <div class="col-md-5">
+                <div class="product-design-area" id="pbp_{{currentGroupId}}" style="position: relative; width: 100%;">
+                    <img ng-if="layer.main_image" ng-src="{{mediaUrl + layer.main_image}}" style="width: 100%; position: absolute;" ng-repeat="layer in layerStack[currentGroupId]"/>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <selected-layer group-id="{{currentGroupId}}" layer-stack="layerStack"></selected-layer>
+                <a class="button btn-primary" ng-show="showAddToCartBtn(layerStack[currentGroupId])" ng-click="addToCart()"><?php echo $this->__("Add To Cart") ?></a>
+            </div>
+        </div>
+        <pre>
+            {{layerStack[currentGroupId]}}
+        </pre>
+    </div>
+</div>
+<!-- End pbpApp -->

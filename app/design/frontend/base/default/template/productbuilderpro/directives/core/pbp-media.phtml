@@ -1,0 +1,48 @@
+<div clas="pbp-media-wrapper">
+    <div class="panel panel-info">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6 form-inline">
+                    <div class="form-group">
+                        <input type="file" file-model="myFile" accept="image/*"/>    
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-info btn-md" ng-click="uploadFile()">
+                            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                            <?php echo $this->__("Upload") ?>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <img ng-src="{{ mediaUrl + imgSrc}}" ng-if="imgSrc" class="preview-{{name}}" alt="" width="50px" />
+                    <pbp-loading ng-if="isUploading"></pbp-loading>
+                    <a class="btn btn-danger btn-xs" ng-show="imgSrc" ng-click="removeImage()" title="Remove this image">
+                        <span aria-hidden="true" class="glyphicon glyphicon-remove-sign"></span>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-info pbp-select-image" ng-click="selectImage(this)">
+                        <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+                        <?php echo $this->__("Image Library") ?>
+                    </a>
+                    <input type="hidden" value="" class="img-src form-control" name="{{name}}"/>
+                    <div class="media-wrapper" ng-if="showMedia">
+                        <a ng-click="closeImageLibrary()" class="btn btn-danger btn-sm" style="position: absolute; right: -15px; top: -15px;">
+                            <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                        </a>
+                        <!--MEDIA: <pre>{{libraryImages | json}}</pre>-->
+                        <div class="search-image">
+                            <input type="text" ng-model="searchKeyword" class="form-control" placeholder="Search Image">
+                        </div>
+                        <div class="image-list">
+                            <a ng-repeat="image in libraryImages | filter : {name: searchKeyword} track by image.id">
+                                <img ng-click="chooseImage(image, name)" ng-if="image.filename" ng-src="{{mediaUrl + image.filename}}" title="{{image.name}}" alt="{{image.name}}" class="img-thumbnail">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

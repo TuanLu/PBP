@@ -1,0 +1,25 @@
+<li id="layer_{{optionInfo.id}}" class="list-group-item">
+    <div class="row">
+        <div class="col-md-6">
+            <span>{{optionInfo.title}}</span>  
+        </div>
+        <div class="col-md-2">
+            <div class="thumbnail-image" ng-show="optionInfo.thumbnail_image">
+                <img ng-if="optionInfo.thumbnail_image" src="{{mediaUrl + optionInfo.thumbnail_image}}" width="32px" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="action-btn pull-right">
+                <a class="btn btn-xs btn-default expand-layer" ng-click="expandLayer(optionInfo)" ng-show="optionInfo.options">
+                    <span class="glyphicon" ng-class="{'glyphicon-plus': expand === true, 'glyphicon-minus': expand === false}" aria-hidden="true"></span>
+                </a>
+                <a class="btn btn-xs btn-info edit-layer" ng-click="editLayer(optionInfo);">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                </a>
+                <a class="btn btn-xs btn-warning remove-layer" ng-click="removeLayer(optionInfo)">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</li>

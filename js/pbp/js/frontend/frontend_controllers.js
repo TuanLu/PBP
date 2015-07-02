@@ -23,8 +23,19 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
     }
     $scope.addToCart = function() {
         console.info("Prepare add design to cart");
-        groupServices.createThumbnail($scope.layerStack[$scope.currentGroupId]);
-        console.info(JSON.stringify($scope.layerStack[$scope.currentGroupId]));
+        groupServices.createThumbnail($scope.layerStack[$scope.currentGroupId])
+        .then(function(response) {
+            if(response.status == "success") {
+                //Time to add product to cart
+                var cartData = {
+                    thumbnail_image : response.file_path,
+                    selected_layer: $scope.layerStack[$scope.currentGroupId]
+                }
+                console.info(JSON.stringify(cartData));
+            } else {
+                console.warn(response.message);
+            }
+        });
     }
     //======= END ADD TO CART BUTTON ======= //
     

@@ -13,13 +13,13 @@
         <!-- Product Builder Tools -->
         <div class="pd-tools accordion">
              <div ng-cloak class="accordion-section as{{layer.id}}" ng-repeat="layer in group.layers track by layer.id">
-                <a id="accordion-arrow-{{layer.id}}" class="accordion-section-title tooltip right" ng-click="expand(layer)">
+                <a id="accordion-arrow-{{layer.id}}" class="accordion-section-title tooltip right" ng-click="expand(layer)" ng-class="{'active' : $index == 0}">
                     <span style="background: transparent url('{{mediaUrl + layer.thumbnail_image}}') no-repeat scroll left center;">
                         {{layer.title}}
                     </span>
                     <div class="tooltip-content" ng-if="layer.description">{{layer.description}}</div>
                 </a>
-                <div id="accordion-{{layer.id}}" class="accordion-section-content">
+                <div id="accordion-{{layer.id}}" class="accordion-section-content" ng-class="{'open' : $index == 0}">
                     <ul class="colours" ng-if="layer.selected_level == 1 && layer.options">
                         <li ng-class="{'selected' : layerStack[currentGroupId][level1Layer.id]}" ng-repeat="level1Layer in layer.options">
                             <a ng-click="addLayerToDesign(level1Layer, layer)" class="layer-item">

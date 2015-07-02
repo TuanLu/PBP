@@ -1,4 +1,5 @@
 <?php $jsPbp = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); ?>
+<?php $currencySymbol = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?>
 <link href="<?php echo $jsPbp ; ?>pbp/css/product-builder.css" rel="stylesheet"/>
 <link href="<?php echo $jsPbp ; ?>pbp/css/accordion.css" rel="stylesheet"/>
 <link href="<?php echo $jsPbp ; ?>pbp/css/tooltip.css" rel="stylesheet"/>
@@ -85,8 +86,8 @@
                 </dl>
             </div>
             <div class="pd-summary">
-                <h3 class="title">Sub Total:<span class="total-price">₤99.00</span></h3>
-                <a href="#" class="btn btn-cart"><span> Add to cart</span></a>
+                <h3 class="title"><span><?php echo $this->__("Sub Total") ?>:<span class="total-price"><?php echo $currencySymbol ?>{{getTotalPrice()}}</span></h3>
+                <a href="#" class="btn btn-cart"><span><?php echo $this->__("Add To Cart") ?></span></a>
             </div>
         </div>
     </div>

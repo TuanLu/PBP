@@ -79,4 +79,14 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
     $scope.shuffleDesign = function() {
         groupServices.shuffleLayers($scope.group);
     }
+    //Total price
+    $scope.getTotalPrice = function() {
+        var total = 0;
+        if($scope.layerStack && $scope.layerStack[$scope.currentGroupId]) {
+            angular.forEach($scope.layerStack[$scope.currentGroupId], function(layer, index) {
+                total += parseFloat(layer.price);
+            });
+        }
+        return total.toFixed(2);
+    }
 }]);

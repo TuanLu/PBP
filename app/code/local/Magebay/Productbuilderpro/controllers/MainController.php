@@ -202,4 +202,36 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
         $options = Mage::getModel("productbuilderpro/layer")->getParentOptions();
         echo json_encode($options);
     }
+    protected function sortByIndex($a, $b) {
+        return $a['index'] - $b['index'];
+    }
+    
+    public function createThumbnailAction() {
+        $response = array(
+            'status' => 'error',
+            'message' => 'Can create thumbnail. Something went worng!'
+        );
+        $postData = file_get_contents("php://input");
+        $selectedLayer = json_decode($postData, true);
+        $layerImages = array();
+        foreach ($selectedLayer as $layer) {
+            if(isset($layer['main_image']) && $layer['main_image'] != "") {
+                $layerImages[] = array(
+                    'index' => $layer['root_zindex'],
+                    'main_image' => $layer['main_image']
+                );
+            }
+        }
+        usort($layerImages, array($this, "sortByIndex"));
+        $thumbnail = Mage::helper("productbuilderpro")->createThumbnail($layerImages);
+        if($thumbnail) {
+            $response = array(
+                'status' => 'success',
+                'message' => 'Thumbnail had been created successfully!',
+                'file_path' => $thumbnail 
+            );
+        }
+        echo json_encode($response);
+    }
+   
 }

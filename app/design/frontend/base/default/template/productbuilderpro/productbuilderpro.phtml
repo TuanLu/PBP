@@ -87,7 +87,7 @@
             </div>
             <div class="pd-summary">
                 <h3 class="title"><span><?php echo $this->__("Sub Total") ?>:<span class="total-price"><?php echo $currencySymbol ?>{{getTotalPrice()}}</span></h3>
-                <a href="#" class="btn btn-cart"><span><?php echo $this->__("Add To Cart") ?></span></a>
+                <a ng-click="addToCart()" class="btn btn-cart"><span><?php echo $this->__("Add To Cart") ?></span></a>
             </div>
         </div>
     </div>

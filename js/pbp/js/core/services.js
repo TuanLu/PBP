@@ -32,7 +32,8 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
         initLayerStack: initLayerStack,
         shuffleLayers: shuffleLayers,
         removeSelectedLayerByRootId: removeSelectedLayerByRootId,
-        getRandomInt: getRandomInt
+        getRandomInt: getRandomInt,
+        createThumbnail: createThumbnail
     });
     //Public method for group
     function updateGroupData(groups) {
@@ -190,6 +191,14 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
             data: {
                 id: layer.id
             }
+        });
+        return( request.then( handleSuccess, handleError ) );
+    }
+    function createThumbnail(selectedLayer) {
+        var request = $http({
+            method: "post",
+            url: self.base_url + "productbuilderpro/main/createThumbnail",
+            data: selectedLayer
         });
         return( request.then( handleSuccess, handleError ) );
     }

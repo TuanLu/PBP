@@ -23,6 +23,7 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
     }
     $scope.addToCart = function() {
         console.info("Prepare add design to cart");
+        groupServices.createThumbnail($scope.layerStack[$scope.currentGroupId]);
         console.info(JSON.stringify($scope.layerStack[$scope.currentGroupId]));
     }
     //======= END ADD TO CART BUTTON ======= //

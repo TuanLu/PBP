@@ -1,4 +1,5 @@
 <?php
+require_once(Mage::getBaseDir("lib") . DS . "WideImage" . DS . "WideImage.php");
 class Magebay_Productbuilderpro_Helper_Data extends Mage_Core_Helper_Abstract {
     public function getBaseUrl() {
 		$url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
@@ -46,4 +47,27 @@ class Magebay_Productbuilderpro_Helper_Data extends Mage_Core_Helper_Abstract {
 		}
 		return false;
 	}
+    public function createThumbnail($layerImages) {
+        $thumbnailDir = Mage::getBaseDir("media") . DS . "pbp" . DS . "thumbnails" . DS;
+        $imageBaseDir = Mage::getBaseDir("media") . DS . "pbp" . DS . "images" . DS;
+        $imageBaseUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . "pbp/thumbnails/";
+        if (!file_exists($thumbnailDir)) {
+            mkdir($thumbnailDir, 0777);
+        }
+        if(is_array($layerImages) && !empty($layerImages)) {
+            $img = WideImage::load($imageBaseDir . $layerImages[0]['main_image']);
+            for ($i = 1; $i < count($layerImages); $i++) {
+                $imgObject = WideImage::load($imageBaseDir . $layerImages[$i]['main_image']);
+                $new = $img->merge($imgObject, 0, 0, 100);
+                $img = $new;
+            }
+            $filename = "design-" . time() . ".png";
+            $filePath = $thumbnailDir . $filename;
+            $img->resize(500, 300)->saveToFile($filePath);
+            if(file_exists($filePath)) {
+                return $imageBaseUrl . $filename;
+            }
+        }
+        return false;
+    }
 }

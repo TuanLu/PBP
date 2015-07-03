@@ -233,5 +233,52 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
         }
         echo json_encode($response);
     }
+    public function addToCartAction() {
+        $response = array(
+            'status' => 'error',
+            'message' => 'Can not add product to cart!'
+        );
+        $postData = file_get_contents("php://input");
+        $cartRequest = json_decode($postData, true);
+        try {
+            // Add Product To Cart
+            $productId = $cartRequest['base_product_id'];
+            $product = Mage::getModel("catalog/product")->load($productId);
+            $cart = Mage::getModel('checkout/cart');
+            $cart->init();
+            $params = array(
+                'product' => $productId,
+                'qty' => 1,
+                'options' => array(
+
+                )
+            );
+            // ---- AdditionalOption ---- //
+            $additionalOptions = array();
+            if ($additionalOption = $product->getCustomOption('additional_options')) {
+                $additionalOptions = (array) unserialize($additionalOption->getValue());
+            }
+            $additionalOptions[] = array(
+                'code' => 'pbpinfo',
+                'label' => '',
+                'value' => '',
+                'json' => $postData,
+                'time' => microtime()
+            );
+            // add the additional options array with the option code additional_options
+            $product->addCustomOption('additional_options', serialize($additionalOptions));
+            // ---- END AdditionalOption ---- //
+            $cart->addProduct($product, $params);
+            $cart->save();
+            Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
+            $response = array(
+                'status' => 'success',
+                'message' => 'Product added to cart successfully!'
+            );
+        } catch(Exception $error) {
+            
+        }
+        echo json_encode($response);
+    }
    
 }

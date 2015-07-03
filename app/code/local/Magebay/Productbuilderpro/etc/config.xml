@@ -153,5 +153,34 @@
                 <class>Magebay_Productbuilderpro_Helper</class>
             </productbuilderpro>
         </helpers>
+        <events>
+            <!--<catalog_product_load_after>
+                <observers>
+                    <extra_options>
+                        <type>model</type>
+                        <class>Magebay_Productbuilderpro_Model_Observer</class>
+                        <method>catalogProductLoadAfter</method>
+                    </extra_options>
+                </observers>
+            </catalog_product_load_after>-->
+            <sales_convert_quote_item_to_order_item>
+                <observers>
+                    <extra_options>
+                        <type>model</type>
+                        <class>Magebay_Productbuilderpro_Model_Observer</class>
+                        <method>salesConvertQuoteItemToOrderItem</method>
+                    </extra_options>
+                </observers>
+            </sales_convert_quote_item_to_order_item>
+            <sales_quote_add_item>
+                <observers>
+                    <priceupdate_observer>
+                        <type>model</type>
+                        <class>Magebay_Productbuilderpro_Model_Observer</class>
+                        <method>updatePrice</method>
+                    </priceupdate_observer>
+                </observers>
+            </sales_quote_add_item>
+		</events>
     </global>
 </config>

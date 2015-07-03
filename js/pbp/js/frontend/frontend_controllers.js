@@ -29,9 +29,19 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
                 //Time to add product to cart
                 var cartData = {
                     thumbnail_image : response.file_path,
-                    selected_layer: $scope.layerStack[$scope.currentGroupId]
+                    selected_layer: $scope.layerStack[$scope.currentGroupId],
+                    total_price: $scope.getTotalPrice(),
+                    base_product_id: 2
                 }
-                console.info(JSON.stringify(cartData));
+                groupServices.addToCart(cartData)
+                .then(function(cartResponse) {
+                    if(cartResponse.status == "success") {
+                        var cartPageUrl = angular.element("#mst_base_url").val() + "checkout/cart/";
+                        window.location = cartPageUrl;
+                    } else {
+                        console.warn(cartResponse.message);
+                    }
+                });
             } else {
                 console.warn(response.message);
             }

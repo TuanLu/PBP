@@ -70,4 +70,17 @@ class Magebay_Productbuilderpro_Helper_Data extends Mage_Core_Helper_Abstract {
         }
         return false;
     }
+    public function getCustomizeInfo($additionalOptions) {
+        if($additionalOptions) {
+            $optionUnSerialize = unserialize($additionalOptions);
+            foreach ($optionUnSerialize as $option) {
+                if(isset($option["code"]) && $option["code"] == "pbpinfo") {
+                    $customizeInfo = json_decode($option["json"], true);
+                    return $customizeInfo;
+                    break;
+                } 
+            }   
+        }
+        return false;
+    }
 }

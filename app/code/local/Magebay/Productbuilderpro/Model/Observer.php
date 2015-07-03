@@ -45,17 +45,13 @@ class Magebay_Productbuilderpro_Model_Observer extends Varien_Object
 		$_product = $quote_item->getProduct();
 		$extraPrice = 0;
         //Check additional_options to get customized price
-        $buyInfo = $quote_item->getBuyRequest();
+        
         $optionSerialize = $_product->getCustomOption('additional_options')->getData('value');
-        $optionUnSerialize = unserialize($optionSerialize);
-        foreach ($optionUnSerialize as $option) {
-            if(isset($option["code"]) && $option["code"] == "pbpinfo") {
-                $customizeInfo = json_decode($option["json"], true);
-                if(isset($customizeInfo['total_price']) && $customizeInfo['total_price']) {
-                    $extraPrice = $customizeInfo['total_price'];
-                }
-                break;
-            } 
+        $customizeInfo = Mage::helper("productbuilderpro")->getCustomizeInfo($optionSerialize);
+        if($customizeInfo) {
+            if(isset($customizeInfo['total_price']) && $customizeInfo['total_price']) {
+                $extraPrice = $customizeInfo['total_price'];
+            }
         }
     	$quote_item->setOriginalCustomPrice($extraPrice);
     	return;

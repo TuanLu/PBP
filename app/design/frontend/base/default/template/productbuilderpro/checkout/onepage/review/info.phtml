@@ -1,0 +1,14 @@
+<?php
+$customizeInfo = $this->getData('customize_info');
+if(!$customizeInfo) {
+    return false;
+}
+?>
+<?php if(isset($customizeInfo['selected_layer']) && $customizeInfo['selected_layer']) : ?>
+    <dt><?php echo $this->__("Customize Design") ?></dt>
+    <dd>
+        <img width="200px" src="<?php echo $customizeInfo['thumbnail_image'] ?>"/>
+    </dd>
+<?php endif; ?>
+
+

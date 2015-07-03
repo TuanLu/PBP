@@ -1,0 +1,21 @@
+<?php
+$customizeInfo = $this->getData('customize_info');
+if(!$customizeInfo) {
+    return false;
+}
+?>
+<?php if(isset($customizeInfo['selected_layer']) && $customizeInfo['selected_layer']) : ?>
+    <dt><span style="font-weight: bold"><?php echo $this->__('Customize Info') ?></span></dt>
+    <dl class="item-options pdp_cart_item">
+    <?php foreach ($customizeInfo['selected_layer'] as $layer) : ?>
+        <dt><?php echo $this->__($layer['root_title']) ?></dt>
+        <dd><?php echo $this->__($layer['title']) ?></dd>
+    <?php endforeach; ?>
+        <dt><?php echo $this->__("Design Preview") ?></dt>
+        <dd>
+            <a href="<?php echo $customizeInfo['thumbnail_image']  ?>" target="_blank">
+                <img width="300px" src="<?php echo $customizeInfo['thumbnail_image'] ?>"/>
+            </a>
+        </dd>
+    </dl>
+<?php endif; ?>

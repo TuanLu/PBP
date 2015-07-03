@@ -31,7 +31,7 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
                     thumbnail_image : response.file_path,
                     selected_layer: $scope.layerStack[$scope.currentGroupId],
                     total_price: $scope.getTotalPrice(),
-                    base_product_id: 2
+                    base_product_id: $scope.group.base_product_id
                 }
                 groupServices.addToCart(cartData)
                 .then(function(cartResponse) {

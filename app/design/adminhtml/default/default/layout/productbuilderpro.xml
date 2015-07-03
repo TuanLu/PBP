@@ -32,4 +32,9 @@
             <block type="productbuilderpro/adminhtml_media" name="productbuilder_media_page" template="productbuilderpro/media.phtml"/>
         </reference>
 	</productbuilderproadmin_adminhtml_media_index>
+    <adminhtml_sales_order_view>
+		<reference name="order_item_extra_info">
+			 <block type="productbuilderpro/adminhtml_additional_product_info" name="productbuilderpro_adminhtml_additional_product_info"/>
+		</reference>
+	</adminhtml_sales_order_view>
 </layout> 

@@ -4,7 +4,6 @@ class Magebay_Productbuilderpro_Block_Checkout_Onepage_Review_Info extends Mage_
     protected function _toHtml()
     {
         $item = $this->getParentBlock()->getItem();
-		$buyRequest = $item->getData();
         $additionalOptions = $item->getProduct()->getCustomOption('additional_options')->getData('value');
         if($additionalOptions) {
             $customizeInfo = Mage::helper("productbuilderpro")->getCustomizeInfo($additionalOptions);

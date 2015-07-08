@@ -4,12 +4,13 @@ class Magebay_Productbuilderpro_Block_Adminhtml_Additional_Product_Info extends 
     protected function _toHtml()
     {
         $item = $this->getParentBlock()->getItem();
+        //Zend_Debug::dump($item->getData());
         $additionalOptions = serialize($item->getProductOptionByCode("additional_options"));
         if($additionalOptions) {
             $customizeInfo = Mage::helper("productbuilderpro")->getCustomizeInfo($additionalOptions);
             if($customizeInfo) {
-                $html = "<div>";
-                    $html .= '<dt><span style="font-weight: bold">' . Mage::helper("productbuilderpro")->__("Customize Info") . '</span></dt>';
+                $html = "<div class='view-customize-design' id='customize-". $item->getData("item_id") ."'>";
+                    $html .= '<dt><span style="font-weight: bold">' . Mage::helper("productbuilderpro")->__("Customize Information:") . '</span></dt>';
                     $html .= '<dl class="item-options pdp_cart_item">';
                     foreach ($customizeInfo['selected_layer'] as $layer) {
                         $html .= '<dt>' . $layer['root_title'] . '<dt>';

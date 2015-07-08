@@ -9,7 +9,7 @@
 <input type="hidden" value="<?php echo Mage::helper("productbuilderpro")->getBaseUrl(); ?>" id="mst_base_url" />
 <input type="hidden" value="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) ?>" id="mst_media_url" />
 <input type="hidden" value="<?php echo $this->getData("group_id") ?>" id="current_group_id" />
-<div class="product-builder-wrap" ng-app="pbpApp" ng-controller="pbpFrontendController">
+<div style="display: none;" class="product-builder-wrap" ng-app="pbpApp" ng-controller="pbpFrontendController">
     <div class="pd-left">
         <!-- Product Builder Tools -->
         <div class="pd-tools accordion">
@@ -87,7 +87,10 @@
             </div>
             <div class="pd-summary">
                 <h3 class="title"><span><?php echo $this->__("Sub Total") ?>:<span class="total-price"><?php echo $currencySymbol ?>{{getTotalPrice()}}</span></h3>
-                <a ng-click="addToCart()" class="btn btn-cart"><span><?php echo $this->__("Add To Cart") ?></span></a>
+                <a ng-click="addToCart()" class="btn btn-cart">
+                    <span><?php echo $this->__("Add To Cart") ?></span>
+                </a>
+                <pbp-loading ng-if="isSaving"></pbp-loading>
             </div>
         </div>
     </div>

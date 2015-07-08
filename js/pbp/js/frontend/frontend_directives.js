@@ -148,3 +148,12 @@ pbpApp.directive("selectedLayer", ["$compile", "pbpServices", "$rootScope", func
         controller: selectedLayer,
     }
 }]);
+//==== LOADING DIRECTIVE ====//
+pbpApp.directive("pbpLoading", [function() {
+    this.media_url = document.getElementById("mst_media_url").value + "pbp/images/";
+    return {
+        restrict: 'AE',
+        template: '<span class="pbp-loading"><img style="margin: 5px auto;" src="'+ this.media_url + 'loading2.gif"/></span>',
+        replace: true
+    }
+}]);

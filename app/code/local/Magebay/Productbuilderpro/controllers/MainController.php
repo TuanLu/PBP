@@ -276,7 +276,10 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
                 'message' => 'Product added to cart successfully!'
             );
         } catch(Exception $error) {
-            
+            $response = array(
+				'status' => 'error',
+				'message' => 'Can not add product to cart! Something went wrong when try to add product. Check "Exception"'
+			);
         }
         echo json_encode($response);
     }

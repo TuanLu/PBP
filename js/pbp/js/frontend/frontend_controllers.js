@@ -23,6 +23,7 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
     }
     $scope.addToCart = function() {
         console.info("Prepare add design to cart");
+        $scope.isSaving = true;
         groupServices.createThumbnail($scope.layerStack[$scope.currentGroupId])
         .then(function(response) {
             if(response.status == "success") {
@@ -36,6 +37,7 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
                 groupServices.addToCart(cartData)
                 .then(function(cartResponse) {
                     if(cartResponse.status == "success") {
+                        $scope.isSaving = false;
                         var cartPageUrl = angular.element("#mst_base_url").val() + "checkout/cart/";
                         window.location = cartPageUrl;
                     } else {
@@ -56,6 +58,7 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
             if(group.status === "success") {
                 $scope.group = $scope.addSelectionLevel(group.group_data);
                 groupServices.initLayerStack($scope.group);
+                angular.element(".product-builder-wrap").show();
             } else {
                 console.warn(group.message);
             }

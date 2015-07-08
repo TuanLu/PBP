@@ -13,8 +13,9 @@ class Magebay_Productbuilderpro_Block_Adminhtml_Additional_Product_Info extends 
                     $html .= '<dt><span style="font-weight: bold">' . Mage::helper("productbuilderpro")->__("Customize Information:") . '</span></dt>';
                     $html .= '<dl class="item-options pdp_cart_item">';
                     foreach ($customizeInfo['selected_layer'] as $layer) {
+                        $price = Mage::helper('core')->currency($layer['price'], true, false);
                         $html .= '<dt>' . $layer['root_title'] . '<dt>';
-                        $html .= '<dd>' . $layer['title'] . '<dd>';
+                        $html .= '<dd>' . $layer['title'] . ': <strong class="price">' . $price . '</strong><dd>';
                     }
                     $html .= "<dt>". Mage::helper("productbuilderpro")->__("Design Preview") ."</dt>";
                     $html .= "<dd><img src='". $customizeInfo['thumbnail_image'] ."' width='200px'/></dd>";

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<checkout_cart_index>
+        <reference name="additional.product.info">
+            <block type="productbuilderpro/additional_product_info" name="productbuilderpro_additional_product_info"/>
+        </reference>
+	</checkout_cart_index>
+	<sales_email_order_items>
+		<reference name="additional.product.info">
+            <block type="productbuilderpro/email_additional_product_info" name="productbuilderpro_additional_product_info"/>
+        </reference>
+	</sales_email_order_items>
+	<checkout_onepage_review>
+		<reference name="additional.product.info">
+			<block type="productbuilderpro/checkout_onepage_review_info" name="productbuilderpro_review_item"/>
+		</reference>
+	</checkout_onepage_review>
+</layout>

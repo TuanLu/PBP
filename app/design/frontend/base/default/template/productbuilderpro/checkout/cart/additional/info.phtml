@@ -8,8 +8,12 @@ if(!$customizeInfo) {
     <dt><span style="font-weight: bold"><?php echo $this->__('Customize Info') ?></span></dt>
     <dl class="item-options pdp_cart_item">
     <?php foreach ($customizeInfo['selected_layer'] as $layer) : ?>
+        <?php $price = Mage::helper('core')->currency($layer['price'], true, false); ?>
         <dt><?php echo $this->__($layer['root_title']) ?></dt>
-        <dd><?php echo $this->__($layer['title']) ?></dd>
+        <dd>
+            <?php echo $this->__($layer['title']) ?>
+            <span class="price"><?php echo $price ?></span>
+        </dd>
     <?php endforeach; ?>
         <dt><?php echo $this->__("Design Preview") ?></dt>
         <dd>

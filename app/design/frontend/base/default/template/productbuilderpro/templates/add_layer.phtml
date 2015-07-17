@@ -40,13 +40,22 @@
                             </div>-->
                             <form id="add_new_group_form" name="add_new_group_form" class="form-horizontal">
                                 <div class="form-group" ng-class="{'has-error': !layerData.title}">
-                                    <label for="layer_title" class="col-sm-2"><?php echo $this->__("Title") ?> <span class="required">*</span></label>
+                                    <label for="layer_title" class="col-sm-2"><?php echo $this->__("Layer Name") ?> <span class="required">*</span></label>
                                     <div class="col-sm-10">
                                         <input type="text" required ng-model="layerData.title" class="form-control" id="layer_title" name="title"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="parent_id" class="col-sm-2"><?php echo $this->__("Parent") ?> <span class="required">*</span> </label>
+                                    <label for="layer_status" class="col-sm-2"><?php echo $this->__("Status") ?></label>
+                                    <div class="col-sm-10">
+                                        <select name="layer_status" id="layer_status" ng-model="layerData.status" class="form-control">
+                                            <option ng-selected="layerData.status == 1" value="1"><?php echo $this->__("Enable") ?></option>
+                                            <option ng-selected="layerData.status == 2" value="2"><?php echo $this->__("Disable") ?></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="parent_id" class="col-sm-2"><?php echo $this->__("Parent Layer") ?> <span class="required">*</span> </label>
                                     <div class="col-sm-10">
                                         <!--<select class="form-control" ng-model="layerData.parent_id" id="parent_id" name="parent_id" ng-options="parent.id as parent.title disable when parent.id == id && id != 0 for parent in parents">
                                         </select>-->
@@ -80,30 +89,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="product_description" class="col-sm-2"><?php echo $this->__("Description") ?></label>
-                                    <div class="col-sm-10">
-                                        <textarea id="product_description" ng-model="layerData.description" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label for="layer_position" class="col-sm-2"><?php echo $this->__("Position") ?></label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" ng-model="layerData.position" id="layer_position" name="position"/>
                                     </div>
                                 </div>
-                                <div class="form-group" ng-if="layerData.parent_id == 0">
-                                    <label for="layer_zindex" class="col-sm-2"><?php echo $this->__("Z-Index") ?></label>
+                                <div class="form-group">
+                                    <label for="product_description" class="col-sm-2"><?php echo $this->__("Short Description") ?></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" ng-model="layerData.zindex" id="layer_zindex" name="zindex"/>
+                                        <textarea id="product_description" ng-model="layerData.description" class="form-control"></textarea>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="layer_status" class="col-sm-2"><?php echo $this->__("Status") ?></label>
+                                <div class="form-group" ng-if="layerData.parent_id == 0">
+                                    <label for="layer_zindex" class="col-sm-2"><?php echo $this->__("Layer Z-Index") ?></label>
                                     <div class="col-sm-10">
-                                        <select name="layer_status" id="layer_status" ng-model="layerData.status" class="form-control">
-                                            <option ng-selected="layerData.status == 1" value="1"><?php echo $this->__("Enable") ?></option>
-                                            <option ng-selected="layerData.status == 2" value="2"><?php echo $this->__("Disable") ?></option>
-                                        </select>
+                                        <input type="text" class="form-control" ng-model="layerData.zindex" id="layer_zindex" name="zindex"/>
                                     </div>
                                 </div>
                                 <!--

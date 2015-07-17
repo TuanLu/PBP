@@ -28,10 +28,6 @@
                                 <h3 class="panel-title">
                                     <a class="btn btn-sm">{{group.title}}</a>
                                     <div class="pull-right">
-                                        <a class="btn btn-sm btn-primary" ng-click="addLayerForGroup(group)">
-                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                            <span>Add Layer</span>
-                                        </a>
                                         <a class="btn btn-info btn-sm" href="#add-group/{{group.id}}">
                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                         </a>
@@ -43,6 +39,15 @@
                             </div>
                             <div class="panel-body">
                                 <!--<pre>{{group | json}}</pre>-->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a class="btn btn-sm btn-primary" ng-click="addLayerForGroup(group)">
+                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                            <span><?php echo $this->__("Add New Layer") ?></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <br/>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <pbp-option-collection level="0" option-list="group.layers"></pbp-option-collection>    

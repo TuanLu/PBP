@@ -304,7 +304,14 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
                 'layers' => $postData
             );
             $result = $sampleModel->saveSample($sampleData);
-            $response['sample_data'] = $result->getData(); 
+            $response = array(
+                'status' => 'success',
+                'message' => 'Sample design have been successfully saved!'
+            );
+            $sampleData = $result->getData();
+            $sampleData['layers'] = json_decode($sampleData['layers'], true);
+            $response['group_id'] = $groupId;
+            $response['sample_data'] = array($sampleData); 
         }
         echo json_encode($response);
     }

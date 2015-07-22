@@ -61,8 +61,24 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
         $scope.isDesignSample = true;
     }
     $scope.saveSampleDesign = function() {
+        $scope.isSaving = true;
         var layers = window.frames[0].document.getElementById('selected_layers').value;
-        groupServices.saveSampleDesign(layers);
+        groupServices.saveSampleDesign(layers)
+        .then(function(response) {
+            angular.forEach($scope.groups, function(group, index) {
+                if(group.id == response.group_id) {
+                    console.log(group.sample);
+                    console.log(response.sample_data);
+                    group.sample = response.sample_data;
+                    $scope.isDesignSample = false;
+                    $scope.isSaving = false;
+                    return false;
+                }
+            });
+            console.info(response);
+        }, function(error) {
+            console.error(error);
+        });
     }
     $scope.cancelSampleDesign = function() {
         $scope.isDesignSample = false;

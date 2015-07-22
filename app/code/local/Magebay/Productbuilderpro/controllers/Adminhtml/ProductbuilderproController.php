@@ -13,4 +13,10 @@ class Magebay_Productbuilderpro_Adminhtml_ProductbuilderproController extends Ma
         $this->loadLayout();
         $this->renderLayout();
     }
+    public function designItAction() {
+        echo "Design It Page =======";
+        $this->_initAction();
+        $this->loadLayout();
+        $this->renderLayout();
+    }
 }

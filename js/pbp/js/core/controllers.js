@@ -49,6 +49,25 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
     // Used layer using $rootScope
     $scope.mediaUrl = angular.element(document.querySelector("#mst_media_url")).val() + "pbp/images/";
     //======= END SELECTED LAYER ======= //
+    //======= DESIGN IT ===========//
+    $scope.baseIframeUrl = angular.element(document.querySelector("#mst_base_url")).val() + "productbuilderpro/index/designit/customizeid/"; 
+    $scope.designSampleURL = "";
+    $scope.designSampleTitle = "";
+    $scope.isDesignSample = false;
+    $scope.designSample = function(group) {
+        $scope.designSampleURL = $scope.baseIframeUrl + group.id;
+        $scope.designSampleTitle = group.title;
+        $scope.isDesignSample = true;
+    }
+    $scope.saveSampleDesign = function() {
+        var name = window.frames[0].document.getElementById('selected_layers').value;
+        console.info(name);
+        console.info(window.frames[0]);
+    }
+    $scope.cancelSampleDesign = function() {
+        $scope.isDesignSample = false;
+    }
+    //======= END DESIGN IT ===========//
 }]);
 //=== ADD group controller ===//
 pbpApp.controller('addGroupController', ["$scope", "groupServices", "$location", "$routeParams", function($scope, groupServices, $location, $routeParams) {

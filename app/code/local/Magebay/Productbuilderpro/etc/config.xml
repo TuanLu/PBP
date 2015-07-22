@@ -54,15 +54,9 @@
                         <sort_order>37</sort_order>
                         <action>productbuilderproadmin/adminhtml_productbuilderpro/index</action>
                     </productbuilderpro>
-                    <!--
-                    <image module="productbuilderpro">
-                        <title>Media Library</title>
-                        <sort_order>38</sort_order>
-						<action>productbuilderproadmin/adminhtml_media/index</action>
-                    </image>-->
                     <setting module="productbuilderpro">
                         <title>Configuration</title>
-                        <sort_order>40</sort_order>
+                        <sort_order>58</sort_order>
                         <action>adminhtml/system_config/edit/section/productbuilderpro</action>
                     </setting>
                 </children>
@@ -80,14 +74,9 @@
                             <sort_order>37</sort_order>
                             <action>productbuilderproadmin/adminhtml_productbuilderpro/index</action>
                         </productbuilderpro>
-                        <image module="productbuilderpro">
-                            <title>Media Library</title>
-                            <sort_order>38</sort_order>
-                            <action>productbuilderproadmin/adminhtml_media/index</action>
-                        </image>
                         <setting module="productbuilderpro">
                             <title>Configuration</title>
-                            <sort_order>40</sort_order>
+                            <sort_order>58</sort_order>
                             <action>adminhtml/system_config/edit/section/productbuilderpro</action>
                         </setting>
                     </children>

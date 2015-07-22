@@ -78,6 +78,7 @@
         <div class="pd-bottom">
             <div class="pd-overview">
                 <h3 class="title"><?php echo $this->__("Selected Items") ?>:</h3>
+                <input type="hidden" id="selected_layers" value="{{layerStack[currentGroupId]}}" />
                 <dl>
                     <div ng-repeat="selectedLayer in layerStack[currentGroupId]">
                         <dt><span>{{selectedLayer.root_title}}:</span></dt>

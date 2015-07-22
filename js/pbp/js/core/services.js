@@ -34,7 +34,8 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
         removeSelectedLayerByRootId: removeSelectedLayerByRootId,
         getRandomInt: getRandomInt,
         createThumbnail: createThumbnail,
-        addToCart: addToCart
+        addToCart: addToCart,
+        saveSampleDesign: saveSampleDesign
     });
     //Public method for group
     function updateGroupData(groups) {
@@ -208,6 +209,14 @@ pbpApp.service("groupServices", ["$http", "$q", "$rootScope", function($http, $q
             method: "post",
             url: self.base_url + "productbuilderpro/main/addToCart",
             data: cartData
+        });
+        return( request.then( handleSuccess, handleError ) );
+    }
+    function saveSampleDesign(layers) {
+        var request = $http({
+            method: "post",
+            url: self.base_url + "productbuilderpro/main/saveSampleDesign",
+            data: layers
         });
         return( request.then( handleSuccess, handleError ) );
     }

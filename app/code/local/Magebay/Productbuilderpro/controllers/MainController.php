@@ -35,11 +35,13 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
     protected function getGroups() {
         $groupCollection = Mage::getModel("productbuilderpro/group")->getCollection();
         $layerModel = Mage::getModel("productbuilderpro/layer");
+        $sampleModel = Mage::getModel("productbuilderpro/sample");
         $groups = [];
         if($groupCollection->count()) {
             foreach($groupCollection as $group) {
                 $groupData = $group->getData();
                 $groupData['layers'] = $layerModel->getLayerByGroupId($group->getId());
+                $groupData['sample'] = $sampleModel->getSampleByGroupId($group->getId());
                 $groups[] = $groupData;
             }
         }
@@ -283,5 +285,27 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
         }
         echo json_encode($response);
     }
-   
+    public function saveSampleDesignAction() {
+        $response = array(
+            'status' => 'error',
+            'message' => 'Can not save sample design. Something went worng!'
+        );
+        $postData = file_get_contents("php://input");
+        if($postData) {
+            $postDataDecode = json_decode($postData, true); 
+            $groupId = 0;
+            foreach($postDataDecode as $layer) {
+                $groupId = $layer['group_id'];
+                break;
+            }
+            $sampleModel = Mage::getModel("productbuilderpro/sample");
+            $sampleData = array(
+                'group_id' => $groupId,
+                'layers' => $postData
+            );
+            $result = $sampleModel->saveSample($sampleData);
+            $response['sample_data'] = $result->getData(); 
+        }
+        echo json_encode($response);
+    }
 }

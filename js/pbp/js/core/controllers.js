@@ -8,7 +8,8 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
         groupServices.getGroups()
         .then(
             function( groups ) {
-                 $scope.groups = groups;
+                $scope.groups = groups;
+                console.info($scope.groups);
             }
         );
     } else {
@@ -60,9 +61,8 @@ pbpApp.controller('pbpController', ["$scope", "$http", "groupServices", "$locati
         $scope.isDesignSample = true;
     }
     $scope.saveSampleDesign = function() {
-        var name = window.frames[0].document.getElementById('selected_layers').value;
-        console.info(name);
-        console.info(window.frames[0]);
+        var layers = window.frames[0].document.getElementById('selected_layers').value;
+        groupServices.saveSampleDesign(layers);
     }
     $scope.cancelSampleDesign = function() {
         $scope.isDesignSample = false;

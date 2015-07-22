@@ -67,8 +67,11 @@
                                         <pbp-option-collection level="0" option-list="group.layers"></pbp-option-collection>    
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="sample-design" style="text-align: center;">
-                                            There is no sample design
+                                        <div class="sample-design">
+                                            <span ng-if="!group.sample[0].layers" style="text-align: center; width: 100%;">There is no sample design</span>
+                                            <div class="product-design-area" id="pbp_{{group.id}}" style="position: relative; width: 100%;">
+                                                <img src="{{mediaUrl + layer.main_image}}" style="width: 100%; position: absolute;" ng-repeat="layer in group.sample[0].layers"/>
+                                            </div>
                                         </div>
                                     </div>
                                     <!--

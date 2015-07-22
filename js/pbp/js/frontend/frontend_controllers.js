@@ -57,7 +57,7 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
         function( group ) {
             if(group.status === "success") {
                 $scope.group = $scope.addSelectionLevel(group.group_data);
-                groupServices.initLayerStack($scope.group);
+                $scope.showDesignFirstTime($scope.group);
                 angular.element(".product-builder-wrap").show();
             } else {
                 console.warn(group.message);
@@ -113,5 +113,14 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
             });
         }
         return total.toFixed(2);
+    }
+    //Show Design first time loaded, show sample design or show ramdomly
+    $scope.showSampleDesign = true;
+    $scope.showDesignFirstTime = function(group) {
+        if($scope.showSampleDesign && group.sample) {
+            groupServices.layerStack[group.id] = group.sample[0].layers;
+        } else {
+            groupServices.initLayerStack(group);
+        }
     }
 }]);

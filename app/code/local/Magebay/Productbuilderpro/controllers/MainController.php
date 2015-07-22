@@ -70,9 +70,11 @@ class Magebay_Productbuilderpro_MainController extends Mage_Core_Controller_Fron
         $groupCollection = Mage::getModel("productbuilderpro/group")->getCollection();
         $groupCollection->addFieldToFilter("id", $groupId);
         $layerModel = Mage::getModel("productbuilderpro/layer");
+        $sampleModel = Mage::getModel("productbuilderpro/sample");
         if($groupCollection->count()) {
             $groupData = $groupCollection->getFirstItem()->getData();
             $groupData['layers'] = $layerModel->getLayerByGroupId($groupId);
+            $groupData['sample'] = $sampleModel->getSampleByGroupId($groupId);
             $response = array(
                 'status' => 'success',
                 'message' => 'Get customize product data successfully!',

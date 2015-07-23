@@ -99,6 +99,7 @@ ul.colours.extra li a{}
 	position: absolute;
 	right: 15px;
 	top: 15px;
+    z-index: 1000;
 }
 .pd-share h3.label{
 	display: inline-block;

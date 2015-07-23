@@ -114,13 +114,36 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
         }
         return total.toFixed(2);
     }
+    //====================== SAMPLE DESIGN =============================//
     //Show Design first time loaded, show sample design or show ramdomly
     $scope.showSampleDesign = true;
+    //If has sample, show reset button
+    $scope.hasSampleDesign = false;
     $scope.showDesignFirstTime = function(group) {
         if($scope.showSampleDesign && group.sample) {
-            groupServices.layerStack[group.id] = group.sample[0].layers;
+            $scope.setSampleData($scope.group.sample[0].layers);
+            groupServices.layerStack[group.id] = $scope.getSampleData();
+            $scope.hasSampleDesign = true;
         } else {
             groupServices.initLayerStack(group);
         }
     }
+    $scope.setSampleData = function(layers) {
+        if(angular.element(".pbp_sample_data").length) {
+            return false;
+        }
+        angular.element("body").append("<input class='pbp_sample_data' type='hidden' value='"+ JSON.stringify(layers) +"'/>");
+    }
+    $scope.getSampleData = function() {
+        if(angular.element(".pbp_sample_data").length) {
+            return JSON.parse(angular.element(".pbp_sample_data").val());
+        }
+    }
+    //Reset design
+    $scope.resetDesign = function() {
+        if($scope.hasSampleDesign) {
+            groupServices.layerStack[$scope.group.id] = $scope.getSampleData();
+        }
+    }
+    //====================== END SAMPLE DESIGN =============================//
 }]);

@@ -47,10 +47,10 @@
         <!-- Product Builder Buttons -->
         <ul class="pd-buttons">
             <li class="shu-btn">
-                <a ng-click="shuffleDesign()"><span>Shuffle</span></a>
+                <a ng-click="shuffleDesign()"><span><?php echo $this->__("Shuffle") ?></span></a>
             </li>
-            <li class="last re-btn">
-                <a href="#"><span>Reset</span></a>
+            <li class="last re-btn" ng-if="hasSampleDesign">
+                <a ng-click="resetDesign()"><span><?php echo $this->__("Reset") ?></span></a>
             </li>
         </ul><!-- Product Builder Buttons -->
 

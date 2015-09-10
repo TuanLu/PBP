@@ -120,7 +120,7 @@ pbpApp.controller('pbpFrontendController', ["$scope", "$http", "groupServices", 
     //If has sample, show reset button
     $scope.hasSampleDesign = false;
     $scope.showDesignFirstTime = function(group) {
-        if($scope.showSampleDesign && group.sample) {
+        if($scope.showSampleDesign && group.sample.length) {
             $scope.setSampleData($scope.group.sample[0].layers);
             groupServices.layerStack[group.id] = $scope.getSampleData();
             $scope.hasSampleDesign = true;
